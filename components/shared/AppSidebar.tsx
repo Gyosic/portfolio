@@ -23,20 +23,13 @@ import { isDark } from "@/lib/theme";
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   logo: LogoType;
   site: SiteType;
-  session: Session | null;
 }
 
-export function AppSidebar({ site, logo, session, ...props }: AppSidebarProps) {
+export function AppSidebar({ site, logo, ...props }: AppSidebarProps) {
   const user = useUser((state) => state.user);
-  const setUser = useUser((state) => state.setUser);
   const nav = useNav((state) => state.nav);
   const sysNav = useNav((state) => state.sysNav);
   const links = useNav((state) => state.links);
-
-  useEffect(() => {
-    const { user: sessionUser } = session || {};
-    if (sessionUser) setUser(sessionUser);
-  }, [session]);
 
   return (
     <Sidebar variant="inset" {...props}>
