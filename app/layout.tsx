@@ -2,7 +2,6 @@ import "@/styles/tailwind.css";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { logo, site } from "@/config";
 import { cn } from "@/lib/utils";
@@ -32,7 +31,7 @@ export default async function RootLayout({ children }: RootLayoutParams) {
           (cn(pretendard.className), "min-h-screen overflow-x-hidden bg-background text-foreground")
         }
       >
-        <SessionProvider>{children}</SessionProvider>
+        {children}
         <Toaster />
       </body>
     </html>

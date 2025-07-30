@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Session } from "next-auth";
-import { useEffect } from "react";
 import { NavLinks } from "@/components/shared/NavLinks";
 import { NavMain } from "@/components/shared/NavMain";
 // import { NavProjects } from "@/components/NavProjects";
