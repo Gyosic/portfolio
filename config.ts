@@ -15,7 +15,7 @@ export const site = {
 
 export type SiteType = typeof site;
 
-const apiUrl = urlParse(process.env.API_BASEURL);
+const apiUrl = urlParse(process.env.API_BASEURL as string);
 export const api = {
   baseurl: apiUrl.origin,
   username: decodeURIComponent(apiUrl.username as string),
@@ -24,7 +24,7 @@ export const api = {
 
 export type ApiType = typeof api;
 
-const opensearchUrl = urlParse(process.env.OS_BASEURL);
+const opensearchUrl = urlParse(process.env.OS_BASEURL as string);
 export const opensearch = {
   index: opensearchUrl?.pathname.substring(1),
   node: opensearchUrl?.origin,
@@ -37,7 +37,7 @@ export const opensearch = {
 
 export type OpensearchType = typeof opensearch;
 
-const opensearchAdUrl = urlParse(process.env.AD_BASEURL);
+const opensearchAdUrl = urlParse(process.env.AD_BASEURL as string);
 export const opensearchAd = {
   index: opensearchAdUrl?.pathname.substring(1),
   node: opensearchAdUrl?.origin,
@@ -50,7 +50,7 @@ export const opensearchAd = {
 
 export type OpensearchAdType = typeof opensearchAdUrl;
 
-const psqlUrl = urlParse(process.env.PG_BASEURL);
+const psqlUrl = urlParse(process.env.PG_BASEURL as string);
 export const postgresql = {
   host: psqlUrl?.hostname,
   port: Number(psqlUrl?.port),
