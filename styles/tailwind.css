@@ -129,6 +129,7 @@
     box-shadow: 2px 4px 10px 0px rgba(41, 119, 154, 0.25);
     z-index: 1;
   }
+
   .border-gradient::before {
     content: "";
     position: absolute;
@@ -138,11 +139,9 @@
     bottom: 0;
     border-radius: inherit;
     padding: 2.5px;
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.8) 49.05%,
-      rgba(79, 195, 247, 0.8) 129.67%
-    );
+    background: linear-gradient(0deg,
+        rgba(255, 255, 255, 0.8) 49.05%,
+        rgba(79, 195, 247, 0.8) 129.67%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -153,6 +152,7 @@
     mask-composite: exclude;
     z-index: -1;
   }
+
   .border-gradient::after {
     content: "";
     position: absolute;
