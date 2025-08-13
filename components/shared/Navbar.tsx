@@ -1,0 +1,107 @@
+"use client";
+
+import {
+  Briefcase,
+  FolderGit2,
+  GraduationCap,
+  HomeIcon,
+  LightbulbIcon,
+  Mail,
+  MoreHorizontal,
+  User,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Dock, DockIcon, DockItem, DockLabel } from "@/components/animation/DockAnimation";
+import FramerWrapper from "@/components/animation/FramerWrapper";
+import { Language } from "@/lib/i18n/config";
+import { cn } from "@/lib/utils";
+
+interface NavbarProps {
+  lng?: Language;
+}
+const Navbar = ({ lng }: NavbarProps) => {
+  const data = [
+    {
+      title: "Home",
+      icon: <HomeIcon className="h-full w-full" />,
+      href: "/",
+    },
+    {
+      title: "About",
+      icon: <User className="h-full w-full" />,
+      href: "/about",
+    },
+    {
+      title: "Skills",
+      icon: <LightbulbIcon className="h-full w-full" />,
+      href: "/skills",
+    },
+    {
+      title: "Education",
+      icon: <GraduationCap className="h-full w-full" />,
+      href: "/education",
+    },
+    {
+      title: "Projects",
+      icon: <FolderGit2 className="h-full w-full" />,
+      href: "/projects",
+    },
+
+    {
+      title: "Contact us",
+      icon: <Mail className="h-full w-full" />,
+      href: "/contact",
+    },
+    {
+      title: "More",
+      icon: <MoreHorizontal className="h-full w-full" />,
+      href: "/more",
+    },
+  ];
+  const [scrolling, setScrolling] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <div
+      className={`fixed top-5 right-0 left-0 z-[+9999999] m-auto w-full bg-transparent px-0 sm:w-fit sm:px-5 ${scrolling ? "hidden" : "block"}`}
+    >
+      <Dock className="items-end rounded-full pb-3">
+        {data.map((item, idx) => (
+          <Link href={item.href} key={idx}>
+            <DockItem
+              className={cn(
+                "aspect-square rounded-full bg-gray-200 dark:bg-neutral-800",
+                pathname === item.href && "!border !border-primary-sky bg-gray-100",
+              )}
+            >
+              <DockLabel>{item.title}</DockLabel>
+              <DockIcon className={cn(pathname === item.href && "text-[#2f7df4]")}>
+                {item.icon}
+              </DockIcon>
+            </DockItem>
+          </Link>
+        ))}
+      </Dock>
+    </div>
+  );
+};
+
+export default Navbar;
