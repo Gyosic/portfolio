@@ -1,3 +1,4 @@
+import { title } from "process";
 import { parse as urlParse } from "@/lib/url";
 
 export const logo = {
@@ -15,7 +16,7 @@ export const site = {
 
 export type SiteType = typeof site;
 
-const apiUrl = urlParse(process.env.API_BASEURL as string);
+const apiUrl = urlParse((process.env.API_BASEURL as string) || "http://localhost:3000");
 export const api = {
   baseurl: apiUrl.origin,
   username: decodeURIComponent(apiUrl.username as string),
@@ -24,7 +25,7 @@ export const api = {
 
 export type ApiType = typeof api;
 
-const opensearchUrl = urlParse(process.env.OS_BASEURL as string);
+const opensearchUrl = urlParse((process.env.OS_BASEURL as string) || "https://localhost:9200");
 export const opensearch = {
   index: opensearchUrl?.pathname.substring(1),
   node: opensearchUrl?.origin,
@@ -37,7 +38,7 @@ export const opensearch = {
 
 export type OpensearchType = typeof opensearch;
 
-const opensearchAdUrl = urlParse(process.env.AD_BASEURL as string);
+const opensearchAdUrl = urlParse((process.env.AD_BASEURL as string) || "https://localhost:9200");
 export const opensearchAd = {
   index: opensearchAdUrl?.pathname.substring(1),
   node: opensearchAdUrl?.origin,
@@ -50,7 +51,9 @@ export const opensearchAd = {
 
 export type OpensearchAdType = typeof opensearchAdUrl;
 
-const psqlUrl = urlParse(process.env.PG_BASEURL as string);
+const psqlUrl = urlParse(
+  (process.env.PG_BASEURL as string) || "postgresql://localhost:5432/postgres",
+);
 export const postgresql = {
   host: psqlUrl?.hostname,
   port: Number(psqlUrl?.port),
@@ -66,5 +69,31 @@ export const mqtt = {
 };
 
 export type MqttType = typeof mqtt;
+
+export const personal = {
+  title: process.env.PERSONAL_TITLE,
+  description: process.env.PERSONAL_DESCRIPTION,
+  name: process.env.PERSONAL_NAME,
+  email: process.env.PERSONAL_EMAIL,
+  phone: process.env.PERSONAL_PHONE,
+  location: process.env.PERSONAL_LOCATION,
+  about: {
+    languages: process.env.PERSONAL_ABOUT_LANGUAGES,
+    gender: process.env.PERSONAL_ABOUT_GENDER,
+    birthday: process.env.PERSONAL_ABOUT_BIRTHDAY,
+    bio: process.env.PERSONAL_ABOUT_BIO,
+    hobbies: process.env.PERSONAL_ABOUT_HOBBIES,
+    nationality: process.env.PERSONAL_ABOUT_NATIONALITY,
+  },
+  social: {
+    github: process.env.PERSONAL_SOCIAL_GITHUB,
+    twitter: process.env.PERSONAL_SOCIAL_TWITTER,
+    instagram: process.env.PERSONAL_SOCIAL_INSTAGRAM,
+    youtube: process.env.PERSONAL_SOCIAL_YOUTUBE,
+    facebook: process.env.PERSONAL_SOCIAL_FACEBOOK,
+    tiktok: process.env.PERSONAL_SOCIAL_TIKTOK,
+  },
+  skill: {},
+};
 
 export const isDev = process.env.NODE_ENV !== "production";
