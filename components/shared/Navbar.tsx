@@ -1,27 +1,26 @@
 "use client";
 
 import {
-  Briefcase,
   FolderGit2,
   GraduationCap,
   HomeIcon,
   LightbulbIcon,
   Mail,
-  MoreHorizontal,
+  Settings,
   User,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/components/animation/DockAnimation";
-import FramerWrapper from "@/components/animation/FramerWrapper";
 import { Language } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
 interface NavbarProps {
   lng?: Language;
+  className?: string;
 }
-const Navbar = ({ lng }: NavbarProps) => {
+const Navbar = ({ lng, className }: NavbarProps) => {
   const data = [
     {
       title: "Home",
@@ -55,9 +54,16 @@ const Navbar = ({ lng }: NavbarProps) => {
       href: "/contact",
     },
     {
-      title: "More",
-      icon: <MoreHorizontal className="h-full w-full" />,
-      href: "/more",
+      title: "Admin",
+      icon: <Settings className="h-full w-full" />,
+      href: "/admin",
+      items: [
+        {
+          title: "Projects",
+          href: "/admin/projects",
+          icon: <Settings className="h-full w-full" />,
+        },
+      ],
     },
   ];
   const [scrolling, setScrolling] = useState(false);
@@ -81,7 +87,10 @@ const Navbar = ({ lng }: NavbarProps) => {
 
   return (
     <div
-      className={`fixed top-5 right-0 left-0 z-[+9999999] m-auto w-full bg-transparent px-0 sm:w-fit sm:px-5 ${scrolling ? "hidden" : "block"}`}
+      className={cn(
+        `fixed top-5 right-0 left-0 z-[+9999999] m-auto w-full bg-transparent px-0 sm:w-fit sm:px-5 ${scrolling ? "hidden" : "block"}`,
+        className,
+      )}
     >
       <Dock className="items-end rounded-full pb-3">
         {data.map((item, idx) => (
