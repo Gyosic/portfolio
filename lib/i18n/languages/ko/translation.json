@@ -5,5 +5,12 @@
   "Please enter your account to login": "계정을 입력하고 로그인해주세요",
   "Plase enter your username": "로그인 ID를 입력해주세요",
   "Username is required": "로그인 ID는 필수 입력값 입니다",
-  "Password is required": "비밀번호는 필수 입력값 입니다"
+  "Password is required": "비밀번호는 필수 입력값 입니다",
+  "Login for system administration": "시스템 관리 로그인",
+  "To log in to system management, please enter your login ID below": "시스템 관리에 로그인 하려면 아래에 로그인 ID를 입력하세요",
+  "Password": "비밀번호",
+  "Forgot your password?": "비밀번호를 잊으셨나요?",
+  "Please enter your password": "비밀번호를 입력해주세요",
+  "Save your login ID": "로그인 ID 저장",
+  "Login failed": "로그인에 실패하였습니다"
 }

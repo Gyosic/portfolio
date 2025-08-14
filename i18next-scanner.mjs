@@ -1,7 +1,7 @@
-import { statSync, readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "fs";
 import { Parser } from "i18next-scanner";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 const languages = ["en", "ko"];
 const parser = new Parser({

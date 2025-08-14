@@ -5,5 +5,12 @@
   "Please enter your account to login": "Please enter your account to login",
   "Plase enter your username": "Plase enter your username",
   "Username is required": "Username is required",
-  "Password is required": "Password is required"
+  "Password is required": "Password is required",
+  "Login for system administration": "Login for system administration",
+  "To log in to system management, please enter your login ID below": "To log in to system management, please enter your login ID below",
+  "Password": "Password",
+  "Forgot your password?": "Forgot your password?",
+  "Please enter your password": "Please enter your password",
+  "Save your login ID": "Save your login ID",
+  "Login failed": "Login failed"
 }
