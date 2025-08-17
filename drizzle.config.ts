@@ -8,7 +8,7 @@ export default defineConfig({
   migrations: {
     schema: "public",
   },
-  dbCredentials: postgresql,
+  dbCredentials: { ...postgresql, ssl: { rejectUnauthorized: false } },
   strict: true,
   extensionsFilters: ["postgis"],
 });

@@ -29,7 +29,6 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 export function AppSidebar({ site, logo, session, ...props }: AppSidebarProps) {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
-  const nav = useNav((state) => state.nav);
   const sysNav = useNav((state) => state.sysNav);
   const links = useNav((state) => state.links);
 
@@ -58,12 +57,9 @@ export function AppSidebar({ site, logo, session, ...props }: AppSidebarProps) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {user.is_sysadmin
-          ? sysNav.map(({ name, items }, i) => (
-              <NavMain name={name} items={items} key={`nav-${i}`} />
-            ))
-          : nav.map(({ name, items }, i) => <NavMain name={name} items={items} key={`nav-${i}`} />)}
-
+        {sysNav.map(({ name, items }, i) => (
+          <NavMain name={name} items={items} key={`nav-${i}`} />
+        ))}
         <NavLinks items={links} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

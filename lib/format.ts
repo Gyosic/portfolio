@@ -1,4 +1,4 @@
-type DateFormatType =
+export type DateFormatType =
   | "default"
   | "iso"
   | "ymd"
@@ -87,4 +87,38 @@ export function fromNow(timestamp: Date) {
   if (curr < 2592000) return `${Math.floor(curr / 604800)}주 전`;
   if (curr < 31536000) return `${Math.floor(curr / 2592000)}달 전`;
   if (curr >= 31536000) return `${Math.floor(curr / 31536000)}년 전`;
+}
+
+/**
+ * @description
+ * 숫자를 세 자리 수 마다 ",(콤마)" 형식으로 반환한다.
+ *
+ * @example
+ * thousandComma(100000)
+ *
+ * @param value number
+ * @returns string
+ */
+
+export function thousandComma(value: number) {
+  if (value == null) return "";
+
+  const [integer = "", float = ""] = String(value).split(".");
+  const formatted = integer.replace(/[0-9](?=(?:[0-9]{3})+(?![0-9]))/g, "$&,");
+
+  if (float) return formatted.concat(".", float);
+  return formatted;
+}
+
+export function fileSize(bytes: number, decimals = 2): string {
+  if (bytes === 0) return "0 Bytes";
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  const size = parseFloat((bytes / k ** i).toFixed(dm));
+  return `${size} ${sizes[i]}`;
 }

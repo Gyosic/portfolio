@@ -90,93 +90,91 @@ export function SignIn({ className, callbackUrl = "/admin", ...props }: SignInPr
   }, []);
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>{!!ready && t("Login for system administration")}</CardTitle>
-          <CardDescription>
-            {!!ready && t("To log in to system management, please enter your login ID below")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
-              <div className="flex flex-col gap-6">
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="grid gap-3">
-                        <FormLabel>{ready && t("Username")}</FormLabel>
-                        <FormControl>
-                          <div className="flex w-full">
-                            <Input
-                              className="bg-white"
-                              placeholder={ready ? t("Plase enter your username") : ""}
-                              {...field}
-                            />
-                            <div />
-                          </div>
-                        </FormControl>
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="grid gap-3">
-                        <FormLabel className="w-24">{ready && t("Password")}</FormLabel>
-                        <FormControl>
-                          <div className="flex w-full items-center gap-2">
-                            <Input
-                              id="current-password"
-                              className="bg-white"
-                              type={visiblePassword ? "text" : "password"}
-                              placeholder={ready ? t("Please enter your password") : ""}
-                              required
-                              {...field}
-                            />
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="icon"
-                              className="hover:bg-[#4fc3f7]/30"
-                              onClick={() => setVisiblePassword((prev) => !prev)}
-                            >
-                              {visiblePassword ? <Eye /> : <EyeClosed />}
-                            </Button>
-                          </div>
-                        </FormControl>
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <Card className="min-w-100">
+      <CardHeader>
+        <CardTitle>{!!ready && t("Login for system administration")}</CardTitle>
+        <CardDescription>
+          {!!ready && t("To log in to system management, please enter your login ID below")}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <div className="flex flex-col gap-6">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="grid gap-3">
+                      <FormLabel>{ready && t("Username")}</FormLabel>
+                      <FormControl>
+                        <div className="flex w-full">
+                          <Input
+                            className="bg-white"
+                            placeholder={ready ? t("Plase enter your username") : ""}
+                            {...field}
+                          />
+                          <div />
+                        </div>
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="grid gap-3">
+                      <FormLabel className="w-24">{ready && t("Password")}</FormLabel>
+                      <FormControl>
+                        <div className="flex w-full items-center gap-2">
+                          <Input
+                            id="current-password"
+                            className="bg-white"
+                            type={visiblePassword ? "text" : "password"}
+                            placeholder={ready ? t("Please enter your password") : ""}
+                            required
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="hover:bg-[#4fc3f7]/30"
+                            onClick={() => setVisiblePassword((prev) => !prev)}
+                          >
+                            {visiblePassword ? <Eye /> : <EyeClosed />}
+                          </Button>
+                        </div>
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <div className="ml-auto flex gap-2">
-                  <Checkbox
-                    id="remember"
-                    checked={remember}
-                    onCheckedChange={handleChangeRemember}
-                  ></Checkbox>
-                  <Label htmlFor="remember">{ready && t("Save your login ID")}</Label>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <Button type="submit" className="w-full">
-                    {ready && t("Login")}
-                  </Button>
-                </div>
+              <div className="ml-auto flex gap-2">
+                <Checkbox
+                  id="remember"
+                  checked={remember}
+                  onCheckedChange={handleChangeRemember}
+                ></Checkbox>
+                <Label htmlFor="remember">{ready && t("Save your login ID")}</Label>
               </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div>
+
+              <div className="flex flex-col gap-3">
+                <Button type="submit" className="w-full">
+                  {ready && t("Login")}
+                </Button>
+              </div>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 }

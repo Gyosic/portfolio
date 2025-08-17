@@ -14,7 +14,7 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
   const { lng: lngParam } = await params;
 
   return (
-    <main className="relative flex h-dvh min-h-screen items-center justify-between px-40 pt-14 pb-4 max-sm:pt-20 max-md:p-4">
+    <main className="relative flex h-dvh min-h-screen items-center justify-center px-40 pt-14 pb-4 max-sm:pt-20 max-md:p-4">
       <HexagonBackground className="absolute inset-0 z-0 flex items-center justify-center rounded-xl" />
 
       <Navbar lng={lngParam} />

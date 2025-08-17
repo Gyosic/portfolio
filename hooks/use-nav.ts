@@ -1,18 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  Construction,
-  Database,
-  Gauge,
-  Globe,
-  Headset,
-  LifeBuoy,
-  Play,
-  Router,
-  Shapes,
-  ShieldAlert,
-  UserCircle,
-  WifiCog,
-} from "lucide-react";
+import { Building2, FolderGit2, Headset, LifeBuoy, School } from "lucide-react";
 import { User } from "next-auth";
 import { create } from "zustand";
 
@@ -27,8 +14,6 @@ export interface NavItem {
 
 interface NavState {
   sysNav: Array<NavItem>;
-  nav: Array<NavItem>;
-  // setNav: (nav: Array<NavItem>) => void;
 
   links: Array<NavItem>;
   setLinks: (links: Array<NavItem>) => void;
@@ -39,53 +24,13 @@ interface NavState {
 
 const sysNav: Array<NavItem> = [
   {
-    name: "모니터링",
-    url: "#",
-    items: [{ name: "대시보드", url: "/", icon: Gauge }],
-  },
-  {
-    name: "장치",
-    url: "#",
-    items: [
-      { name: "장치관리", url: "/device", icon: Router },
-      { name: "펌웨어관리", url: "/firmware", icon: Shapes },
-      { name: "LTE관리", url: "/lte", icon: WifiCog },
-    ],
-  },
-  {
-    name: "이력",
-    url: "#",
-    items: [
-      { name: "데이터", url: "/data", icon: Database },
-      { name: "응답 이력", url: "/data/audit", icon: Play },
-    ],
-  },
-  {
     name: "관리",
     url: "#",
     items: [
-      { name: "사이트관리", url: "/site", icon: Globe },
-      { name: "계약관리", url: "/contract", icon: Construction },
-      { name: "사용자관리", url: "/user", icon: UserCircle },
+      { name: "경력", url: "/admin/history", icon: Building2 },
+      { name: "프로젝트", url: "/admin/project", icon: FolderGit2 },
+      { name: "학력", url: "/admin/education", icon: School },
     ],
-  },
-];
-
-const nav: Array<NavItem> = [
-  {
-    name: "모니터링",
-    url: "#",
-    items: [{ name: "대시보드", url: "/", icon: Gauge }],
-  },
-  {
-    name: "장치",
-    url: "#",
-    items: [{ name: "장치관리", url: "/device", icon: Router }],
-  },
-  {
-    name: "이력",
-    url: "#",
-    items: [{ name: "데이터", url: "/data", icon: Database }],
   },
 ];
 
@@ -111,7 +56,6 @@ const curNav: NavItem | null = null;
 
 export const useNav = create<NavState>((set) => ({
   sysNav,
-  nav,
 
   links,
   setLinks: (links: Array<NavItem>) => set(() => ({ links })),
