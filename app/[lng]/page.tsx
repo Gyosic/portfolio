@@ -15,7 +15,11 @@ export default async function Page({ params }: DefaultPageProps) {
   return (
     <div className="flex w-full justify-between">
       {/* LEFT SIDE  */}
-      <FramerWrapper className="flex h-full w-auto flex-col justify-start gap-4" y={0} x={-100}>
+      <FramerWrapper
+        className="flex h-full w-auto flex-1 flex-col justify-start gap-4"
+        y={0}
+        x={-100}
+      >
         <HeroTexts lng={lngParams} personal={personal} />
         {/* <div className="h-fit w-full p-4 flex gap-4">
           <SocialLinks />
@@ -24,7 +28,7 @@ export default async function Page({ params }: DefaultPageProps) {
         <FortuneBtn lng={lngParams} personal={personal} />
       </FramerWrapper>
       {/* RIGHT SIDE image  */}
-      <FramerWrapper className="relative block h-full w-[47%] max-lg:hidden" y={0} x={100}>
+      <FramerWrapper className="relative block h-full flex-1 max-lg:hidden" y={0} x={100}>
         {/* IMAGE  */}
         <HeroImage />
       </FramerWrapper>

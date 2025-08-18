@@ -23,5 +23,13 @@
   "I am a software engineer": "소프트웨어 엔지니어",
   "I am a full stack developer": "풀스택 개발자",
   "View employment fortune": "취업 운세보기",
-  "male": "남"
+  "male": "남",
+  "running": "달리기",
+  "fitness": "헬스",
+  "korean": "한국어",
+  "South Korea": "대한민국",
+  "Language": "언어",
+  "Nationality": "국적",
+  "Gender": "성별",
+  "Hobbies": "취미"
 }

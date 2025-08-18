@@ -15,8 +15,8 @@ function TextRotator({ mainText, rotateText }: TextRotatorProps) {
         {mainText} &
         <span className="ml-2 inline-flex h-[calc(theme(fontSize.lg)*theme(lineHeight.tight))] flex-col overflow-hidden sm:h-[calc(theme(fontSize.3xl)*theme(lineHeight.tight))]">
           <ul className="block text-left font-rubik text-lg leading-tight sm:text-3xl [&_li]:block">
-            <li>
-              <RotatingText className="text-[#2f7df4]" text={rotateText} />
+            <li className="min-w-50 text-[#2f7df4]">
+              <RotatingText text={rotateText} />
             </li>
             {/* {rotateText.map((text, index) => (
               <li key={index} className="text-[#2f7df4]">

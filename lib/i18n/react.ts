@@ -29,7 +29,7 @@ i18next
       backends: [
         HttpBackend, // if a namespace can't be loaded via normal http-backend loadPath, then the inMemoryLocalBackend will try to return the correct resources
         resourcesToBackend(
-          (lng: Language, ns: string) => import(`@/lib/i18n/languages/${lng}/${ns}.json`)
+          (lng: Language, ns: string) => import(`@/lib/i18n/languages/${lng}/${ns}.json`),
         ),
       ],
       backendOptions: [
@@ -44,7 +44,7 @@ i18next
 export function useTranslation(
   lng: Language = fallbackLng,
   ns: string = defaultNS,
-  options?: UseTranslationOptions<typeof cookieName>
+  options?: UseTranslationOptions<typeof cookieName>,
 ) {
   const [cookies, setCookie] = useCookies([cookieName]);
   const reactI18next = useTranslationI18next(ns, { useSuspense: true, ...options });

@@ -23,7 +23,7 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
           <ThemeSwitcher lng={lngParam} />
           <LanguageSwitcher lng={lngParam} />
         </div>
-        <div className="z-1 px-4">{children}</div>
+        <div className="z-1 w-full px-4">{children}</div>
       </main>
     </CookieArea>
   );
