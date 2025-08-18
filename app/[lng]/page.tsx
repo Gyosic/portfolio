@@ -6,7 +6,7 @@ import HeroTexts from "@/components/shared/HeroTexts";
 import { personal } from "@/config";
 import { I18nextPageParams } from "@/lib/i18n/config";
 
-interface DefaultPageProps extends React.PropsWithChildren {
+interface DefaultPageProps {
   params: I18nextPageParams;
 }
 
