@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/components/animation/DockAnimation";
 import { Language } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
@@ -68,6 +68,9 @@ const Navbar = ({ lng, className }: NavbarProps) => {
   ];
   const [scrolling, setScrolling] = useState(false);
   const pathname = usePathname();
+  const href = useMemo(() => {
+    return "/" + (pathname.split("/")?.[2] ?? "");
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,11 +101,11 @@ const Navbar = ({ lng, className }: NavbarProps) => {
             <DockItem
               className={cn(
                 "aspect-square rounded-full bg-gray-200 dark:bg-neutral-800",
-                pathname === item.href && "!border !border-primary-sky bg-gray-100",
+                href === item.href && "!border !border-[var(--primary-sky)] bg-gray-100",
               )}
             >
               <DockLabel>{item.title}</DockLabel>
-              <DockIcon className={cn(pathname === item.href && "text-[#2f7df4]")}>
+              <DockIcon className={cn(href === item.href && "text-[#2f7df4]")}>
                 {item.icon}
               </DockIcon>
             </DockItem>

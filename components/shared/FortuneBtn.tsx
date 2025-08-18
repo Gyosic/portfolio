@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { toast } from "sonner";
 import z, { ZodError } from "zod";
@@ -7,7 +8,6 @@ import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
 import HackerBtn from "../animation/HackerBtn";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Label } from "../ui/label";
 import { TypingText } from "../ui/shadcn-io/typing-text";
 
 const fortuneSchema = z.object({
@@ -26,9 +26,10 @@ interface FortuneBtnProp {
   personal: PersonalType;
 }
 export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
-  const { t } = useTranslation(lng, "translation", {
+  const { t, ready } = useTranslation(lng, "translation", {
     useSuspense: false,
   });
+
   const [fortune, setFortune] = useState({
     summary: "",
     tell: "",
@@ -37,6 +38,8 @@ export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
     studies: "",
     business: "",
   });
+
+  if (!ready) return null;
 
   const handleClick = async () => {
     try {
