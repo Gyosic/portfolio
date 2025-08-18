@@ -23,7 +23,6 @@
   --scroll: hsl(24 9.8% 10% / 0.3);
   --input: hsl(20 14.3% 4.1% / 0.2);
   --ring: hsl(195, 89%, 67%);
-
   --radius: 0.5rem;
 }
 
@@ -139,15 +138,14 @@
     bottom: 0;
     border-radius: inherit;
     padding: 2.5px;
-    background: linear-gradient(0deg,
-        rgba(255, 255, 255, 0.8) 49.05%,
-        rgba(79, 195, 247, 0.8) 129.67%);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.8) 49.05%,
+      rgba(79, 195, 247, 0.8) 129.67%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     z-index: -1;
@@ -164,6 +162,14 @@
     background-color: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(5px);
     z-index: -2;
+  }
+
+  .name_underline::after {
+    content: "";
+    display: block;
+    width: 6rem;
+    height: 0.6rem;
+    background-color: var(--primary-sky);
   }
 }
 

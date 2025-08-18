@@ -2,11 +2,9 @@ import "@/styles/tailwind.css";
 
 import { dir } from "i18next";
 import type { Metadata } from "next";
-
+import { Poppins, Rubik } from "next/font/google";
 import localFont from "next/font/local";
-
 import { SessionProvider } from "next-auth/react";
-
 import { Toaster } from "@/components/ui/sonner";
 
 import { logo, site } from "@/config";
@@ -19,6 +17,18 @@ const pretendard = localFont({
   display: "swap",
   weight: "45 920",
   variable: "--font-pretendard",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-poppins",
+});
+
+const rubik = Rubik({
+  subsets: ["latin"],
+  weight: "600",
+  variable: "--font-rubik",
 });
 
 export const metadata: Metadata = {
@@ -45,6 +55,8 @@ export default async function RootLayout({ children, params }: RootLayoutParams)
       <body
         className={cn(
           pretendard.className,
+          poppins.variable,
+          rubik.variable,
           "min-h-screen overflow-x-hidden bg-background text-foreground",
         )}
       >
