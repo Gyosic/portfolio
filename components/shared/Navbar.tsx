@@ -35,7 +35,7 @@ const Navbar = ({ lng, className }: NavbarProps) => {
     {
       title: "Skills",
       icon: <LightbulbIcon className="h-full w-full" />,
-      href: "/skills",
+      href: "/skill",
     },
     {
       title: "Education",
@@ -45,7 +45,7 @@ const Navbar = ({ lng, className }: NavbarProps) => {
     {
       title: "Projects",
       icon: <FolderGit2 className="h-full w-full" />,
-      href: "/projects",
+      href: "/project",
     },
 
     {
