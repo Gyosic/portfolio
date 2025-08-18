@@ -1,6 +1,6 @@
 import { date, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
-export const projects = pgTable("projects", {
+export const histories = pgTable("histories", {
   _id: uuid().primaryKey().defaultRandom(),
   company: text().notNull(),
   role: text().notNull(),
