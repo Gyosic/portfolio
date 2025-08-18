@@ -21,4 +21,4 @@ cp -r public dist/public
 
 echo "✅ 빌드 완료: ./dist"
 
-tar --no-xattrs cJf portfolio.tar.xz ./dist
+tar -cJf portfolio.tar.xz --no-xattrs ./dist
