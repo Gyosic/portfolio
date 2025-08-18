@@ -2,13 +2,22 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useLayoutEffect, useMemo, useState } from "react";
+import { Language } from "@/lib/i18n/config";
+import { useTranslation } from "@/lib/i18n/react";
 import { getTheme, setTheme } from "@/lib/theme";
 import { Switcher } from "./Switcher";
 
-export function ThemeSwitcher() {
+interface ThemeSwitcherProps {
+  lng: Language;
+}
+export function ThemeSwitcher({ lng }: ThemeSwitcherProps) {
+  const { t } = useTranslation(lng, "translation", {
+    useSuspense: false,
+  });
+
   const items = [
-    { key: "light", icon: Sun, label: "Light theme" },
-    { key: "dark", icon: Moon, label: "Dark theme" },
+    { key: "light", icon: Sun, label: t("Light theme") },
+    { key: "dark", icon: Moon, label: t("Dark theme") },
   ];
   const [change, setChange] = useState(false);
   const theme = useMemo(() => getTheme(), [change]);

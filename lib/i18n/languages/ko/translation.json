@@ -12,5 +12,16 @@
   "Forgot your password?": "비밀번호를 잊으셨나요?",
   "Please enter your password": "비밀번호를 입력해주세요",
   "Save your login ID": "로그인 ID 저장",
-  "Login failed": "로그인에 실패하였습니다"
+  "Login failed": "로그인에 실패하였습니다",
+  "Light theme": "라이트 모드",
+  "Dark theme": "다크 모드",
+  "EN": "영어",
+  "KR": "한글",
+  "My Name is ": "제 이름은",
+  "NameSentence": "{{name}} 입니다",
+  "Hello": "안녕하세요",
+  "I am a software engineer": "소프트웨어 엔지니어",
+  "I am a full stack developer": "풀스택 개발자",
+  "View employment fortune": "취업 운세보기",
+  "male": "남"
 }

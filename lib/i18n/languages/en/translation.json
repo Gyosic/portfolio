@@ -12,5 +12,14 @@
   "Forgot your password?": "Forgot your password?",
   "Please enter your password": "Please enter your password",
   "Save your login ID": "Save your login ID",
-  "Login failed": "Login failed"
+  "Login failed": "Login failed",
+  "Light theme": "Light theme",
+  "Dark theme": "Dark theme",
+  "EN": "EN",
+  "KR": "KR",
+  "My Name is ": "My Name is {{name}}",
+  "I am a software engineer": "I am a software engineer",
+  "I am a full stack developer": "I am a full stack developer",
+  "View employment fortune": "View employment fortune",
+  "male": "male"
 }
