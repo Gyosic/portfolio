@@ -18,20 +18,20 @@ export type SiteType = typeof site;
 
 const apiUrl = urlParse((process.env.API_BASEURL as string) || "http://localhost:3000");
 export const api = {
-  baseurl: apiUrl.origin,
-  username: decodeURIComponent(apiUrl.username as string),
-  password: decodeURIComponent(apiUrl.password as string),
+  baseurl: apiUrl?.origin || "http://localhost:3000",
+  username: apiUrl?.username ? decodeURIComponent(apiUrl.username) : "",
+  password: apiUrl?.password ? decodeURIComponent(apiUrl.password) : "",
 };
 
 export type ApiType = typeof api;
 
 const opensearchUrl = urlParse((process.env.OS_BASEURL as string) || "https://localhost:9200");
 export const opensearch = {
-  index: opensearchUrl?.pathname.substring(1),
-  node: opensearchUrl?.origin,
+  index: opensearchUrl?.pathname?.substring(1) || "",
+  node: opensearchUrl?.origin || "https://localhost:9200",
   auth: {
-    username: decodeURIComponent(opensearchUrl?.username as string),
-    password: decodeURIComponent(opensearchUrl?.password as string),
+    username: opensearchUrl?.username ? decodeURIComponent(opensearchUrl.username) : "",
+    password: opensearchUrl?.password ? decodeURIComponent(opensearchUrl.password) : "",
   },
   ssl: { rejectUnauthorized: false },
 };
@@ -40,11 +40,11 @@ export type OpensearchType = typeof opensearch;
 
 const opensearchAdUrl = urlParse((process.env.AD_BASEURL as string) || "https://localhost:9200");
 export const opensearchAd = {
-  index: opensearchAdUrl?.pathname.substring(1),
-  node: opensearchAdUrl?.origin,
+  index: opensearchAdUrl?.pathname?.substring(1) || "",
+  node: opensearchAdUrl?.origin || "https://localhost:9200",
   auth: {
-    username: decodeURIComponent(opensearchAdUrl?.username as string),
-    password: decodeURIComponent(opensearchAdUrl?.password as string),
+    username: opensearchAdUrl?.username ? decodeURIComponent(opensearchAdUrl.username) : "",
+    password: opensearchAdUrl?.password ? decodeURIComponent(opensearchAdUrl.password) : "",
   },
   ssl: { rejectUnauthorized: false },
 };
@@ -55,11 +55,11 @@ const psqlUrl = urlParse(
   (process.env.PG_BASEURL as string) || "postgresql://localhost:5432/postgres",
 );
 export const postgresql = {
-  host: psqlUrl?.hostname,
-  port: Number(psqlUrl?.port),
-  user: decodeURIComponent(psqlUrl?.username as string),
-  password: decodeURIComponent(psqlUrl?.password as string),
-  database: psqlUrl?.pathname.substring(1),
+  host: psqlUrl?.hostname || "localhost",
+  port: Number(psqlUrl?.port) || 5432,
+  user: psqlUrl?.username ? decodeURIComponent(psqlUrl.username) : "postgres",
+  password: psqlUrl?.password ? decodeURIComponent(psqlUrl.password) : "",
+  database: psqlUrl?.pathname?.substring(1) || "postgres",
 };
 
 export type PostgresqlType = typeof postgresql;
@@ -71,18 +71,25 @@ export const mqtt = {
 export type MqttType = typeof mqtt;
 
 export const personal = {
+  ko: {
+    name: process.env.PERSONAL_NAME,
+    location: process.env.PERSONAL_LOCATION,
+  },
+  en: {
+    name: process.env.PERSONAL_EN_NAME,
+    location: process.env.PERSONAL_EN_LOCATION,
+  },
   title: process.env.PERSONAL_TITLE,
   description: process.env.PERSONAL_DESCRIPTION,
-  name: process.env.PERSONAL_NAME,
   email: process.env.PERSONAL_EMAIL,
   phone: process.env.PERSONAL_PHONE,
-  location: process.env.PERSONAL_LOCATION,
   about: {
-    languages: process.env.PERSONAL_ABOUT_LANGUAGES,
+    languages: process.env.PERSONAL_ABOUT_LANGUAGES?.split(",") ?? [],
     gender: process.env.PERSONAL_ABOUT_GENDER,
     birthday: process.env.PERSONAL_ABOUT_BIRTHDAY,
+    birthtime: process.env.PERSONAL_ABOUT_BIRTHTIME,
     bio: process.env.PERSONAL_ABOUT_BIO,
-    hobbies: process.env.PERSONAL_ABOUT_HOBBIES,
+    hobbies: process.env.PERSONAL_ABOUT_HOBBIES?.split(",") ?? [],
     nationality: process.env.PERSONAL_ABOUT_NATIONALITY,
   },
   social: {
@@ -93,7 +100,13 @@ export const personal = {
     facebook: process.env.PERSONAL_SOCIAL_FACEBOOK,
     tiktok: process.env.PERSONAL_SOCIAL_TIKTOK,
   },
-  skill: {},
+  skill: {
+    languages: process.env.PERSONAL_SKILL_LANGUAGES?.split(",") ?? [],
+    frameworks: process.env.PERSONAL_SKILL_FRAMEWORKS?.split(",") ?? [],
+    tools: process.env.PERSONAL_SKILL_TOOLS?.split(",") ?? [],
+  },
+  roles: process.env.PERSONAL_ROLES?.split(",") ?? [],
 };
+export type PersonalType = typeof personal;
 
 export const isDev = process.env.NODE_ENV !== "production";
