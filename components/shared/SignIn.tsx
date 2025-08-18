@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
-import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
@@ -72,7 +71,7 @@ export function SignIn({ className, callbackUrl = "/admin", ...props }: SignInPr
       localStorage.removeItem("remember");
     }
 
-    return router.push(callbackUrl);
+    router.refresh();
   };
 
   const handleChangeRemember = (isRemember: boolean) => {
