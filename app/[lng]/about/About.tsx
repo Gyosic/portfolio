@@ -2,13 +2,12 @@
 
 import { Circle, Heart, User2 } from "lucide-react";
 import FramerWrapper from "@/components/animation/FramerWrapper";
-import Aboutfooter from "@/components/shared/Aboutfooter";
 import Heading from "@/components/shared/Heading";
 import { Badge } from "@/components/ui/badge";
 import { PersonalType } from "@/config";
 import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
-import { personal } from "../../../config";
+import Aboutfooter from "./Aboutfooter";
 
 interface AboutProps {
   personal: PersonalType;
@@ -22,7 +21,6 @@ export function About({ personal, lng }: AboutProps) {
   if (!ready) return null;
 
   const items = personal.about.hobbies.map((hobby) => ({ hobby: t(hobby) }));
-  console.info(items);
 
   return (
     // ABOUT PAGE
@@ -32,9 +30,7 @@ export function About({ personal, lng }: AboutProps) {
         About me
       </Badge>
       <div className="flex flex-col gap-5">
-        <Heading>
-          {personal.title} And Web <br /> Developer, Based In {personal.about.nationality}.
-        </Heading>
+        <Heading>{personal?.[lng]?.title}</Heading>
 
         <FramerWrapper y={0} x={100}>
           <p className="w-full font-poppins text-primary text-xl max-sm:text-lg">
