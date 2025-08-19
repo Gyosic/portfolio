@@ -1,4 +1,4 @@
-import { date, pgTable, text } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const fortunes = pgTable("fortunes", {
   summary: text(),
@@ -7,5 +7,5 @@ export const fortunes = pgTable("fortunes", {
   studies: text(),
   business: text(),
   employment: text(),
-  created_at: date().defaultNow(),
+  created_at: timestamp({ withTimezone: true }).defaultNow(),
 });

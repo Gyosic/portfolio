@@ -1,4 +1,3 @@
-import { title } from "process";
 import { parse as urlParse } from "@/lib/url";
 
 export const logo = {

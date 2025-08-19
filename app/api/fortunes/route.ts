@@ -1,9 +1,10 @@
 import { desc } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { date } from "@/lib/format";
 import Fortuneai from "@/lib/fortuneai";
 import { db } from "@/lib/pg";
 import { fortunes } from "@/lib/schema/fortune.table";
+
+const timezone = process.env.TIMEZONE || "ko-KR";
 
 export async function POST(req: NextRequest) {
   const { birth, birthtime, name, gender } = await req.json();
@@ -12,10 +13,10 @@ export async function POST(req: NextRequest) {
     const rows = await db.select().from(fortunes).orderBy(desc(fortunes.created_at)).limit(1);
 
     const [{ created_at, ...todayFortune } = {}] = rows;
-    const prevDate = new Date(created_at!);
-    const curDate = new Date(date(new Date(), { type: "ymd" }));
+    const prevDate = new Intl.DateTimeFormat(timezone).format(new Date(created_at!));
+    const curDate = new Intl.DateTimeFormat(timezone).format(new Date());
 
-    if (!created_at || prevDate < curDate) {
+    if (!created_at || new Date(prevDate).getDate() < new Date(curDate).getDate()) {
       const fortuneai = new Fortuneai();
       const fortune = await fortuneai.tell({
         birth,
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json(todayFortune);
+    return NextResponse.json({ created_at, ...todayFortune });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ message: err || "Internal Server Error" }, { status: 500 });

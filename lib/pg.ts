@@ -35,6 +35,8 @@ import { projects } from "./schema/project.table";
 
 export const pool = new Pool(postgresql);
 
+(async () => await pool.query("SET TIMEZONE='UTC';"))();
+
 export const db = drizzle({ client: pool });
 
 pool.on("error", (err) => {
