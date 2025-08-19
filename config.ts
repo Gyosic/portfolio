@@ -73,12 +73,13 @@ export const personal = {
   ko: {
     name: process.env.PERSONAL_NAME,
     location: process.env.PERSONAL_LOCATION,
+    title: process.env.PERSONAL_TITLE,
   },
   en: {
     name: process.env.PERSONAL_EN_NAME,
     location: process.env.PERSONAL_EN_LOCATION,
+    title: process.env.PERSONAL_EN_TITLE,
   },
-  title: process.env.PERSONAL_TITLE,
   description: process.env.PERSONAL_DESCRIPTION,
   email: process.env.PERSONAL_EMAIL,
   phone: process.env.PERSONAL_PHONE,
@@ -103,6 +104,7 @@ export const personal = {
     languages: process.env.PERSONAL_SKILL_LANGUAGES?.split(",") ?? [],
     frameworks: process.env.PERSONAL_SKILL_FRAMEWORKS?.split(",") ?? [],
     tools: process.env.PERSONAL_SKILL_TOOLS?.split(",") ?? [],
+    os: process.env.PERSONAL_SKILL_OS?.split(",") ?? [],
   },
   roles: process.env.PERSONAL_ROLES?.split(",") ?? [],
 };
