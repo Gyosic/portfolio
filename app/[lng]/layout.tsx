@@ -15,15 +15,15 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
 
   return (
     <CookieArea>
-      <main className="relative flex h-dvh min-h-screen items-center justify-center px-40 pt-14 pb-4 max-sm:pt-20 max-md:p-4">
-        <HexagonBackground className="absolute inset-0 z-0 flex items-center justify-center rounded-xl" />
+      <HexagonBackground className="absolute inset-0 z-0 flex items-center justify-center rounded-xl"></HexagonBackground>
 
+      <main className="relative flex h-dvh min-h-screen items-center justify-center break-words px-40 pt-14 pb-4 max-sm:pt-20 max-md:p-4">
         <Navbar lng={lngParam} />
         <div className="absolute top-0 right-0 z-10 flex items-center gap-2 p-4">
           <ThemeSwitcher lng={lngParam} />
           <LanguageSwitcher lng={lngParam} />
         </div>
-        <div className="z-1 w-full px-4">{children}</div>
+        {children}
       </main>
     </CookieArea>
   );

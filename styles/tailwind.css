@@ -171,6 +171,29 @@
     height: 0.6rem;
     background-color: var(--primary-sky);
   }
+  .icon_underline::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    display: block;
+    width: 2rem;
+    height: 0.3rem;
+    background-color: var(--primary-sky);
+    margin-bottom: 2rem;
+  }
+  .education_point::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 46.7%;
+    left: -7px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-sky);
+    outline: 3px solid var(--primary);
+    box-shadow: 0 2px 5px 2px var(--primary-sky);
+  }
 }
 
 @import "./shadcn.css";

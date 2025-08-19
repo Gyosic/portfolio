@@ -52,14 +52,7 @@ export default async function RootLayout({ children, params }: RootLayoutParams)
 
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body
-        className={cn(
-          pretendard.className,
-          poppins.variable,
-          rubik.variable,
-          "min-h-screen overflow-x-hidden bg-background text-foreground",
-        )}
-      >
+      <body className={cn(pretendard.className, poppins.variable, rubik.variable)}>
         <SessionProvider>{children}</SessionProvider>
         <Toaster />
       </body>
