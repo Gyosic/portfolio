@@ -36,7 +36,7 @@ import { thousandComma } from "@/lib/format";
 import { Model } from "@/lib/schema/model";
 import { ProjectType } from "@/lib/schema/project.schema";
 
-interface DeviceTableProps {
+interface ProjectTableProps {
   where: FilterType<typeof projectFieldModel>[];
   loading?: boolean;
   readonly?: boolean;
@@ -59,14 +59,14 @@ export function ProjectTable({
   readonly = false,
   columnVisibility = {},
   pagination: _pagination = { pageIndex: 0, pageSize: 15 },
-}: DeviceTableProps) {
+}: ProjectTableProps) {
   const router = useRouter();
   const [data, setData] = useState<{ rows: ProjectType[]; rowCount: number }>({
     rows: [],
     rowCount: 0,
   });
   const [pagination, setPagination] = useState<PaginationState>(_pagination);
-  const [sorting, setSorting] = useState<SortingState>([{ id: "datas.timestamp", desc: true }]);
+  const [sorting, setSorting] = useState<SortingState>([{ id: "start", desc: true }]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const columns: ColumnDef<ProjectType>[] = [
@@ -212,13 +212,13 @@ export function ProjectTable({
     });
 
     if (!res.ok)
-      return toast.error("[단말기 삭제]", {
-        description: `단말기 삭제에 실패했습니다. ${await res.text()}`,
+      return toast.error("[프로젝트 삭제]", {
+        description: `프로젝트 삭제에 실패했습니다. ${await res.text()}`,
         position: "top-right",
       });
 
-    toast("[단말기 삭제]", {
-      description: "단말기가 삭제되었습니다.",
+    toast("[프로젝트 삭제]", {
+      description: "프로젝트가 삭제되었습니다.",
       position: "top-right",
     });
 

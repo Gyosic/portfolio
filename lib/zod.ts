@@ -1,13 +1,17 @@
 import { EnumLike, z } from "zod";
 import { Model } from "./schema/model";
 
-type TypeMap<F extends Model> = F["type"] extends "enum"
+type ElementType<F extends Model> = F["type"] extends "enum"
   ? F["enums"] extends EnumLike
     ? z.ZodNativeEnum<F["enums"]>
-    : z.ZodString // fallback
+    : z.ZodString
   : F["type"] extends "number"
     ? z.ZodNumber
     : z.ZodString;
+
+type TypeMap<F extends Model> = F["multiple"] extends true
+  ? z.ZodArray<ElementType<F>>
+  : ElementType<F>;
 
 type ShapeFromModel<T extends Record<string, Model>> = {
   [K in keyof T]: TypeMap<T[K]>;
@@ -78,6 +82,13 @@ export const buildSchema = <T extends Record<string, Model>>(model: T) => {
             required_error: fieldModel.errors?.required ?? "필수 입력값 입니다.",
             invalid_type_error: fieldModel.errors?.invalid,
           });
+      }
+
+      if (fieldModel.multiple === true) {
+        base = z.array(base, {
+          required_error: fieldModel.errors?.required ?? "필수 입력값 입니다.",
+          invalid_type_error: fieldModel.errors?.invalid,
+        });
       }
 
       acc[fieldKey] = withConstraints(base, fieldModel);

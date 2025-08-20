@@ -4,7 +4,7 @@ export const projects = pgTable("projects", {
   _id: uuid().primaryKey().defaultRandom(),
   title: text().notNull(),
   description: text(),
-  tags: text(),
+  skills: text().array(),
   link: text(),
   role: text(),
   start: date(),
