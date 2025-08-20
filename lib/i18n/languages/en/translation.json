@@ -18,6 +18,8 @@
   "EN": "EN",
   "KR": "KR",
   "My Name is ": "My Name is {{name}}",
+  "NameSentence": "NameSentence",
+  "Hello": "Hello",
   "I am a software engineer": "I am a software engineer",
   "I am a full stack developer": "I am a full stack developer",
   "View employment fortune": "View employment fortune",
