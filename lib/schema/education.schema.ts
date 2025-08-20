@@ -1,5 +1,6 @@
 import z from "zod";
 import { buildSchema } from "../zod";
+import { Model } from "./model";
 
 export const educationStatus = {
   졸업: "GRADUATED",
@@ -29,19 +30,9 @@ export const educationModel = {
   start: { name: "시작(입학)일", type: "date" },
   end: { name: "종료(졸업)일", type: "date" },
   description: { name: "설명", type: "textarea" },
-};
+} as const satisfies Record<string, Model>;
 
 export const educationFormSchema = buildSchema(educationModel);
-// z.object({
-//   degree: z.nativeEnum(educationDegree, { required_error: "필수 입력값 입니다." }),
-//   major: z.string().nullable().optional(),
-//   institution: z.string().min(1, "필수 입력값 입니다."),
-//   location: z.string().nullable().optional(),
-//   start: z.string().nullable().optional(),
-//   end: z.string().nullable().optional(),
-//   status: z.nativeEnum(educationStatus),
-//   description: z.string().nullable().optional(),
-// });
 
 export const educationSchema = educationFormSchema.extend({ _id: z.string() });
 
