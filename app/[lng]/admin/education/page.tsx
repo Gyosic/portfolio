@@ -1,3 +1,9 @@
+import { EducationTable } from "./EducationTable";
+
 export default async function EducationPage() {
-  return <div></div>;
+  return (
+    <div>
+      <EducationTable where={[]} />
+    </div>
+  );
 }
