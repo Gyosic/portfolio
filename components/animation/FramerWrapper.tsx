@@ -29,6 +29,7 @@ function FramerWrapper({
   return (
     <AnimatePresence>
       <motion.div
+        suppressHydrationWarning
         initial={
           scale === 0 ? { opacity: 0, y: y, x: x } : { opacity: 0, y: y, x: x, scale: scale }
         }

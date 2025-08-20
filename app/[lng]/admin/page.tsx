@@ -8,7 +8,9 @@ export default async function AdminPage() {
     <></>
   ) : (
     <CookieArea>
-      <SignIn />
+      <div className="flex h-full w-full items-center justify-center">
+        <SignIn />
+      </div>
     </CookieArea>
   );
 }
