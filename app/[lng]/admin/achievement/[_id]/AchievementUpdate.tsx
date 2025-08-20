@@ -8,29 +8,29 @@ import TemplateFormItem from "@/components/shared/TemplateFormItem";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 import {
-  EducationFormType,
-  EducationType,
-  educationFormSchema,
-  educationModel,
-} from "@/lib/schema/education.schema";
+  AchievementFormType,
+  AchievementType,
+  achievementFormSchema,
+  achievementModel,
+} from "@/lib/schema/achievement.schema";
 
-interface EducationUpdateProps {
-  education: EducationType;
+interface AchievementUpdateProps {
+  achievement: AchievementType;
 }
-export function EducationUpdate({ education }: EducationUpdateProps) {
+export function AchievementUpdate({ achievement }: AchievementUpdateProps) {
   const router = useRouter();
 
-  const form = useForm<EducationFormType>({
-    resolver: zodResolver(educationFormSchema),
+  const form = useForm<AchievementFormType>({
+    resolver: zodResolver(achievementFormSchema),
     mode: "onBlur",
-    defaultValues: education,
+    defaultValues: achievement,
   });
   const { handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (data) => {
-    if (!education._id) return;
+    if (!achievement._id) return;
 
-    const res = await fetch(`/api/educations/${education._id}`, {
+    const res = await fetch(`/api/achievements/${achievement._id}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
@@ -38,7 +38,7 @@ export function EducationUpdate({ education }: EducationUpdateProps) {
 
     if (!res.ok) return toast.error(await res.text());
 
-    toast.success("학위 변경 성공!");
+    toast.success("활동 변경 성공!");
 
     router.back();
   });
@@ -47,12 +47,12 @@ export function EducationUpdate({ education }: EducationUpdateProps) {
     <Form {...form}>
       <form onSubmit={onSubmit}>
         <div className="mt-2 flex flex-col gap-2">
-          {Object.entries(educationModel).map(([key, model]) => {
+          {Object.entries(achievementModel).map(([key, model]) => {
             return (
               <FormField
                 key={key}
                 control={form.control}
-                name={key as keyof typeof educationModel}
+                name={key as keyof typeof achievementModel}
                 render={({ field }) => <TemplateFormItem fieldModel={model} field={field} />}
               />
             );

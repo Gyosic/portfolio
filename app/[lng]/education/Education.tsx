@@ -1,8 +1,11 @@
+"use client";
+
 import { Briefcase } from "lucide-react";
 import FramerWrapper from "@/components/animation/FramerWrapper";
+import { tableBodyData } from "@/components/shared/DataTable";
 import Heading from "@/components/shared/Heading";
 import { Badge } from "@/components/ui/badge";
-import { EducationType, educationDegree } from "@/lib/schema/education.schema";
+import { EducationType, educationDegree, educationModel } from "@/lib/schema/education.schema";
 
 const exchangeDegree = (value: string) => {
   const degree = Object.entries(educationDegree).find(([, degree]) => value === degree);
@@ -32,9 +35,10 @@ export function Education({ educations }: EducationProps) {
               y={0}
               x={-100}
               delay={0.35 + index * 0.1}
-              className="flex w-1/4 items-center justify-evenly font-rubik text-lg max-sm:text-base"
+              className="flex w-1/4 flex-col items-start justify-evenly font-rubik text-lg max-sm:text-base"
             >
-              {`${edu.start} ~ ${edu.end}`}
+              <span>{`${edu.start} ~ ${edu.end}`}</span>
+              <span>{tableBodyData(edu.status, educationModel.status)}</span>
             </FramerWrapper>
             <FramerWrapper
               y={0}

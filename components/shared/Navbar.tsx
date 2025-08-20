@@ -1,9 +1,9 @@
 "use client";
 
 import {
+  Building2,
   FolderGit2,
   GraduationCap,
-  History,
   HomeIcon,
   LightbulbIcon,
   Mail,
@@ -45,7 +45,7 @@ const Navbar = ({ lng, className }: NavbarProps) => {
     },
     {
       title: "History",
-      icon: <History className="h-full w-full" />,
+      icon: <Building2 className="h-full w-full" />,
       href: "/history",
     },
     {

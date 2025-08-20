@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Building2, FolderGit2, Headset, LifeBuoy, School } from "lucide-react";
+import { Award, Building2, FolderGit2, Headset, LifeBuoy, School } from "lucide-react";
 import { User } from "next-auth";
 import { create } from "zustand";
 
@@ -30,6 +30,7 @@ const sysNav: Array<NavItem> = [
       { name: "경력", url: "/admin/history", icon: Building2 },
       { name: "프로젝트", url: "/admin/project", icon: FolderGit2 },
       { name: "학위", url: "/admin/education", icon: School },
+      { name: "활동", url: "/admin/achievement", icon: Award },
     ],
   },
 ];

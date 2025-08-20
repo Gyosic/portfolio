@@ -1,5 +1,5 @@
 import { api } from "@/config";
-import EducationUpdate from "./EducationUpdate";
+import { EducationUpdate } from "./EducationUpdate";
 
 const getEducation = async (_id: string) => {
   const res = await fetch(new URL("/api/educations", api.baseurl), {
