@@ -5,6 +5,16 @@ export const model = z
     name: z.string(),
     type: z.string(),
     required: z.boolean().optional(),
+    errors: z
+      .object({
+        required: z.string().optional(),
+        invalid: z.string().optional(),
+        min: z.string().optional(),
+        max: z.string().optional(),
+        pattern: z.string().optional(),
+        enum: z.string().optional(),
+      })
+      .optional(),
     unique: z.boolean().optional(),
     default: z.unknown().optional(),
     pattern: z.string().optional(),
