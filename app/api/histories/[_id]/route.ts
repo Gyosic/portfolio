@@ -3,15 +3,15 @@ import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
 import { db } from "@/lib/pg";
-import { educationFormSchema } from "@/lib/schema/education.schema";
-import { educations } from "@/lib/schema/education.table";
+import { historyFormSchema } from "@/lib/schema/history.schema";
+import { histories } from "@/lib/schema/history.table";
 
 type Params = { _id: string };
 
-const educationColumns = getTableColumns(educations);
+const historyColumns = getTableColumns(histories);
 
-const educationUpdateFormSchema = educationFormSchema.partial();
-type EducationUpdateFormType = z.infer<typeof educationUpdateFormSchema>;
+const historyUpdateFormSchema = historyFormSchema.partial();
+type HistoryUpdateFormType = z.infer<typeof historyUpdateFormSchema>;
 
 export async function PUT(
   req: NextRequest & NextApiRequest,
@@ -21,18 +21,18 @@ export async function PUT(
 
   if (!_id) return NextResponse.json({ message: "Device serial_no is required" }, { status: 400 });
 
-  const education: EducationUpdateFormType = await req.json();
+  const history: HistoryUpdateFormType = await req.json();
 
-  const properties = educationUpdateFormSchema.parse(education);
+  const properties = historyUpdateFormSchema.parse(history);
 
   let result;
   try {
     await db.transaction(async (tx) => {
       const rows = await tx
-        .update(educations)
+        .update(histories)
         .set(properties)
-        .where(eq(educations._id, _id))
-        .returning(educationColumns);
+        .where(eq(histories._id, _id))
+        .returning(historyColumns);
 
       result = rows[0];
     });
@@ -54,9 +54,9 @@ export async function DELETE(
 ) {
   const { _id } = await params;
 
-  if (!_id) return NextResponse.json({ message: "Education '_id' is required" }, { status: 400 });
+  if (!_id) return NextResponse.json({ message: "History '_id' is required" }, { status: 400 });
 
-  await db.delete(educations).where(eq(educations._id, _id));
+  await db.delete(histories).where(eq(histories._id, _id));
 
-  return NextResponse.json({ message: "Education deleted successfully" }, { status: 200 });
+  return NextResponse.json({ message: "History deleted successfully" }, { status: 200 });
 }

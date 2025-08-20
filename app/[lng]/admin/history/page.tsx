@@ -1,3 +1,9 @@
+import { HistoryTable } from "./HistoryTable";
+
 export default async function HistoryPage() {
-  return <div></div>;
+  return (
+    <div>
+      <HistoryTable where={[]} />
+    </div>
+  );
 }

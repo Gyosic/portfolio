@@ -73,11 +73,6 @@ export const buildSchema = <T extends Record<string, Model>>(model: T) => {
           });
           break;
         case "date":
-          base = z.date({
-            required_error: fieldModel.errors?.required ?? "필수 입력값 입니다.",
-            invalid_type_error: fieldModel.errors?.invalid,
-          });
-          break;
         default:
           base = z.string({
             required_error: fieldModel.errors?.required ?? "필수 입력값 입니다.",

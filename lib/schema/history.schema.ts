@@ -21,7 +21,7 @@ export const historyModel = {
   role: { name: "직무", type: "text", required: true },
   position: { name: "직책", type: "text", required: true },
   department: { name: "부서", type: "text", required: true },
-  status: { name: "재직형태", type: "enum", enums: historyStatus, required: true },
+  status: { name: "고용형태", type: "enum", enums: historyStatus, required: true },
   description: { name: "설명", type: "textarea" },
   start: { name: "시작(입사)일", type: "date", required: true },
   end: { name: "종료(퇴사)일", type: "date" },

@@ -33,25 +33,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FilterBodyType, FilterType } from "@/lib/filter";
 import { thousandComma } from "@/lib/format";
-import { EducationType, educationModel } from "@/lib/schema/education.schema";
+import { HistoryType, historyModel } from "@/lib/schema/history.schema";
 
-interface EducationTableProps {
-  where: FilterType<typeof educationModel>[];
+interface HistoryTableProps {
+  where: FilterType<typeof historyModel>[];
   loading?: boolean;
   readonly?: boolean;
   columnVisibility?: VisibilityState;
   pagination?: PaginationState;
 }
 
-export function EducationTable({
+export function HistoryTable({
   where,
   loading = false,
   readonly = false,
   columnVisibility = {},
   pagination: _pagination = { pageIndex: 0, pageSize: 15 },
-}: EducationTableProps) {
+}: HistoryTableProps) {
   const router = useRouter();
-  const [data, setData] = useState<{ rows: EducationType[]; rowCount: number }>({
+  const [data, setData] = useState<{ rows: HistoryType[]; rowCount: number }>({
     rows: [],
     rowCount: 0,
   });
@@ -59,7 +59,7 @@ export function EducationTable({
   const [sorting, setSorting] = useState<SortingState>([{ id: "end", desc: true }]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const columns: ColumnDef<EducationType>[] = [
+  const columns: ColumnDef<HistoryType>[] = [
     {
       accessorKey: "no",
       header: () => <div className="text-center">No.</div>,
@@ -75,12 +75,12 @@ export function EducationTable({
       },
       enableHiding: false,
     },
-    ...Object.entries(educationModel ?? {}).map(([key, model]) => {
+    ...Object.entries(historyModel ?? {}).map(([key, model]) => {
       return {
         id: key,
         accessorFn: (row) => _get(row, key) ?? "",
         meta: model.name,
-        header: ({ column }: { column: Column<EducationType> }) => {
+        header: ({ column }: { column: Column<HistoryType> }) => {
           const sortBtn = () => {
             if (column.getIsSorted() === "asc") return <ArrowUp className="ml-2 h-4 w-4" />;
             else if (column.getIsSorted() === "desc") return <ArrowDown className="ml-2 h-4 w-4" />;
@@ -102,7 +102,7 @@ export function EducationTable({
         cell: ({ getValue }) => {
           return <div className="flex justify-center">{tableBodyData(getValue(), model)}</div>;
         },
-      } as ColumnDef<EducationType>;
+      } as ColumnDef<HistoryType>;
     }),
     {
       accessorKey: "action",
@@ -169,14 +169,14 @@ export function EducationTable({
     },
   ];
 
-  const getEducations = useCallback(async () => {
-    const query: FilterBodyType<typeof educationModel> = { where };
+  const getHistories = useCallback(async () => {
+    const query: FilterBodyType<typeof historyModel> = { where };
 
     if (sorting) Object.assign(query, { sort: sorting });
 
     if (pagination) Object.assign(query, { pagination });
 
-    const response = await fetch(`/api/educations`, {
+    const response = await fetch(`/api/histories`, {
       method: "POST",
       body: JSON.stringify(query),
       headers: {
@@ -191,37 +191,37 @@ export function EducationTable({
   }, [where, sorting, pagination]);
 
   const handleCreate = () => {
-    router.push("/admin/education/create");
+    router.push("/admin/history/create");
   };
-  const handleUpdate = (row: Row<EducationType>) => {
-    router.push(`/admin/education/${row.original._id}`);
+  const handleUpdate = (row: Row<HistoryType>) => {
+    router.push(`/admin/history/${row.original._id}`);
   };
-  const handleDelete = async (row: Row<EducationType>) => {
-    const res = await fetch(`/api/educations/${row.original._id}`, {
+  const handleDelete = async (row: Row<HistoryType>) => {
+    const res = await fetch(`/api/histories/${row.original._id}`, {
       method: "DELETE",
     });
 
     if (!res.ok)
-      return toast.error("[학위 삭제]", {
-        description: `학위 삭제에 실패했습니다. ${await res.text()}`,
+      return toast.error("[경력 삭제]", {
+        description: `경력 삭제에 실패했습니다. ${await res.text()}`,
         position: "top-right",
       });
 
-    toast("[학위 삭제]", {
-      description: "학위가 삭제되었습니다.",
+    toast("[경력 삭제]", {
+      description: "경력가 삭제되었습니다.",
       position: "top-right",
     });
 
-    getEducations();
+    getHistories();
   };
 
-  const onRowDoubleClick = async (row: Row<EducationType>) => {
+  const onRowDoubleClick = async (row: Row<HistoryType>) => {
     if (!readonly) handleUpdate(row);
   };
 
   useEffect(() => {
-    getEducations();
-  }, [getEducations]);
+    getHistories();
+  }, [getHistories]);
 
   return (
     <div className="mt-3 flex h-full flex-col gap-1">

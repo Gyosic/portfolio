@@ -3,6 +3,7 @@
 import {
   FolderGit2,
   GraduationCap,
+  History,
   HomeIcon,
   LightbulbIcon,
   Mail,
@@ -41,6 +42,11 @@ const Navbar = ({ lng, className }: NavbarProps) => {
       title: "Education",
       icon: <GraduationCap className="h-full w-full" />,
       href: "/education",
+    },
+    {
+      title: "History",
+      icon: <History className="h-full w-full" />,
+      href: "/history",
     },
     {
       title: "Projects",
