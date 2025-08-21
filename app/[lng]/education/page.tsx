@@ -1,6 +1,8 @@
 import { api } from "@/config";
 import { Education } from "./Education";
 
+export const dynamic = "force-dynamic";
+
 const getEducations = async () => {
   try {
     const res = await fetch(new URL("/api/educations", api.baseurl), {

@@ -2,6 +2,8 @@ import { api } from "@/config";
 import { I18nextPageParams } from "@/lib/i18n/config";
 import { Project } from "./Project";
 
+export const dynamic = "force-dynamic";
+
 const getProjects = async () => {
   try {
     const res = await fetch(new URL("/api/projects", api.baseurl), {

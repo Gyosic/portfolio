@@ -6,7 +6,7 @@ interface SkillPageProps {
   params: I18nextPageParams;
 }
 
-export default async function SkillPate({ params }: SkillPageProps) {
+export default async function SkillPage({ params }: SkillPageProps) {
   const { lng } = await params;
 
   return <Skill lng={lng} personal={personal} />;

@@ -1,6 +1,8 @@
 import { api } from "@/config";
 import { History } from "./History";
 
+export const dynamic = "force-dynamic";
+
 const getHistorys = async () => {
   try {
     const res = await fetch(new URL("/api/histories", api.baseurl), {
