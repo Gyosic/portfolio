@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import TemplateFormItem from "@/components/shared/TemplateFormItem";
@@ -11,6 +13,7 @@ import { ProjectFormType, projectFormSchema, projectModel } from "@/lib/schema/p
 
 export default function ProjectCreate() {
   const router = useRouter();
+  const session = useSession();
 
   const form = useForm<ProjectFormType>({
     resolver: zodResolver(projectFormSchema),
@@ -31,6 +34,10 @@ export default function ProjectCreate() {
 
     router.back();
   });
+
+  useEffect(() => {
+    if (session.status === "unauthenticated") router.push("/admin");
+  }, [session]);
 
   return (
     <Form {...form}>

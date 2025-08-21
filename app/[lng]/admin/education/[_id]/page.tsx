@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { api } from "@/config";
+import { auth } from "@/lib/auth";
 import { EducationUpdate } from "./EducationUpdate";
 
 const getEducation = async (_id: string) => {
@@ -19,6 +21,9 @@ interface EducationUpdatePageProps {
 }
 
 export default async function EducationUpdatePage({ params }: EducationUpdatePageProps) {
+  const sessionContext = await auth();
+  if (!sessionContext) return redirect("/admin");
+
   const { _id } = await params;
 
   const education = await getEducation(_id);

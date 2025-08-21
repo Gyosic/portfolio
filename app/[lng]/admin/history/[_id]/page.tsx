@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { api } from "@/config";
+import { auth } from "@/lib/auth";
 import HistoryUpdate from "./HistoryUpdate";
 
 const getHistory = async (_id: string) => {
@@ -19,6 +21,9 @@ interface HistoryUpdatePageProps {
 }
 
 export default async function HistoryUpdatePage({ params }: HistoryUpdatePageProps) {
+  const sessionContext = await auth();
+  if (!sessionContext) return redirect("/admin");
+
   const { _id } = await params;
 
   const history = await getHistory(_id);

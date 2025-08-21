@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import TemplateFormItem from "@/components/shared/TemplateFormItem";
@@ -11,6 +13,7 @@ import { HistoryFormType, historyFormSchema, historyModel } from "@/lib/schema/h
 
 export default function HistoryCreate() {
   const router = useRouter();
+  const session = useSession();
 
   const form = useForm<HistoryFormType>({
     resolver: zodResolver(historyFormSchema),
@@ -31,6 +34,10 @@ export default function HistoryCreate() {
 
     router.back();
   });
+
+  useEffect(() => {
+    if (session.status === "unauthenticated") router.push("/admin");
+  }, [session]);
 
   return (
     <Form {...form}>

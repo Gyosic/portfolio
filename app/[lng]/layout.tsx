@@ -18,7 +18,10 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
     <CookieArea>
       <HexagonBackground className="absolute inset-0 z-0 flex items-center justify-center rounded-xl"></HexagonBackground>
 
-      <main className="relative flex h-dvh min-h-screen items-center justify-center break-words">
+      <main
+        suppressHydrationWarning
+        className="relative flex h-dvh min-h-screen items-center justify-center break-words"
+      >
         <Navbar lng={lngParam} />
         <div className="absolute right-0 bottom-0 z-10 flex items-center gap-2 p-4 md:top-0 md:bottom-auto">
           <ThemeToggler />

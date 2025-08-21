@@ -9,7 +9,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return !sessionContext ? (
     <main className="h-full w-full">{children}</main>
   ) : (
-    <SidebarProvider className="overflow-hidden bg-transparent">
+    <SidebarProvider suppressHydrationWarning className="overflow-hidden bg-transparent">
       <AppSidebar variant="sidebar" site={site} logo={logo} session={sessionContext} />
 
       <SidebarInset className="overflow-auto bg-transparent">

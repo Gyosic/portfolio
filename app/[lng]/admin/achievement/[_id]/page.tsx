@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { api } from "@/config";
+import { auth } from "@/lib/auth";
 import { AchievementUpdate } from "./AchievementUpdate";
 
 const getAchievement = async (_id: string) => {
@@ -19,6 +21,9 @@ interface AchievementUpdatePageProps {
 }
 
 export default async function AchievementUpdatePage({ params }: AchievementUpdatePageProps) {
+  const sessionContext = await auth();
+  if (!sessionContext) return redirect("/admin");
+
   const { _id } = await params;
 
   const achievement = await getAchievement(_id);

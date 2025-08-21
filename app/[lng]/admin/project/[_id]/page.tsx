@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { api } from "@/config";
+import { auth } from "@/lib/auth";
 import { ProjectUpdate } from "./ProjectUpdate";
 
 const getProject = async (_id: string) => {
@@ -19,6 +21,10 @@ interface ProjectUpdatePageProps {
 }
 
 export default async function ProjectUpdatePage({ params }: ProjectUpdatePageProps) {
+  const sessionContext = await auth();
+
+  if (!sessionContext) return redirect("/admin");
+
   const { _id } = await params;
 
   const project = await getProject(_id);
