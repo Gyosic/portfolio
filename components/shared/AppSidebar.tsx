@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Session } from "next-auth";
+import { useTheme } from "next-themes";
 import { useEffect } from "react";
 import { NavLinks } from "@/components/shared/NavLinks";
 import { NavMain } from "@/components/shared/NavMain";
@@ -18,7 +19,6 @@ import {
 } from "@/components/ui/sidebar";
 import type { LogoType, SiteType } from "@/config";
 import { useNav, useUser } from "@/hooks/use-nav";
-import { isDark } from "@/lib/theme";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   logo: LogoType;
@@ -31,6 +31,7 @@ export function AppSidebar({ site, logo, session, ...props }: AppSidebarProps) {
   const setUser = useUser((state) => state.setUser);
   const sysNav = useNav((state) => state.sysNav);
   const links = useNav((state) => state.links);
+  const { theme = "system" } = useTheme();
 
   useEffect(() => {
     const { user: sessionUser } = session || {};
@@ -45,7 +46,7 @@ export function AppSidebar({ site, logo, session, ...props }: AppSidebarProps) {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <img src={isDark() ? logo.dark : logo.light} alt="Logo" />
+                  <img src={theme === "dark" ? logo.dark : logo.light} alt="Logo" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{site.name}</span>
