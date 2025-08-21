@@ -1,6 +1,7 @@
 "use client";
 
 import { Circle, Heart, User2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import FramerWrapper from "@/components/animation/FramerWrapper";
 import AchievementCards from "@/components/shared/AchievementCard";
 import Heading from "@/components/shared/Heading";
@@ -16,18 +17,24 @@ interface AboutProps {
   lng: Language;
   achievements: AchievementType[];
 }
+
 export function About({ personal, lng, achievements }: AboutProps) {
   const { t, ready } = useTranslation(lng, "translation", {
     useSuspense: false,
   });
+  const [mounted, setMounted] = useState(false);
 
-  if (!ready) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!ready || !mounted) return null;
 
   const items = personal.about.hobbies.map((hobby) => ({ hobby: t(hobby) }));
 
   return (
     // ABOUT PAGE
-    <div className="relative flex h-full w-full flex-col items-start justify-center gap-5 overflow-auto max-sm:justify-start">
+    <div className="relative flex h-full w-full flex-col items-start justify-center gap-5 overflow-auto px-40 max-sm:justify-start">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <User2 className="h-4 w-4" />
         About me

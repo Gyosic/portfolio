@@ -13,7 +13,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <AppSidebar variant="sidebar" site={site} logo={logo} session={sessionContext} />
 
       <SidebarInset className="overflow-auto bg-transparent">
-        <main className="flex h-full w-full flex-col justify-center">{children}</main>
+        <main className="flex h-full w-full flex-col justify-center px-2">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

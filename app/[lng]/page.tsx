@@ -13,7 +13,7 @@ interface DefaultPageProps {
 export default async function Page({ params }: DefaultPageProps) {
   const { lng: lngParams } = await params;
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full justify-between px-40">
       {/* LEFT SIDE  */}
       <FramerWrapper
         className="flex h-full w-auto flex-1 flex-col justify-start gap-4"

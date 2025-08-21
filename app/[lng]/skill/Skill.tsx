@@ -26,7 +26,7 @@ export function Skill({ personal }: SkillProps) {
   }));
   const os = personal.skill.os.map((o) => ({ name: o, icon: iconMap?.[o.toLowerCase()] }));
   return (
-    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto">
+    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto px-40">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <LightbulbIcon className="h-4 w-4" />
         My Skills
