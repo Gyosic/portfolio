@@ -1,19 +1,10 @@
 "use client";
 
-import {
-  Building2,
-  FolderGit2,
-  GraduationCap,
-  HomeIcon,
-  LightbulbIcon,
-  Mail,
-  Settings,
-  User,
-} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { createElement, useEffect, useMemo, useState } from "react";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/components/animation/DockAnimation";
+import { useNav } from "@/hooks/use-nav";
 import { Language } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
@@ -22,56 +13,7 @@ interface NavbarProps {
   className?: string;
 }
 const Navbar = ({ lng, className }: NavbarProps) => {
-  const data = [
-    {
-      title: "Home",
-      icon: <HomeIcon className="h-full w-full" />,
-      href: "/",
-    },
-    {
-      title: "About",
-      icon: <User className="h-full w-full" />,
-      href: "/about",
-    },
-    {
-      title: "Skills",
-      icon: <LightbulbIcon className="h-full w-full" />,
-      href: "/skill",
-    },
-    {
-      title: "Education",
-      icon: <GraduationCap className="h-full w-full" />,
-      href: "/education",
-    },
-    {
-      title: "History",
-      icon: <Building2 className="h-full w-full" />,
-      href: "/history",
-    },
-    {
-      title: "Projects",
-      icon: <FolderGit2 className="h-full w-full" />,
-      href: "/project",
-    },
-
-    {
-      title: "Contact us",
-      icon: <Mail className="h-full w-full" />,
-      href: "/contact",
-    },
-    {
-      title: "Admin",
-      icon: <Settings className="h-full w-full" />,
-      href: "/admin",
-      items: [
-        {
-          title: "Projects",
-          href: "/admin/projects",
-          icon: <Settings className="h-full w-full" />,
-        },
-      ],
-    },
-  ];
+  const appNav = useNav((state) => state.appNav[0].items);
   const [scrolling, setScrolling] = useState(false);
   const pathname = usePathname();
   const href = useMemo(() => {
@@ -102,17 +44,17 @@ const Navbar = ({ lng, className }: NavbarProps) => {
       )}
     >
       <Dock className="items-end rounded-full pb-3">
-        {data.map((item, idx) => (
-          <Link href={item.href} key={idx}>
+        {appNav!.map((item, idx) => (
+          <Link href={item.url} key={idx}>
             <DockItem
               className={cn(
                 "aspect-square rounded-full bg-gray-200 dark:bg-neutral-800",
-                href === item.href && "!border !border-[var(--primary-sky)] bg-gray-100",
+                href === item.url && "!border !border-[var(--primary-sky)] bg-gray-100",
               )}
             >
-              <DockLabel>{item.title}</DockLabel>
-              <DockIcon className={cn(href === item.href && "text-[#2f7df4]")}>
-                {item.icon}
+              <DockLabel>{item.name}</DockLabel>
+              <DockIcon className={cn(href === item.url && "text-[#2f7df4]")}>
+                {item.icon && createElement(item.icon, { className: "h-full w-full" })}
               </DockIcon>
             </DockItem>
           </Link>

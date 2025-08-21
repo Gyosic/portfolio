@@ -34,7 +34,7 @@ export function About({ personal, lng, achievements }: AboutProps) {
 
   return (
     // ABOUT PAGE
-    <div className="relative flex h-full w-full flex-col items-start justify-center gap-5 overflow-auto px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
+    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <User2 className="h-4 w-4" />
         About me

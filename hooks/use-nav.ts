@@ -1,5 +1,18 @@
 import type { LucideIcon } from "lucide-react";
-import { Award, Building2, FolderGit2, Headset, LifeBuoy, School } from "lucide-react";
+import {
+  Award,
+  Building2,
+  FolderGit2,
+  GraduationCap,
+  Headset,
+  HomeIcon,
+  LifeBuoy,
+  LightbulbIcon,
+  Mail,
+  School,
+  Settings,
+  User as UserIcon,
+} from "lucide-react";
 import { User } from "next-auth";
 import { create } from "zustand";
 
@@ -14,6 +27,7 @@ export interface NavItem {
 
 interface NavState {
   sysNav: Array<NavItem>;
+  appNav: Array<NavItem>;
 
   links: Array<NavItem>;
   setLinks: (links: Array<NavItem>) => void;
@@ -31,6 +45,23 @@ const sysNav: Array<NavItem> = [
       { name: "프로젝트", url: "/admin/project", icon: FolderGit2 },
       { name: "학위", url: "/admin/education", icon: School },
       { name: "활동", url: "/admin/achievement", icon: Award },
+    ],
+  },
+];
+
+const appNav: Array<NavItem> = [
+  {
+    name: "메인",
+    url: "#",
+    items: [
+      { name: "Home", icon: HomeIcon, url: "/" },
+      { name: "About", icon: UserIcon, url: "/about" },
+      { name: "Skills", icon: LightbulbIcon, url: "/skill" },
+      { name: "Education", icon: GraduationCap, url: "/education" },
+      { name: "History", icon: Building2, url: "/history" },
+      { name: "Projects", icon: FolderGit2, url: "/project" },
+      { name: "Contact us", icon: Mail, url: "/contact" },
+      { name: "Admin", icon: Settings, url: "/admin" },
     ],
   },
 ];
@@ -57,6 +88,7 @@ const curNav: NavItem | null = null;
 
 export const useNav = create<NavState>((set) => ({
   sysNav,
+  appNav,
 
   links,
   setLinks: (links: Array<NavItem>) => set(() => ({ links })),

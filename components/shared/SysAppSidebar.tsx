@@ -20,15 +20,23 @@ import {
 import type { LogoType, SiteType } from "@/config";
 import { useNav, useUser } from "@/hooks/use-nav";
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+interface SysAppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   logo: LogoType;
   site: SiteType;
+  session: Session | null;
 }
 
-export function AppSidebar({ site, logo, ...props }: AppSidebarProps) {
-  const appNav = useNav((state) => state.appNav);
+export function SysAppSidebar({ site, logo, session, ...props }: SysAppSidebarProps) {
+  const user = useUser((state) => state.user);
+  const setUser = useUser((state) => state.setUser);
+  const sysNav = useNav((state) => state.sysNav);
   const links = useNav((state) => state.links);
   const { theme = "system" } = useTheme();
+
+  useEffect(() => {
+    const { user: sessionUser } = session || {};
+    if (sessionUser) setUser(sessionUser);
+  }, [session]);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -50,11 +58,14 @@ export function AppSidebar({ site, logo, ...props }: AppSidebarProps) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {appNav.map(({ name, items }, i) => (
+        {sysNav.map(({ name, items }, i) => (
           <NavMain name={name} items={items} key={`nav-${i}`} />
         ))}
         <NavLinks items={links} className="mt-auto" />
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={user} />
+      </SidebarFooter>
     </Sidebar>
   );
 }

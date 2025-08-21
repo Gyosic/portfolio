@@ -19,7 +19,7 @@ export function Contact({ lng }: ContactProps) {
       <div className="flex w-full flex-col gap-3">
         <Heading>Contact Me!</Heading>
         <div className="flex h-auto w-full items-center justify-center">
-          <FramerWrapper y={0} scale={0.8}>
+          <FramerWrapper y={0} scale={0.8} className="min-w-100">
             <ContactForm lng={lng} />
           </FramerWrapper>
         </div>

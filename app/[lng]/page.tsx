@@ -13,13 +13,9 @@ interface DefaultPageProps {
 export default async function Page({ params }: DefaultPageProps) {
   const { lng: lngParams } = await params;
   return (
-    <div className="flex h-full w-full justify-between px-40 pt-14 max-sm:justify-start max-md:p-4 max-md:pt-20">
+    <div className="flex h-full w-full items-center justify-between px-40 pt-14 max-sm:items-start max-md:p-4 max-md:pt-20">
       {/* LEFT SIDE  */}
-      <FramerWrapper
-        className="flex h-full w-auto flex-1 flex-col justify-start gap-4"
-        y={0}
-        x={-100}
-      >
+      <FramerWrapper className="flex w-auto flex-1 flex-col justify-start gap-4" y={0} x={-100}>
         <HeroTexts lng={lngParams} personal={personal} />
         {/* <div className="h-fit w-full p-4 flex gap-4">
           <SocialLinks />
@@ -28,7 +24,7 @@ export default async function Page({ params }: DefaultPageProps) {
         <FortuneBtn lng={lngParams} personal={personal} />
       </FramerWrapper>
       {/* RIGHT SIDE image  */}
-      <FramerWrapper className="relative block h-full flex-1 max-lg:hidden" y={0} x={100}>
+      <FramerWrapper className="relative block flex-1 max-lg:hidden" y={0} x={100}>
         {/* IMAGE  */}
         <HeroImage />
       </FramerWrapper>
