@@ -20,7 +20,7 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
 
       <main className="relative flex h-dvh min-h-screen items-center justify-center break-words">
         <Navbar lng={lngParam} />
-        <div className="absolute top-0 right-0 z-10 flex items-center gap-2 p-4">
+        <div className="absolute top-0 right-0 z-10 flex items-center gap-2 p-4 max-md:bottom-0">
           <ThemeToggler />
           <LanguageSwitcher lng={lngParam} />
         </div>

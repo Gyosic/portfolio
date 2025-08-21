@@ -2,7 +2,7 @@
 
 import type { VariantProps } from "class-variance-authority";
 import { useTheme } from "next-themes";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { buttonVariants } from "@/components/ui/button";
 import {
   ThemeToggleButton,
@@ -17,6 +17,14 @@ export function ThemeToggler(
   const handleThemeToggle = useCallback(() => {
     startTransition(() => setTheme((prev) => (prev === "light" ? "dark" : "light")));
   }, [setTheme, startTransition]);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <ThemeToggleButton
