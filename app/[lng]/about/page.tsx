@@ -2,6 +2,8 @@ import { api, personal } from "@/config";
 import { I18nextPageParams } from "@/lib/i18n/config";
 import { About } from "./About";
 
+export const dynamic = "force-dynamic";
+
 const getAchievements = async () => {
   try {
     const res = await fetch(new URL("/api/achievements", api.baseurl), {
