@@ -33,7 +33,7 @@ export function Skill({ personal }: SkillProps) {
     return { name: label, icon };
   });
   return (
-    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto px-40">
+    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto px-40 pt-14 pb-4 max-md:p-4 max-md:pt-20">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <LightbulbIcon className="h-4 w-4" />
         My Skills

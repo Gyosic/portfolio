@@ -21,6 +21,8 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { Language } from "@/lib/i18n/config";
+import { useTranslation } from "@/lib/i18n/react";
 import type zodFile from "@/lib/schema/file";
 import type { Model } from "@/lib/schema/model";
 import { cn } from "@/lib/utils";
@@ -31,6 +33,7 @@ interface FormItemComponentProps {
   fieldModel: Model;
   labelCls?: string;
   className?: string;
+  lng?: Language;
 }
 function FormItemComponent({
   children,
@@ -38,11 +41,16 @@ function FormItemComponent({
   labelCls,
   isForm,
   className,
+  lng = "ko",
 }: FormItemComponentProps) {
+  const { t } = useTranslation(lng, "translation", {
+    useSuspense: false,
+  });
+
   if (isForm)
     return (
       <FormItem className={cn(className)}>
-        <FormLabel className={cn(labelCls)}>{fieldModel.name}</FormLabel>
+        <FormLabel className={cn(labelCls)}>{t(fieldModel.name)}</FormLabel>
         <FormControl>{children}</FormControl>
         {fieldModel.desc && (
           <FormDescription className="text-gray-500 text-xs">{fieldModel.desc}</FormDescription>
@@ -58,6 +66,7 @@ interface TemplateFormItemProps<T extends FieldValues, K extends FieldPath<T>> {
   labelPosition?: "top" | "left";
   labelCls?: string;
   isForm?: boolean;
+  lng?: Language;
 }
 
 export default function TemplateFormItem<T extends FieldValues, K extends FieldPath<T>>({
@@ -66,8 +75,12 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
   labelPosition = "top",
   labelCls,
   isForm = true,
+  lng = "ko",
 }: TemplateFormItemProps<T, K>) {
-  // const { getValues, setError, clearErrors } = useFormContext();
+  const { t } = useTranslation(lng, "translation", {
+    useSuspense: false,
+  });
+
   const enums = useMemo(() => {
     if (fieldModel?.enums) {
       if (fieldModel.type === "hex-enum")
@@ -134,7 +147,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
           >
             <InputRange
               type="number"
-              placeholder={fieldModel?.placeholder ?? `입력하세요.`}
+              placeholder={fieldModel?.placeholder ?? t("Please enter")}
               {...field}
               value={field?.value}
             />
@@ -149,12 +162,29 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
         >
           <Input
             type="number"
-            placeholder={fieldModel?.placeholder ?? `입력하세요.`}
+            placeholder={fieldModel?.placeholder ?? t("Please enter")}
             {...field}
             value={field?.value ?? ""}
             onChange={(e) =>
               field.onChange({ ...e, target: { ...e.target, value: Number(e.target.value) } })
             }
+          />
+        </FormItemComponent>
+      );
+    }
+    case "email": {
+      return (
+        <FormItemComponent
+          fieldModel={fieldModel}
+          isForm={isForm}
+          className={labelPosition === "left" ? "flex flex-1 items-center" : "flex-1"}
+          labelCls={labelCls}
+        >
+          <Input
+            type="email"
+            placeholder={fieldModel?.placeholder ?? t("Please enter")}
+            {...field}
+            value={field?.value ?? ""}
           />
         </FormItemComponent>
       );
@@ -169,7 +199,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
         >
           <Textarea
             readOnly={fieldModel.readOnly}
-            placeholder={fieldModel?.placeholder ?? `입력하세요.`}
+            placeholder={fieldModel?.placeholder ?? t("Please enter")}
             {...field}
             value={field?.value ?? ""}
           />
@@ -187,7 +217,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
           <div className="relative flex items-center">
             <Input
               type={visiblePassword ? "text" : "password"}
-              placeholder={fieldModel?.placeholder ?? `입력하세요.`}
+              placeholder={fieldModel?.placeholder ?? t("Please enter")}
               {...field}
               value={field?.value ?? ""}
             />
@@ -217,7 +247,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
               {...field}
               checked={field.value}
               onCheckedChange={field.onChange}
-              id={fieldModel.name}
+              id={t(fieldModel.name)}
             />
           </div>
         </FormItemComponent>
@@ -274,7 +304,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
       return fieldModel.multiple ? (
         <FormItem>
           <FormLabel>
-            {fieldModel.name}
+            {t(fieldModel.name)}
             <Input
               {...field}
               value=""
@@ -333,7 +363,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
       ) : (
         <FormItem>
           <FormLabel>
-            {fieldModel.name}
+            {t(fieldModel.name)}
             <Input
               {...field}
               ref={fileInputRef}
@@ -471,7 +501,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
           <div className="relative w-full">
             <Input
               readOnly={fieldModel.readOnly}
-              placeholder={fieldModel?.placeholder ?? `입력하세요.`}
+              placeholder={fieldModel?.placeholder ?? t("Please enter")}
               {...field}
               value={field?.value ?? ""}
               onBlur={() => {

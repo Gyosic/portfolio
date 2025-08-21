@@ -18,7 +18,7 @@ interface HistoryProps {
 export function History({ histories }: HistoryProps) {
   return (
     // ABOUT PAGE
-    <div className="relative flex h-full w-full flex-col justify-center gap-5 overflow-hidden px-40 max-sm:justify-start">
+    <div className="relative flex h-full w-full flex-col justify-center gap-5 overflow-hidden px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <ClipboardClock className="h-4 w-4" />
         History

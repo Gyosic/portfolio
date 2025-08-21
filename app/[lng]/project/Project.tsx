@@ -28,7 +28,7 @@ export function Project({ projects, lng }: ProjectProps) {
 
   return (
     // PROJECT PAGE
-    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-hidden px-40">
+    <div className="relative flex h-full w-full flex-col items-start justify-center gap-5 overflow-hidden px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <Layers className="h-4 w-4" />
         Projects

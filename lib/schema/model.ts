@@ -13,6 +13,7 @@ export const model = z
         max: z.string().optional(),
         pattern: z.string().optional(),
         enum: z.string().optional(),
+        email: z.string().optional(),
       })
       .optional(),
     unique: z.boolean().optional(),

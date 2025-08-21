@@ -24,8 +24,9 @@ type ModelErrors = {
   max?: string;
   pattern?: string;
   enum?: string;
+  email?: string;
 };
-type ModelOptions = Omit<Model, "name" | "type"> & { errors?: ModelErrors };
+type ModelOptions = Omit<Model, "name"> & { errors?: ModelErrors };
 
 const withConstraints = (base: z.ZodTypeAny, opts: ModelOptions): z.ZodTypeAny => {
   let schema: z.ZodTypeAny = base;
@@ -35,6 +36,7 @@ const withConstraints = (base: z.ZodTypeAny, opts: ModelOptions): z.ZodTypeAny =
     let s = schema as z.ZodString;
     if (opts?.min != null) s = s.min(opts.min as number, errs?.min);
     if (opts?.max != null) s = s.max(opts.max as number, errs?.max);
+    if (opts.type === "email") s = s.email(errs?.email ?? "올바른 이메일 주소를 입력해주세요.");
     if (typeof opts?.regexp === "string") s = s.regex(new RegExp(opts.regexp), errs?.pattern);
     else if (typeof opts?.pattern === "string")
       s = s.regex(new RegExp(opts.pattern), errs?.pattern);
