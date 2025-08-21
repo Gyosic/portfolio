@@ -6,6 +6,7 @@ export const projects = pgTable("projects", {
   description: text(),
   skills: text().array(),
   link: text(),
+  repo: text(),
   role: text(),
   start: date(),
   end: date(),

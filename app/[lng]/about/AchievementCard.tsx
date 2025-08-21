@@ -1,9 +1,10 @@
 "use client";
 
 import FramerWrapper from "@/components/animation/FramerWrapper";
+import { tableBodyData } from "@/components/shared/DataTable";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { achievementModel } from "@/lib/schema/achievement.schema";
-import { tableBodyData } from "./DataTable";
+import { cn } from "@/lib/utils";
 
 interface AchievementCardProps {
   value: {
@@ -13,12 +14,13 @@ interface AchievementCardProps {
     type: string;
   };
   num: number;
+  className?: string;
 }
 
-const AchievementCards: React.FC<AchievementCardProps> = ({ value, num }) => {
+const AchievementCards: React.FC<AchievementCardProps> = ({ value, num, className }) => {
   return (
     <FramerWrapper
-      className="min-w-[32%] max-w-[32%] max-lg:max-w-full"
+      className={cn("max-w-[32%] max-lg:max-w-full", className)}
       y={0}
       scale={0.8}
       delay={num / 4}

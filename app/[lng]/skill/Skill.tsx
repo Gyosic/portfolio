@@ -4,7 +4,7 @@ import Heading from "@/components/shared/Heading";
 import { Badge } from "@/components/ui/badge";
 import { PersonalType } from "@/config";
 import { Language } from "@/lib/i18n/config";
-import { iconMap } from "@/lib/icon";
+import { skills } from "@/lib/skill";
 import SkillsFooter from "./SkillFooter";
 
 interface SkillProps {
@@ -12,19 +12,26 @@ interface SkillProps {
   lng: Language;
 }
 export function Skill({ personal }: SkillProps) {
-  const programmingLanguages = personal.skill.languages.map((l) => ({
-    name: l,
-    icon: iconMap?.[l.toLowerCase()],
-  }));
-  const frameworks = personal.skill.frameworks.map((f) => ({
-    name: f,
-    icon: iconMap?.[f.toLowerCase()],
-  }));
-  const tools = personal.skill.tools.map((t) => ({
-    name: t,
-    icon: iconMap?.[t.toLowerCase()],
-  }));
-  const os = personal.skill.os.map((o) => ({ name: o, icon: iconMap?.[o.toLowerCase()] }));
+  const programmingLanguages = personal.skill.languages.map((l) => {
+    const { label = l, icon = "" } = skills.find(({ value }) => value === l.toLowerCase()) ?? {};
+
+    return { name: label, icon };
+  });
+  const frameworks = personal.skill.frameworks.map((f) => {
+    const { label = f, icon = "" } = skills.find(({ value }) => value === f.toLowerCase()) ?? {};
+
+    return { name: label, icon };
+  });
+  const tools = personal.skill.tools.map((t) => {
+    const { label = t, icon = "" } = skills.find(({ value }) => value === t.toLowerCase()) ?? {};
+
+    return { name: label, icon };
+  });
+  const os = personal.skill.os.map((o) => {
+    const { label = o, icon = "" } = skills.find(({ value }) => value === o.toLowerCase()) ?? {};
+
+    return { name: label, icon };
+  });
   return (
     <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-auto px-40">
       <Badge variant="secondary" className="gap-1.5 py-1">

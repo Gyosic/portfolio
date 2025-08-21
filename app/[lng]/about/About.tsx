@@ -3,7 +3,6 @@
 import { Circle, Heart, User2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import FramerWrapper from "@/components/animation/FramerWrapper";
-import AchievementCards from "@/components/shared/AchievementCard";
 import Heading from "@/components/shared/Heading";
 import { Badge } from "@/components/ui/badge";
 import { PersonalType } from "@/config";
@@ -11,6 +10,7 @@ import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
 import { AchievementType } from "@/lib/schema/achievement.schema";
 import Aboutfooter from "./Aboutfooter";
+import AchievementCards from "./AchievementCard";
 
 interface AboutProps {
   personal: PersonalType;
@@ -76,9 +76,9 @@ export function About({ personal, lng, achievements }: AboutProps) {
       <div className="flex w-full flex-col gap-5">
         <Heading>{t("Awards/Certificates/Others")}</Heading>
 
-        <div className="flex w-full flex-row flex-wrap gap-3 max-lg:flex-col">
+        <div className="flex w-full flex-wrap gap-3 max-lg:flex-col">
           {achievements.map((val, indx) => {
-            return <AchievementCards key={indx} value={val} num={indx} />;
+            return <AchievementCards className="flex-1" key={indx} value={val} num={indx} />;
           })}
         </div>
       </div>
