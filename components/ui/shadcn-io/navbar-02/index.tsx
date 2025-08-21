@@ -19,13 +19,14 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { isDark } from "@/lib/theme";
 import { LogoType } from '@/config';
+import { useTheme } from 'next-themes';
 
 // Simple logo component for the navbar
 const Logo = ({logo}: {logo:LogoType}) => {
+  const { theme } = useTheme();
   return (
-    <img src={isDark() ? logo.dark : logo.light} alt="Logo" className="size-8" />
+    <img src={theme === "dark" ? logo.dark : logo.light} alt="Logo" className="size-8" />
   );
 };
 

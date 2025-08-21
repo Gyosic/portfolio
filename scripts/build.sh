@@ -21,4 +21,7 @@ cp -r public dist/public
 
 echo "✅ 빌드 완료: ./dist"
 
+echo "빌드 결과물 압축 중..."
 tar -cJf portfolio.tar.xz --no-xattrs ./dist
+
+echo "✅ 압축 완료: ./dms.tar.xz"

@@ -22,7 +22,7 @@ const { version } = packageJson;
 
 export const config = {
   matcher: [
-    `/((?!favicon.ico|api/rooms|api/users|_next/image|_next/static|workers/|welcome/|avatars/|[^/]+/signin|[^/]+/signup|[^/]+/error|[^/]+/tv|[^/]+/meet|.*\\.(?:jpg|jpeg|png|gif|svg|webp|ico)|[^/]+/languages/.+|api/auth/.+).{1,})`,
+    `/((?!favicon.ico|api/rooms|api/users|_next/image|_next/static|workers/|welcome/|avatars/|[^/]+/signin|[^/]+/signup|[^/]+/error|[^/]+/tv|[^/]+/meet|.*\\.(?:jpg|jpeg|png|gif|svg|webp|ico)|(?:[^/]+/)?languages/.+|api/auth/.+).{1,})`,
     `/`,
   ],
 };
