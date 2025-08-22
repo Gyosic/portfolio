@@ -23,7 +23,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
-import type zodFile from "@/lib/schema/file";
+import type { FileType } from "@/lib/schema/file.schema";
 import type { Model } from "@/lib/schema/model";
 import { cn } from "@/lib/utils";
 
@@ -277,23 +277,23 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
       );
     }
     case "file": {
-      const getFileProperties = ({ file }: { file: File | z.infer<typeof zodFile> }) => {
-        if (!file) return { url: "", name: "" };
+      const getFileProperties = ({ file }: { file: File | FileType }) => {
+        if (!file) return { src: "", name: "" };
 
         if (file instanceof File) {
           const { type = "", name = "", size = 0, lastModified = Date.now() } = file;
           return {
             isImageType: type.startsWith("image"),
-            url: URL.createObjectURL(file),
+            src: URL.createObjectURL(file),
             name,
             size,
             lastModified,
           };
         } else {
-          const { mimetype = "", url = "", originalname = "", size = 0, lastModified } = file || {};
+          const { type = "", src = "", originalname = "", size = 0, lastModified } = file || {};
           return {
-            isImageType: mimetype.startsWith("image"),
-            url: `/api/files${url}`,
+            isImageType: type.startsWith("image"),
+            src: `/api/files${src}`,
             name: originalname,
             size,
             lastModified,
@@ -322,11 +322,11 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
                 파일 선택
               </Button>
               {inputValue?.length > 0 ? (
-                inputValue?.map((file: File | z.infer<typeof zodFile>, i: number) => {
+                inputValue?.map((file: File | FileType, i: number) => {
                   return file ? (
                     <div key={i} className="flex w-full items-center">
                       <Image
-                        src={getFileProperties({ file }).url}
+                        src={getFileProperties({ file }).src}
                         alt="preview"
                         className="mr-2 size-20 max-h-20 max-w-20 rounded-full border object-contain"
                         width="0"
@@ -379,7 +379,7 @@ export default function TemplateFormItem<T extends FieldValues, K extends FieldP
             <div className="flex w-full items-center">
               {inputValue?.length ? (
                 <Image
-                  src={getFileProperties({ file: inputValue }).url}
+                  src={getFileProperties({ file: inputValue }).src}
                   alt="preview"
                   className="mr-2 size-20 max-h-20 max-w-20 rounded-full border object-contain"
                   width="0"

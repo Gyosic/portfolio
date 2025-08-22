@@ -1,10 +1,12 @@
 import { z } from "zod";
 
-export default z.object({
+export const fileSchema = z.object({
   filename: z.string(),
   lastModified: z.number(),
-  mimetype: z.string(),
+  type: z.string(),
   originalname: z.string(),
   size: z.number(),
-  url: z.string(),
+  src: z.string(),
 });
+
+export type FileType = z.infer<typeof fileSchema>;
