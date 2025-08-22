@@ -7,7 +7,6 @@ import { uploadFormSchema } from "@/lib/schema/upload.schema";
 import { uploads } from "@/lib/schema/upload.table";
 
 const storageName = "uploads";
-const fileSystemService = new FileSystem({ storageName });
 
 // Disable Next.js body parsing for this route
 export const config = {
@@ -22,6 +21,7 @@ export async function POST(req: NextRequest) {
   if (!session) return NextResponse.json("인증되지 않은 요청입니다.", { status: 401 });
 
   try {
+    const fileSystemService = new FileSystem({ storageName });
     const formData = await req.formData();
     const { file, ...data } = Object.fromEntries(formData.entries());
 

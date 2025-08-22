@@ -4,10 +4,11 @@ import FileSystem from "@/lib/fileSystem";
 
 type Params = { filepath: string[] };
 
-const fileSystemService = new FileSystem({ storageName: "uploads" });
+const storageName = "uploads";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<Params> }) {
   try {
+    const fileSystemService = new FileSystem({ storageName });
     const { filepath: _filepath } = await params;
     const filepath = _filepath.join("/");
 
