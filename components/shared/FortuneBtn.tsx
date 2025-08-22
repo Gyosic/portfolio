@@ -96,7 +96,7 @@ export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
             <DialogTitle className="h-fit">
               <TypingText duration={10} text={fortune.summary} className="font-bold text-3xl" />
               <DialogDescription>
-                {fortune.created_at && date(new Date(fortune.created_at), { type: "ymd" })}
+                {fortune.created_at && date(new Date(fortune.created_at)).substring(0, 10)}
               </DialogDescription>
             </DialogTitle>
             <div className="flex h-full w-full flex-col gap-2">

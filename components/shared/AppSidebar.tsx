@@ -1,24 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { NavLinks } from "@/components/shared/NavLinks";
 import { NavMain } from "@/components/shared/NavMain";
-// import { NavProjects } from "@/components/NavProjects";
-import { NavUser } from "@/components/shared/NavUser";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import type { LogoType, SiteType } from "@/config";
-import { useNav, useUser } from "@/hooks/use-nav";
+import { useNav } from "@/hooks/use-nav";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   logo: LogoType;
@@ -27,8 +24,14 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ site, logo, ...props }: AppSidebarProps) {
   const appNav = useNav((state) => state.appNav);
-  const links = useNav((state) => state.links);
+  const sysNav = useNav((state) => state.sysNav);
   const { theme = "system" } = useTheme();
+  const session = useSession();
+
+  const menu = useMemo(() => {
+    if (session.status === "authenticated") return [...appNav, ...sysNav];
+    else return appNav;
+  }, [session]);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -50,10 +53,10 @@ export function AppSidebar({ site, logo, ...props }: AppSidebarProps) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {appNav.map(({ name, items }, i) => (
+        {menu.map(({ name, items }, i) => (
           <NavMain name={name} items={items} key={`nav-${i}`} />
         ))}
-        <NavLinks items={links} className="mt-auto" />
+        <NavLinks className="mt-auto" />
       </SidebarContent>
     </Sidebar>
   );

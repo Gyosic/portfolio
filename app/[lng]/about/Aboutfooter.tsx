@@ -18,7 +18,7 @@ const Aboutfooter = ({ personal, lng }: AboutfooterProps) => {
     {
       name: t("Language"),
       answer: personal.about.languages.map((l) => t(l)).join(","),
-      icon: <Languages className="h-11 w-11" />,
+      icon: <Languages className="h-8 w-8" />,
     },
     {
       name: t("Nationality"),
@@ -37,7 +37,7 @@ const Aboutfooter = ({ personal, lng }: AboutfooterProps) => {
       {items.map((val, indx) => {
         return (
           <div className="relative w-fit p-1" key={indx}>
-            <h1 className="icon_underline relative flex gap-2 font-poppins font-semibold text-3xl text-primary max-sm:text-2xl">
+            <h1 className="icon_underline relative flex items-center gap-2 font-poppins font-semibold text-3xl text-primary max-sm:text-2xl">
               {val.icon}
               {val.name}
             </h1>

@@ -3,10 +3,11 @@ import { CookieArea } from "@/components/shared/CookieArea";
 import { HexagonBackground } from "@/components/shared/HexagonBackground";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import Navbar from "@/components/shared/Navbar";
+import { SignoutBtn } from "@/components/shared/SignoutBtn";
 import { ThemeToggler } from "@/components/shared/ThemeToggler";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { logo, site } from "@/config";
-
+import { auth } from "@/lib/auth";
 import type { I18nextPageParams } from "@/lib/i18n/config";
 
 interface DefaultLayoutProps extends React.PropsWithChildren {
@@ -15,6 +16,7 @@ interface DefaultLayoutProps extends React.PropsWithChildren {
 
 export default async function DefaultLayout({ children, params }: DefaultLayoutProps) {
   const { lng: lngParam } = await params;
+  const sessionContext = await auth();
 
   return (
     <CookieArea>
@@ -31,6 +33,7 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
             <SidebarTrigger className="-ml-1 hidden max-sm:block" />
             <ThemeToggler />
             <LanguageSwitcher lng={lngParam} />
+            {!!sessionContext && <SignoutBtn />}
           </div>
           {children}
         </main>
