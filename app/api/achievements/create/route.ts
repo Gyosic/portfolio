@@ -1,6 +1,7 @@
 import { getTableColumns } from "drizzle-orm";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/pg";
 import { AchievementFormType, achievementFormSchema } from "@/lib/schema/achievement.schema";
 import { achievements } from "@/lib/schema/achievement.table";
@@ -8,6 +9,10 @@ import { achievements } from "@/lib/schema/achievement.table";
 const achievementColumns = getTableColumns(achievements);
 
 export async function POST(req: NextRequest & NextApiRequest) {
+  const session = await auth();
+
+  if (!session) return NextResponse.json("인증되지 않은 요청입니다.", { status: 401 });
+
   const achievement: AchievementFormType = await req.json();
 
   const properties = achievementFormSchema.parse(achievement);

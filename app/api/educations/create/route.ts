@@ -1,6 +1,7 @@
 import { getTableColumns } from "drizzle-orm";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/pg";
 import { EducationFormType, educationFormSchema } from "@/lib/schema/education.schema";
 import { educations } from "@/lib/schema/education.table";
@@ -8,6 +9,10 @@ import { educations } from "@/lib/schema/education.table";
 const educationColumns = getTableColumns(educations);
 
 export async function POST(req: NextRequest & NextApiRequest) {
+  const session = await auth();
+
+  if (!session) return NextResponse.json("인증되지 않은 요청입니다.", { status: 401 });
+
   const education: EducationFormType = await req.json();
 
   const properties = educationFormSchema.parse(education);

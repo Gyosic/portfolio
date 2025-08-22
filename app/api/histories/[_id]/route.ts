@@ -2,6 +2,7 @@ import { eq, getTableColumns } from "drizzle-orm";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/pg";
 import { historyFormSchema } from "@/lib/schema/history.schema";
 import { histories } from "@/lib/schema/history.table";
@@ -17,6 +18,10 @@ export async function PUT(
   req: NextRequest & NextApiRequest,
   { params }: { params: Promise<Params> },
 ) {
+  const session = await auth();
+
+  if (!session) return NextResponse.json("인증되지 않은 요청입니다.", { status: 401 });
+
   const { _id } = await params;
 
   if (!_id) return NextResponse.json({ message: "Device serial_no is required" }, { status: 400 });
@@ -52,6 +57,10 @@ export async function DELETE(
   req: NextRequest & NextApiRequest,
   { params }: { params: Promise<Params> },
 ) {
+  const session = await auth();
+
+  if (!session) return NextResponse.json("인증되지 않은 요청입니다.", { status: 401 });
+
   const { _id } = await params;
 
   if (!_id) return NextResponse.json({ message: "History '_id' is required" }, { status: 400 });
