@@ -4,10 +4,9 @@ import {
   Building2,
   FolderGit2,
   GraduationCap,
-  Headset,
   HomeIcon,
-  LifeBuoy,
   LightbulbIcon,
+  LogIn,
   Mail,
   School,
   Settings,
@@ -23,6 +22,7 @@ export interface NavItem {
   isActive?: boolean;
   isPromotion?: boolean;
   items?: Array<NavItem>;
+  onClick?: () => void;
 }
 
 interface NavState {
@@ -66,23 +66,7 @@ const appNav: Array<NavItem> = [
   },
 ];
 
-const links: Array<NavItem> = [
-  // {
-  //   name: "시스템정보",
-  //   url: "/info",
-  //   icon: ShieldAlert,
-  // },
-  {
-    name: "지원",
-    url: "#",
-    icon: LifeBuoy,
-  },
-  {
-    name: "문의",
-    url: "#",
-    icon: Headset,
-  },
-];
+const links: Array<NavItem> = [{ name: "관리자 로그인", url: "/admin", icon: LogIn }];
 
 const curNav: NavItem | null = null;
 
