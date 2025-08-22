@@ -197,4 +197,10 @@ export const skills = [
     icon: "https://cdn.jsdelivr.net/gh/Gyosic/devicon/icons/nextauth/nextauth-original.svg",
     color: "bg-gray-100 text-gray-800",
   },
+  {
+    label: "Nginx",
+    value: "nginx",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
+    color: "bg-gray-100 text-gray-800",
+  },
 ] as const;
