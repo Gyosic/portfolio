@@ -49,7 +49,7 @@ export function About({ personal, lng, achievements }: AboutProps) {
         </FramerWrapper>
       </div>
       <FramerWrapper
-        className="flex w-full flex-row justify-between max-lg:flex-col"
+        className="flex w-full flex-row justify-between max-lg:items-end"
         y={100}
         delay={0.3}
       >
@@ -59,12 +59,12 @@ export function About({ personal, lng, achievements }: AboutProps) {
         <h1 className="icon_underline relative flex gap-2 font-poppins font-semibold text-3xl text-primary max-sm:text-2xl">
           <Heart className="h-8 w-8" /> {t("Hobbies")}
         </h1>
-        <div className="flex h-fit w-full flex-row justify-between gap-7 p-2 max-lg:flex-col">
+        <div className="flex h-fit w-full flex-row justify-between gap-7 p-2">
           {items.map((val, indx) => {
             return (
               <div
                 key={indx}
-                className="flex flex-row items-center justify-center gap-2 pt-3 text-primary text-xl max-lg:justify-start"
+                className="flex flex-row flex-wrap items-center justify-center gap-2 pt-3 text-primary text-xl max-lg:justify-start"
               >
                 <Circle className="h-3 w-3" /> {val.hobby}
               </div>

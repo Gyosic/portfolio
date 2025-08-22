@@ -28,7 +28,7 @@ export function Project({ projects, lng }: ProjectProps) {
 
   return (
     // PROJECT PAGE
-    <div className="relative flex h-full w-full flex-col items-start justify-center gap-5 overflow-hidden px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
+    <div className="relative flex h-full w-full flex-col items-start gap-5 overflow-hidden px-40 pt-14 pb-4 max-sm:justify-start max-md:p-4 max-md:pt-20">
       <Badge variant="secondary" className="gap-1.5 py-1">
         <Layers className="h-4 w-4" />
         Projects
@@ -44,7 +44,7 @@ export function Project({ projects, lng }: ProjectProps) {
         </FramerWrapper>
       </div>
 
-      <div className="flex w-full flex-row flex-wrap gap-3 max-lg:flex-col">
+      <div className="flex w-full flex-row flex-wrap gap-3 max-lg:flex-col max-lg:flex-nowrap max-lg:overflow-auto">
         {projects.map((val, indx) => {
           return <ProjectCards key={indx} value={val} num={indx} />;
         })}
