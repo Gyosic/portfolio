@@ -99,6 +99,7 @@ export const personal = {
     youtube: process.env.PERSONAL_SOCIAL_YOUTUBE,
     facebook: process.env.PERSONAL_SOCIAL_FACEBOOK,
     tiktok: process.env.PERSONAL_SOCIAL_TIKTOK,
+    blog: process.env.PERSONAL_SOCIAL_BLOG,
   },
   skill: {
     bio: process.env.PERSONAL_SKILL_BIO,

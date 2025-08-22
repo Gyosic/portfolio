@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPinned, Phone } from "lucide-react";
+import { Mail, MapPinned, MessageSquareText, Phone } from "lucide-react";
 import { PersonalType } from "@/config";
 import { Language } from "@/lib/i18n/config";
 import { useTranslation } from "@/lib/i18n/react";
@@ -42,6 +42,10 @@ const HeroTexts = ({ lng, personal }: HeroTextProps) => {
       <span className="flex gap-2 font-rubik">
         <MapPinned />
         {t(personal?.[lng]?.location ?? "")}
+      </span>
+      <span className="flex gap-2 font-rubik">
+        <MessageSquareText />
+        {personal.social.blog}
       </span>
     </>
   );
