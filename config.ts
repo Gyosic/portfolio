@@ -101,6 +101,7 @@ export const personal = {
     tiktok: process.env.PERSONAL_SOCIAL_TIKTOK,
   },
   skill: {
+    bio: process.env.PERSONAL_SKILL_BIO,
     languages: process.env.PERSONAL_SKILL_LANGUAGES?.split(",") ?? [],
     frameworks: process.env.PERSONAL_SKILL_FRAMEWORKS?.split(",") ?? [],
     tools: process.env.PERSONAL_SKILL_TOOLS?.split(",") ?? [],

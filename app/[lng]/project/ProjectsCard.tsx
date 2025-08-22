@@ -43,7 +43,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
         </CardHeader>
 
         <CardContent className="flex flex-grow flex-col gap-4">
-          <pre className="max-h-40 overflow-auto text-wrap font-rubik text-muted-foreground text-sm leading-relaxed">
+          <pre className="max-h-30 overflow-auto text-wrap font-rubik text-muted-foreground text-sm leading-relaxed">
             {value.description}
           </pre>
 

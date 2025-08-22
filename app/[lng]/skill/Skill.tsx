@@ -41,7 +41,9 @@ export function Skill({ personal }: SkillProps) {
       <div className="flex w-full flex-col gap-3">
         <Heading>My Technical Experience/Skills.</Heading>
         <FramerWrapper y={0} x={200}>
-          <p className="w-full font-poppins text-primary text-xl max-sm:text-lg"></p>
+          <p className="w-full font-poppins text-primary text-xl max-sm:text-lg">
+            {personal.skill.bio}
+          </p>
         </FramerWrapper>
         <FramerWrapper y={100} delay={0.3} className="block w-full">
           <h1 className="text_underline relative mb-4 flex gap-2 font-poppins font-semibold text-2xl text-primary max-sm:text-xl">

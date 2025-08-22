@@ -132,6 +132,12 @@ export const skills = [
     color: "bg-blue-100 text-blue-700",
   },
   {
+    label: "Drizzle",
+    value: "drizzle",
+    icon: "https://cdn.jsdelivr.net/gh/Gyosic/devicon/icons/drizzle/drizzle-original.svg",
+    color: "bg-blue-100 text-blue-700",
+  },
+  {
     label: "Opensearch",
     value: "opensearch",
     icon: "https://cdn.jsdelivr.net/gh/Gyosic/devicon/icons/opensearch/opensearch-original.svg",
