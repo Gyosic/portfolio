@@ -2,7 +2,14 @@ import { ArrowUpRight, Github } from "lucide-react";
 import Link from "next/link";
 import FramerWrapper from "@/components/animation/FramerWrapper";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { ProjectType } from "@/lib/schema/project.schema";
 import { skills } from "@/lib/skill";
 import { cn } from "@/lib/utils";
@@ -30,6 +37,9 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
       >
         <CardHeader className="pb-2">
           <CardTitle className="font-bold text-primary text-xl">{value.title}</CardTitle>
+          <CardDescription>
+            {value.start} ~ {value?.end || "진행중"}
+          </CardDescription>
         </CardHeader>
 
         <CardContent className="flex flex-grow flex-col gap-4">
