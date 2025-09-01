@@ -18,6 +18,7 @@ mkdir -p dist
 cp -r .next/standalone/. dist/
 cp -r .next/static dist/.next/
 cp -r public dist/public
+rm -f dist/.env
 
 echo "✅ 빌드 완료: ./dist"
 

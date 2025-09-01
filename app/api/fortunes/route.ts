@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const prevDate = new Intl.DateTimeFormat(timezone).format(new Date(created_at!));
     const curDate = new Intl.DateTimeFormat(timezone).format(new Date());
 
-    if (!created_at || new Date(prevDate).getDate() < new Date(curDate).getDate()) {
+    if (!created_at || prevDate !== curDate) {
       const fortuneai = new Fortuneai();
       const fortune = await fortuneai.tell({
         birth,
