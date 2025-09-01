@@ -6,6 +6,7 @@ import { Poppins, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
+import { VisitTracker } from "@/components/shared/VisitTracker";
 import { Toaster } from "@/components/ui/sonner";
 import { logo, site } from "@/config";
 import type { I18nextPageParams } from "@/lib/i18n/config";
@@ -56,6 +57,7 @@ export default async function RootLayout({ children, params }: RootLayoutParams)
         <SessionProvider>
           <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
             {children}
+            <VisitTracker />
           </ThemeProvider>
         </SessionProvider>
         <Toaster />

@@ -5,13 +5,11 @@ import { NextResponse } from "next/server";
 
 import type { NextAuthRequest } from "next-auth/lib";
 import { auth } from "@/lib/auth";
-import authConfig from "@/lib/auth/config";
 import type { Language } from "@/lib/i18n/config";
 import { cookieName, fallbackLng, languages } from "@/lib/i18n/config";
 import { redirectStamp, reqStamp, resStamp } from "@/lib/log";
 // import { parse } from "@/lib/url";
 import packageJson from "@/package.json";
-import { site } from "./config";
 
 const { version } = packageJson;
 
