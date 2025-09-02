@@ -35,6 +35,7 @@ export const model = z
     order: z.number().optional(),
     onBlur: z.any().optional(),
     refine: z.any().optional(),
+    enableInput: z.boolean().optional(),
   })
   .catchall(z.unknown());
 

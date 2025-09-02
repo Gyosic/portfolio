@@ -9,6 +9,7 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
@@ -27,6 +28,7 @@ interface ComboboxProps<T extends Item> {
   contentCls?: string;
   placeholder?: string;
   label?: string;
+  enableInput?: boolean;
   multiple?: boolean;
   readOnly?: boolean;
   onValueChange?: (value?: string | string[]) => void;
@@ -38,6 +40,7 @@ export default function Combobox<T extends Item>({
   contentCls = "",
   placeholder = "선택하세요.",
   label = "",
+  enableInput = false,
   multiple = false,
   readOnly = false,
   onValueChange,
@@ -122,6 +125,7 @@ export default function Combobox<T extends Item>({
         onTouchMove={(e) => e.stopPropagation()}
       >
         <Command>
+          {enableInput && <CommandInput />}
           <CommandList>
             <CommandEmpty>선택할 항목이 없습니다.</CommandEmpty>
             <CommandGroup>

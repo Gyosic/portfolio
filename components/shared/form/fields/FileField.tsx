@@ -8,7 +8,7 @@ import { TemplateFormItemProps } from "@/components/shared/form/TemplateFormItem
 import { Button } from "@/components/ui/button";
 import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type zodFile from "@/lib/schema/file";
+import type { FileType } from "@/lib/schema/file.schema";
 
 export function FieldField<T extends FieldValues, K extends FieldPath<T>>({
   fieldModel,
@@ -23,23 +23,23 @@ export function FieldField<T extends FieldValues, K extends FieldPath<T>>({
   }, []);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const getFileProperties = ({ file }: { file: File | z.infer<typeof zodFile> }) => {
-    if (!file) return { url: "", name: "" };
+  const getFileProperties = ({ file }: { file: File | FileType }) => {
+    if (!file) return { src: "", name: "" };
 
     if (file instanceof File) {
       const { type = "", name = "", size = 0, lastModified = Date.now() } = file;
       return {
         isImageType: type.startsWith("image"),
-        url: URL.createObjectURL(file),
+        src: URL.createObjectURL(file),
         name,
         size,
         lastModified,
       };
     } else {
-      const { mimetype = "", url = "", originalname = "", size = 0, lastModified } = file || {};
+      const { type = "", src = "", originalname = "", size = 0, lastModified } = file || {};
       return {
-        isImageType: mimetype.startsWith("image"),
-        url: `/api/files${url}`,
+        isImageType: type.startsWith("image"),
+        src: `/api/files${src}`,
         name: originalname,
         size,
         lastModified,
@@ -105,11 +105,11 @@ export function FieldField<T extends FieldValues, K extends FieldPath<T>>({
           파일 선택
         </Button>
         {inputValue?.length > 0 ? (
-          inputValue?.map((file: File | z.infer<typeof zodFile>, i: number) => {
+          inputValue?.map((file: File | FileType, i: number) => {
             return file ? (
               <div key={i} className="flex w-full items-center">
                 <Image
-                  src={getFileProperties({ file }).url}
+                  src={getFileProperties({ file }).src}
                   alt="preview"
                   className="mr-2 size-20 max-h-20 max-w-20 rounded-full border object-contain"
                   width="0"
@@ -163,7 +163,7 @@ export function FieldField<T extends FieldValues, K extends FieldPath<T>>({
       <div className="flex w-full items-center">
         {inputValue?.length ? (
           <Image
-            src={getFileProperties({ file: inputValue }).url}
+            src={getFileProperties({ file: inputValue }).src}
             alt="preview"
             className="mr-2 size-20 max-h-20 max-w-20 rounded-full border object-contain"
             width="0"
