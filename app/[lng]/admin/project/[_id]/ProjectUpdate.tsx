@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import TemplateFormItem from "@/components/shared/TemplateFormItem";
+import { TemplateFormItem } from "@/components/shared/form/TemplateFormItem";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 import {
