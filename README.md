@@ -46,18 +46,18 @@ portfolio/
 ├── app/                    # Next.js App Router
 │   ├── [lng]/            # 다국어 라우팅
 │   │   ├── about/        # 소개 페이지
-│   │   ├── admin/        # 관리자 대시보드
+│   │   ├── admin/        # 관리자 메뉴
 │   │   ├── contact/      # 연락처 페이지
 │   │   ├── education/    # 교육 페이지
 │   │   ├── history/      # 경력 페이지
 │   │   ├── project/      # 프로젝트 페이지
 │   │   └── skill/        # 기술 페이지
 │   ├── api/              # API 라우트
-│   └── languages/        # 다국어 설정
+│   └── languages/        # 다국어
 ├── components/            # 재사용 가능한 컴포넌트
 │   ├── animation/        # 애니메이션 컴포넌트
 │   ├── shared/           # 공통 컴포넌트
-│   └── ui/               # UI 컴포넌트
+│   └── ui/               # Shadcn UI 컴포넌트
 ├── lib/                   # 유틸리티 및 설정
 │   ├── auth/             # 인증 관련
 │   ├── i18n/             # 국제화 설정
@@ -134,7 +134,7 @@ docker run --name postgres-portfolio \
   -e POSTGRES_DB=portfolio \
   -e POSTGRES_USER=your_username \
   -p 5432:5432 \
-  -d postgres:15
+  -d postgres:17
 
 # 컨테이너 상태 확인
 docker ps
