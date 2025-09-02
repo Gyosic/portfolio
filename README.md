@@ -180,11 +180,8 @@ PERSONAL_EMAIL="your-email@example.com"
 
 4. 데이터베이스 설정
 ```bash
-# Drizzle 스키마 생성
+# Drizzle 스키마 생성 & 데이터베이스 마이그레이션
 npm run drizzle:generate
-
-# 데이터베이스 마이그레이션
-npm run postdrizzle:generate
 ```
 
 5. 개발 서버 실행
