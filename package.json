@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "./scripts/build.sh",
     "start": "next start",
     "lint": "next lint",
-    "build:sh": "./scripts/build.sh",
     "drizzle:generate": "npx drizzle-kit generate",
     "postdrizzle:generate": "npx drizzle-kit push && tsx ./scripts/pg-trigger.ts",
     "genpass": "node genpass.js"

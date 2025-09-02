@@ -5,13 +5,13 @@ import { date } from "@/lib/format";
 
 const sysadmin = {
   _id: "sysadmin",
-  username: process.env.SYSADMIN_USERNAME || "gyosic",
+  username: process.env.SYSADMIN_USERNAME || "admin",
   password:
     process.env.SYSADMIN_PASSWORD ||
-    "zhyENa7/wugpvEZSUBDUwN4oOouxeQJB2nhV/CoQLsDJBMd0dHCssNHaULJEUjAxLtBX8VjpvjRs1AcMNj3deQ==",
+    "xtRmUu6S+nu6wg/6l42rjUgGIAaKXkL4YcSiccnqG5wlA5vG2vkyipTGEpaMeFkDMqtBFSI8UVizVtCIgxCssw==",
   salt:
     process.env.SYSADMIN_SALT ||
-    "I327IBpMKfltaM1pGsdgF/GUt77j0l8NQv7Lg8CRf1siC9tWyF1EI2dXD2w/StqgODZVNtulMPj6F5EKFUy1SA==",
+    "RwBVkOdQLjmvKv3RKLA4gFuEn6vqSv/L+Lj4YWUZ0sTcRQDqUHLKKRVvRTZItLcpeW6KJw8TBBaR0G7ct6+6ww==",
   is_sysadmin: true,
   name: "시스템관리자",
   role: "admin" as const,

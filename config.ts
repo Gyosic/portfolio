@@ -24,32 +24,6 @@ export const api = {
 
 export type ApiType = typeof api;
 
-const opensearchUrl = urlParse((process.env.OS_BASEURL as string) || "https://localhost:9200");
-export const opensearch = {
-  index: opensearchUrl?.pathname?.substring(1) || "",
-  node: opensearchUrl?.origin || "https://localhost:9200",
-  auth: {
-    username: opensearchUrl?.username ? decodeURIComponent(opensearchUrl.username) : "",
-    password: opensearchUrl?.password ? decodeURIComponent(opensearchUrl.password) : "",
-  },
-  ssl: { rejectUnauthorized: false },
-};
-
-export type OpensearchType = typeof opensearch;
-
-const opensearchAdUrl = urlParse((process.env.AD_BASEURL as string) || "https://localhost:9200");
-export const opensearchAd = {
-  index: opensearchAdUrl?.pathname?.substring(1) || "",
-  node: opensearchAdUrl?.origin || "https://localhost:9200",
-  auth: {
-    username: opensearchAdUrl?.username ? decodeURIComponent(opensearchAdUrl.username) : "",
-    password: opensearchAdUrl?.password ? decodeURIComponent(opensearchAdUrl.password) : "",
-  },
-  ssl: { rejectUnauthorized: false },
-};
-
-export type OpensearchAdType = typeof opensearchAdUrl;
-
 const psqlUrl = urlParse(
   (process.env.PG_BASEURL as string) || "postgresql://localhost:5432/postgres",
 );

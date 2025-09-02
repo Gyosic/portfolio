@@ -10,7 +10,7 @@ fi
 
 # 2. Next.js 빌드
 echo "Next.js 앱 빌드 중..."
-npm run build
+next build
 
 # 3. out 디렉토리 구성
 echo "dist 폴더 구성 중..."
