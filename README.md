@@ -128,6 +128,71 @@ docker run --name postgres-portfolio \
 docker ps
 ```
 
+## 🔧 문제 해결
+
+### PostgreSQL 연결 오류
+
+다음과 같은 오류가 발생하는 경우:
+
+```
+error: 호스트 "127.0.0.1", 사용자 "{username}", 데이터베이스 "portfolio", SSL 암호화 연결에 대한 설정이 pg_hba.conf 파일에 없습니다.
+```
+
+#### 해결 방법: pg_hba.conf 파일 수정
+
+**Ubuntu/Debian:**
+```bash
+# pg_hba.conf 파일 위치 확인
+sudo -u postgres psql -c "SHOW hba_file;"
+
+# 파일 편집
+sudo nano /etc/postgresql/*/main/pg_hba.conf
+
+# 다음 라인을 추가하거나 수정
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   all             all                                     trust
+host    all             all             127.0.0.1/32            md5
+host    all             all             ::1/128                 md5
+
+# PostgreSQL 재시작
+sudo systemctl restart postgresql
+```
+
+**macOS (Homebrew):**
+```bash
+# pg_hba.conf 파일 위치 확인
+brew --prefix postgresql
+# 일반적으로: /opt/homebrew/var/postgresql@17/
+
+# 파일 편집
+nano /opt/homebrew/var/postgresql@17/pg_hba.conf
+
+# 다음 라인 추가
+local   all             all                                     trust
+host    all             all             127.0.0.1/32            md5
+
+# PostgreSQL 재시작
+brew services restart postgresql@17
+```
+
+#### 해결 방법: Docker 사용 시
+
+```bash
+# 기존 컨테이너 제거
+docker rm -f postgres-portfolio
+
+# SSL 비활성화로 새로 실행
+docker run --name postgres-portfolio \
+  -e POSTGRES_PASSWORD=your_password \
+  -e POSTGRES_DB=portfolio \
+  -e POSTGRES_USER=your_username \
+  -p 5432:5432 \
+  -d postgres:17
+
+# 연결 테스트
+docker exec -it postgres-portfolio psql -U your_username -d portfolio
+```
+
 ### 설치
 
 1. 저장소 클론
