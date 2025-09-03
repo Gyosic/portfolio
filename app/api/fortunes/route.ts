@@ -6,30 +6,39 @@ import { fortunes } from "@/lib/schema/fortune.table";
 
 const timezone = process.env.TIMEZONE || "ko-KR";
 
+const fortuning = async (info: {
+  birth: string;
+  birthtime: string;
+  name: string;
+  gender: string;
+}) => {
+  const fortuneai = new Fortuneai();
+  const fortune = await fortuneai.tell({ ...info, userMessage: "오늘의 취업 운세" });
+
+  const returning = await db.insert(fortunes).values(fortune).returning();
+
+  return returning[0];
+};
+
 export async function POST(req: NextRequest) {
   const { birth, birthtime, name, gender } = await req.json();
 
   try {
     const rows = await db.select().from(fortunes).orderBy(desc(fortunes.created_at)).limit(1);
 
-    const [{ created_at, ...todayFortune } = {}] = rows;
+    if (!rows || !rows.length) {
+      const fortune = await fortuning({ birth, birthtime, name, gender });
+      return NextResponse.json(fortune);
+    }
+
+    const [{ created_at, ...todayFortune }] = rows;
     const prevDate = new Intl.DateTimeFormat(timezone).format(new Date(created_at!));
     const curDate = new Intl.DateTimeFormat(timezone).format(new Date());
 
-    if (!created_at || prevDate !== curDate) {
-      const fortuneai = new Fortuneai();
-      const fortune = await fortuneai.tell({
-        birth,
-        birthtime,
-        name,
-        gender,
-        userMessage: "오늘의 취업 운세",
-      });
+    if (prevDate !== curDate) {
+      const fortune = await fortuning({ birth, birthtime, name, gender });
 
-      await db.transaction(async (tx) => {
-        const returning = await tx.insert(fortunes).values(fortune).returning();
-        Object.assign(todayFortune, returning[0]);
-      });
+      Object.assign(todayFortune, fortune);
     }
 
     return NextResponse.json({ created_at, ...todayFortune });
