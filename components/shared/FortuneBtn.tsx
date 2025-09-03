@@ -32,6 +32,7 @@ export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
     useSuspense: false,
   });
 
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [fortune, setFortune] = useState({
     summary: "",
     tell: "",
@@ -62,7 +63,10 @@ export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
         body: JSON.stringify(body),
       });
 
-      if (!res.ok) return toast.error(await res.text());
+      if (!res.ok) {
+        setDialogOpen(false);
+        return toast.error(await res.text());
+      }
 
       const result = await res.json();
       setFortune(result);
@@ -77,7 +81,7 @@ export function FortuneBtn({ lng, personal }: FortuneBtnProp) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <div className="mt-2 h-fit w-full px-4 py-2">
           <HackerBtn label={t("View employment fortune")} onClick={handleClick} />
