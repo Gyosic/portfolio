@@ -21,7 +21,13 @@ function FramerWrapper({
   scale = 0,
   className,
 }: FramerMotionProps) {
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted ? (
     <AnimatePresence>
       <motion.div
         suppressHydrationWarning
@@ -36,6 +42,8 @@ function FramerWrapper({
         {children}
       </motion.div>
     </AnimatePresence>
+  ) : (
+    <></>
   );
 }
 
