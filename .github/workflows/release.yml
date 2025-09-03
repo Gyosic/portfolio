@@ -31,13 +31,13 @@ jobs:
           skip-tag: true
 
       # 맨 앞에 태그와 날짜를 넣기
-      - name: Prepend header with tag and date
-        run: |
-          TAG="${GITHUB_REF_NAME##*/}"
-          DATE=$(date +'%Y-%m-%d')
-          echo "$TAG ($DATE)" > tmp.md
-          cat CHANGELOG.md >> tmp.md
-          mv tmp.md CHANGELOG.md
+      # - name: Prepend header with tag and date
+      #   run: |
+      #     TAG="${GITHUB_REF_NAME##*/}"
+      #     DATE=$(date +'%Y-%m-%d')
+      #     echo "$TAG ($DATE)" > tmp.md
+      #     cat CHANGELOG.md >> tmp.md
+      #     mv tmp.md CHANGELOG.md
 
       - name: Commit changelog
         run: |
