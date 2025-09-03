@@ -28,6 +28,7 @@ jobs:
           current-tag: ${{ github.ref_name }}
           tag-prefix: ""
           skip-commit: true
+          skip-tag: true
 
       # 맨 앞에 태그와 날짜를 넣기
       - name: Prepend header with tag and date
