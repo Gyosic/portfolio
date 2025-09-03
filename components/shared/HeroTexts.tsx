@@ -16,6 +16,7 @@ const HeroTexts = ({ lng, personal }: HeroTextProps) => {
   });
   // Get the name parts
   const name = personal?.[lng]?.name;
+  const location = personal?.[lng]?.location;
   // const nameParts = (personal as PersonalType)?.name.split(" ");
   // const firstName = nameParts[0];
   // const middleName = nameParts.length > 2 ? nameParts[1] : "";
@@ -31,22 +32,30 @@ const HeroTexts = ({ lng, personal }: HeroTextProps) => {
         {name}
       </h1>
       <TextRotator mainText={t("I am a full stack developer")} rotateText={personal.roles} />
-      <span className="flex gap-2 font-rubik">
-        <Phone />
-        {personal.phone}
-      </span>
-      <span className="flex gap-2 font-rubik">
-        <Mail />
-        {personal.email}
-      </span>
-      <span className="flex gap-2 font-rubik">
-        <MapPinned />
-        {t(personal?.[lng]?.location ?? "")}
-      </span>
-      <span className="flex gap-2 font-rubik">
-        <MessageSquareText />
-        {personal.social.blog}
-      </span>
+      {personal.phone && (
+        <span className="flex gap-2 font-rubik">
+          <Phone />
+          {personal.phone}
+        </span>
+      )}
+      {personal.email && (
+        <span className="flex gap-2 font-rubik">
+          <Mail />
+          {personal.email}
+        </span>
+      )}
+      {location && (
+        <span className="flex gap-2 font-rubik">
+          <MapPinned />
+          {location}
+        </span>
+      )}
+      {personal.social.blog && (
+        <span className="flex gap-2 font-rubik">
+          <MessageSquareText />
+          {personal.social.blog}
+        </span>
+      )}
     </>
   );
 };
