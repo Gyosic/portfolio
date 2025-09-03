@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 모든 이력 + 태그 가져오기
 
       # Conventional Commits 기반 changelog 생성
       - name: Generate changelog
@@ -23,11 +25,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           output-file: CHANGELOG.md
           tag-prefix: "v"
+          skip-commit: true
 
       - name: Commit changelog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md
-          git commit -m "chore: update changelog"
+          git commit -m "chore: update changelog [skip ci]" || echo "No changes to commit"
           git push origin HEAD:master
