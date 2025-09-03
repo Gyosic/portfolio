@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import FallbackImage from "@/components/shared/FallbackImage";
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/components/ui/shadcn-io/dropzone";
 import { FileType } from "@/lib/schema/file.schema";
 import { UploadType } from "@/lib/schema/upload.schema";
@@ -65,7 +66,7 @@ const HeroImage = ({ image }: HeroImageProps) => {
 
   return (
     <div className="group relative">
-      <Image
+      <FallbackImage
         src={getFileProperties(file).src || logo}
         alt="logo"
         loading="eager"
@@ -74,6 +75,7 @@ const HeroImage = ({ image }: HeroImageProps) => {
         width={1000}
         unoptimized
         className="group"
+        fallbackSrc={logo}
       />
       {session.status === "authenticated" && (
         <Dropzone
