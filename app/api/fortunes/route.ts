@@ -21,6 +21,9 @@ const fortuning = async (info: {
 };
 
 export async function POST(req: NextRequest) {
+  if (!process.env?.OPENAI_API_KEY)
+    return NextResponse.json({ message: "OPENAI_API_KEY가 없습니다." }, { status: 500 });
+
   const { birth, birthtime, name, gender } = await req.json();
 
   try {
