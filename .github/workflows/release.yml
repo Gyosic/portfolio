@@ -26,6 +26,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           output-file: CHANGELOG.md
           tag-prefix: "v"
+          current-tag: ${{ github.ref_name }}
           skip-commit: true
 
       - name: Commit changelog
