@@ -43,29 +43,17 @@
 
 ```
 portfolio/
-├── app/                    # Next.js App Router
-│   ├── [lng]/            # 다국어 라우팅
-│   │   ├── about/        # 소개 페이지
-│   │   ├── admin/        # 관리자 메뉴
-│   │   ├── contact/      # 연락처 페이지
-│   │   ├── education/    # 교육 페이지
-│   │   ├── history/      # 경력 페이지
-│   │   ├── project/      # 프로젝트 페이지
-│   │   └── skill/        # 기술 페이지
-│   ├── api/              # API 라우트
-│   └── languages/        # 다국어
-├── components/            # 재사용 가능한 컴포넌트
-│   ├── animation/        # 애니메이션 컴포넌트
-│   ├── shared/           # 공통 컴포넌트
-│   └── ui/               # Shadcn UI 컴포넌트
-├── lib/                   # 유틸리티 및 설정
-│   ├── auth/             # 인증 관련
-│   ├── i18n/             # 국제화 설정
-│   └── schema/           # 데이터베이스 스키마
-├── public/                # 정적 파일
-├── styles/                # CSS 스타일
-└── scripts/               # 빌드 및 유틸리티 스크립트
+├── app/            # Next.js App Router 기반 라우팅
+│   ├── [lng]/      # 다국어 라우팅
+│   ├── api/        # API 라우트
+│   └── languages/  # i18n 번역 파일
+├── components/     # 재사용 가능한 컴포넌트
+├── lib/            # 유틸리티 및 설정 (auth, schema, i18n 등)
+├── public/         # 정적 파일
+└── styles/         # 전역 스타일
 ```
+👉 기능별로 모듈화하여 유지보수성과 확장성을 고려했습니다.
+👉 i18n, Auth, DB Schema 등은 lib/에서 중앙 관리하도록 구조화했습니다.
 
 ## 🚀 시작하기
 
