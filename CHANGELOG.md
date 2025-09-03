@@ -24,6 +24,7 @@
 * language요청시 미들웨어에서 무시처리 & theme 예외처리 ([a8f075c](https://github.com/Gyosic/portfolio/commit/a8f075c65ae18e230e92deb227130c9b43ba491b))
 * lng -> lngParams ([20ac4d8](https://github.com/Gyosic/portfolio/commit/20ac4d8a42cdbc6f9480208fbd12f72e1c731bfe))
 * production 환경에서만 visit 저장 ([f46daa3](https://github.com/Gyosic/portfolio/commit/f46daa3638d5c37c2842b2ac2537ba2b8f79ae7d))
+* release.yml ([62abadd](https://github.com/Gyosic/portfolio/commit/62abadd0738f2332e2464a3f3034899c30c1eeb7))
 * release.yml ([2c19b17](https://github.com/Gyosic/portfolio/commit/2c19b178698a983688cede68d740fcbf47236bf2))
 * release.yml ([6ad7c4a](https://github.com/Gyosic/portfolio/commit/6ad7c4afb6fd5e3c34c7fc1e33338617f70dffed))
 * schema & table ([0605473](https://github.com/Gyosic/portfolio/commit/06054738255ac9364d441ffd6064dd3644ab2781))
