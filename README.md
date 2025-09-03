@@ -60,7 +60,7 @@ portfolio/
 ### 필수 요구사항
 
 - Node.js 18+ 
-- PostgreSQL 12+
+- PostgreSQL 13+
 - npm 또는 yarn
 
 ### PostgreSQL 설치 가이드
