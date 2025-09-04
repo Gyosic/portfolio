@@ -32,10 +32,12 @@ jobs:
 
       - name: Generate .env (from secrets if provided)
         shell: bash
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
           set -e
-          if [ -n "${{ secrets.ENV_FILE }}" ]; then
-            echo "${{ secrets.ENV_FILE }}" > .env
+          if [ -n "${ENV_FILE}" ]; then
+            printf "%s" "${ENV_FILE}" > .env
             echo "Wrote .env from ENV_FILE secret"
           else
             printf "%s\n" \
