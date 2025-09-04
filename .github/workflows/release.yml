@@ -37,11 +37,11 @@ jobs:
           allow-non-semver-tags: true
           release-count: 0
 
-      - name: Commit changelog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git push origin HEAD:master
+      # - name: Commit changelog
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git push origin HEAD:master
 
       - name: Prepare release notes
         shell: bash
@@ -170,7 +170,7 @@ jobs:
 
       - name: Remote deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -p ${DEPLOY_PORT} ${DEPLOY_USER}@${DEPLOY_HOST} "\
+          ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} -p ${DEPLOY_PORT} "\
             set -euo pipefail; \
             TS=\$(date +%Y%m%d_%H%M%S); \
             mkdir -p \"$DEPLOY_PATH\"/backups; \
@@ -188,6 +188,7 @@ jobs:
         env:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
           DEPLOY_SERVICE_NAME: ${{ vars.DEPLOY_SERVICE_NAME }}
           DEPLOY_BACKUP_RETENTION: ${{ vars.DEPLOY_BACKUP_RETENTION }}
