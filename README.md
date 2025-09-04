@@ -313,6 +313,37 @@ docker run -p 3000:3000 portfolio
 
 ## 🤝 기여하기
 
+### 커밋규칙
+- Conventional Commit 규칙을 따름
+- 참조 https://www.conventionalcommits.org/
+  
+| type     | 의미                     |
+| -------- | ---------------------- |
+| feat     | 새로운 기능 추가              |
+| fix      | 버그 수정                  |
+| docs     | 문서 수정                  |
+| style    | 코드 포맷/스타일 변경 (기능 변경 X) |
+| refactor | 코드 리팩토링 (기능 변경 X)      |
+| perf     | 성능 개선                  |
+| test     | 테스트 관련 추가/수정           |
+| chore    | 빌드/패키지 매니저/기타 잡일       |
+
+```
+# 예시
+<type>[optional scope]: <description>
+[optional body]
+[optional footer(s)]
+
+# scope (선택)
+feat(auth): add login API
+fix(ui): button color issue
+
+# body & footer (선택)
+body: 커밋 상세 내용
+footer: 관련 이슈 번호, BREAKING CHANGE 등
+```
+
+### 순서
 1. Fork the Project
 2. Add Remote Upstream (`git remote add upstream https://github.com/Gyosic/portfolio.git`)
 3. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
