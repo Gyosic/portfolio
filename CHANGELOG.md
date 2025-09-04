@@ -1,10 +1,6 @@
 ## [0.0.2](https://github.com/Gyosic/portfolio/compare/0.0.1...0.0.2) (2025-09-04)
 
 
-
-## [0.0.1](https://github.com/Gyosic/portfolio/compare/a32395aa1dcf2fc08cd6d98966f8a15f77a66a19...0.0.1) (2025-09-04)
-
-
 ### Bug Fixes
 
 * About 페이지 dynamic처리 ([7d8b467](https://github.com/Gyosic/portfolio/commit/7d8b467599d644c2a9a541835779313f5c3c6a75))
