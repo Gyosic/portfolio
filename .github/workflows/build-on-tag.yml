@@ -1,0 +1,79 @@
+name: Build on Tag
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-on-tag-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate .env (from secrets if provided)
+        shell: bash
+        run: |
+          set -e
+          if [ -n "${{ secrets.ENV_FILE }}" ]; then
+            echo "${{ secrets.ENV_FILE }}" > .env
+            echo "Wrote .env from ENV_FILE secret"
+          else
+            cat > .env <<'EOF'
+SITE_TITLE=Portfolio
+SITE_DESCRIPTION=Portfolio
+SITE_BASEURL=http://localhost:3000
+API_BASEURL=http://localhost:3000
+LOGO_LIGHT=/images/logo.png
+LOGO_DARK=/images/logo.png
+PG_BASEURL=postgresql://localhost:5432/portfolio
+AUTH_SECRET=dummy
+EOF
+            echo "Wrote minimal .env defaults (for build only)"
+          fi
+
+      - name: Build (bundle to dist and tarball)
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-dist-${{ github.ref_name }}
+          path: |
+            dist/**
+            portfolio.tar.xz
+
+      - name: Create GitHub Release and upload asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          files: |
+            portfolio.tar.xz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
