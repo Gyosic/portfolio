@@ -27,8 +27,10 @@ jobs:
           output-file: CHANGELOG.md
           current-tag: ${{ github.ref_name }}
           tag-prefix: ""
+          skip-on-empty: false
           skip-commit: true
           skip-tag: true
+          skip-version-file: true
 
       # 맨 앞에 태그와 날짜를 넣기
       # - name: Prepend header with tag and date
