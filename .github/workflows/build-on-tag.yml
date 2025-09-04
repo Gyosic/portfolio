@@ -92,7 +92,7 @@ jobs:
           set -e
           test -n "${DEPLOY_USER}" && test -n "${DEPLOY_HOST}" && test -n "${DEPLOY_PATH}" || {
             echo "DEPLOY_USER/DEPLOY_HOST/DEPLOY_PATH secrets are required"; exit 1; }
-          scp -o StrictHostKeyChecking=no -P ${DEPLOY_PORT} ./portfolio.tar.xz ${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/portfolio.tar.xz
+          scp -o StrictHostKeyChecking=no -P ${DEPLOY_PORT} ./artifact/portfolio.tar.xz ${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/portfolio.tar.xz
         env:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
