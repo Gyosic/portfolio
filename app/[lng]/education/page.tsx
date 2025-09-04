@@ -43,7 +43,6 @@ const getEducations = async () => {
 };
 export default async function EducationPage() {
   const educations = await getEducations();
-  console.info(educations);
 
   return <Education educations={educations} />;
 }
