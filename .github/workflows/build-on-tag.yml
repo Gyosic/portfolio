@@ -38,16 +38,15 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env
             echo "Wrote .env from ENV_FILE secret"
           else
-            cat > .env <<'EOF'
-SITE_TITLE=Portfolio
-SITE_DESCRIPTION=Portfolio
-SITE_BASEURL=http://localhost:3000
-API_BASEURL=http://localhost:3000
-LOGO_LIGHT=/images/logo.png
-LOGO_DARK=/images/logo.png
-PG_BASEURL=postgresql://localhost:5432/portfolio
-AUTH_SECRET=dummy
-EOF
+            printf "%s\n" \
+              'SITE_TITLE=Portfolio' \
+              'SITE_DESCRIPTION=Portfolio' \
+              'SITE_BASEURL=http://localhost:3000' \
+              'API_BASEURL=http://localhost:3000' \
+              'LOGO_LIGHT=/images/logo.png' \
+              'LOGO_DARK=/images/logo.png' \
+              'PG_BASEURL=postgresql://localhost:5432/portfolio' \
+              'AUTH_SECRET=dummy' > .env
             echo "Wrote minimal .env defaults (for build only)"
           fi
 
