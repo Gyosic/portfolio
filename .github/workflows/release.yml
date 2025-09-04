@@ -170,7 +170,7 @@ jobs:
 
       - name: Remote deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -P ${DEPLOY_PORT} ${DEPLOY_USER}@${DEPLOY_HOST} "\
+          ssh -o StrictHostKeyChecking=no -p ${DEPLOY_PORT} ${DEPLOY_USER}@${DEPLOY_HOST} "\
             set -euo pipefail; \
             TS=\$(date +%Y%m%d_%H%M%S); \
             mkdir -p \"$DEPLOY_PATH\"/backups; \
