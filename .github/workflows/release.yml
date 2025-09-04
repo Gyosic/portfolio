@@ -32,8 +32,9 @@ jobs:
           skip-commit: true
           skip-tag: true
           skip-version-file: true
-          fallback-version: ${{ github.ref_name }}
           skip-git-pull: true
+          skip-bump: true
+          fallback-version: ${{ github.ref_name }}
           # git-branch: master
 
       - name: Debug CHANGELOG
