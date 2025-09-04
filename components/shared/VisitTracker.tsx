@@ -1,12 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 export function VisitTracker() {
   const pathname = usePathname();
+  const session = useSession();
 
   useEffect(() => {
+    // 관리자 로그인 했을 경우 log 남기지 않음
+    if (session.status === "authenticated") return;
+
     // 페이지 로드 시 방문 기록 수집
     const trackVisit = async () => {
       try {
@@ -40,7 +45,7 @@ export function VisitTracker() {
     };
 
     trackVisit();
-  }, [pathname]);
+  }, [pathname, session]);
 
   // 이 컴포넌트는 UI를 렌더링하지 않습니다
   return null;
