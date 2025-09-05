@@ -3,6 +3,8 @@ import { api } from "@/config";
 import { auth } from "@/lib/auth";
 import HistoryUpdate from "./HistoryUpdate";
 
+export const dynamic = "force-dynamic";
+
 const getHistory = async (_id: string) => {
   const res = await fetch(new URL("/api/histories", api.baseurl), {
     method: "POST",

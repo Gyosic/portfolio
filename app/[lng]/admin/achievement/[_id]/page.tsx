@@ -3,6 +3,8 @@ import { api } from "@/config";
 import { auth } from "@/lib/auth";
 import { AchievementUpdate } from "./AchievementUpdate";
 
+export const dynamic = "force-dynamic";
+
 const getAchievement = async (_id: string) => {
   const res = await fetch(new URL("/api/achievements", api.baseurl), {
     method: "POST",

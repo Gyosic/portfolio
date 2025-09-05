@@ -3,6 +3,8 @@ import { api } from "@/config";
 import { auth } from "@/lib/auth";
 import { ProjectUpdate } from "./ProjectUpdate";
 
+export const dynamic = "force-dynamic";
+
 const getProject = async (_id: string) => {
   const res = await fetch(new URL("/api/projects", api.baseurl), {
     method: "POST",

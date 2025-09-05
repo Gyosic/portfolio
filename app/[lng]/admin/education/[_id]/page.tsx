@@ -3,6 +3,8 @@ import { api } from "@/config";
 import { auth } from "@/lib/auth";
 import { EducationUpdate } from "./EducationUpdate";
 
+export const dynamic = "force-dynamic";
+
 const getEducation = async (_id: string) => {
   const res = await fetch(new URL("/api/educations", api.baseurl), {
     method: "POST",
