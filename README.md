@@ -1,78 +1,161 @@
-# 🚀 Portfolio - Next.js 기반 개인 포트폴리오 웹사이트
+# 🚀 Portfolio - Next.js 15 기반 개인 포트폴리오 웹사이트
 
-현대적이고 반응형인 개인 포트폴리오 웹사이트입니다. Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축되었으며, 다국어 지원과 관리자 기능을 포함하고 있습니다.
+<div align="center">
+
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-316192?style=for-the-badge&logo=postgresql)
+
+**현대적이고 반응형인 개인 포트폴리오 웹사이트**  
+Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애플리케이션
+
+[🌐 라이브 데모](https://gyolab.com) • [📖 문서](#-사용법) • [🐛 이슈 리포트](https://github.com/Gyosic/portfolio/issues)
+
+</div>
+
+---
 
 ## ✨ 주요 기능
 
-- 🌐 **다국어 지원**: 한국어/영어 지원
-- 🎨 **반응형 디자인**: 모바일부터 데스크톱까지 모든 디바이스 지원
-- 🌙 **다크/라이트 테마**: 시스템 테마 자동 감지 및 수동 전환
-- 🔐 **인증 시스템**: NextAuth.js를 통한 관리자 로그인
-- 📊 **관리자 대시보드**: 프로젝트, 교육, 경력, 성과 관리
-- 📁 **파일 업로드**: 이미지 및 문서 업로드 지원
-- 📧 **연락처 폼**: 이메일 전송 기능
-- 🎭 **애니메이션**: Framer Motion을 활용한 부드러운 애니메이션
+### 🌐 **다국어 지원**
+- 한국어/영어 완전 지원
+- i18next 기반 동적 언어 전환
+- URL 기반 언어 라우팅 (`/ko`, `/en`)
+
+### 🎨 **반응형 디자인**
+- 모바일부터 데스크톱까지 모든 디바이스 지원
+- Tailwind CSS 4 기반 유틸리티 우선 스타일링
+- 다크/라이트 테마 자동 감지 및 수동 전환
+
+### 🔐 **고급 인증 시스템**
+- NextAuth.js v5 기반 JWT 인증
+- HMAC 암호화를 통한 보안 강화
+- 관리자 전용 대시보드 접근 제어
+
+### 📊 **관리자 대시보드**
+- 프로젝트, 교육, 경력, 성과 관리
+- 실시간 CRUD 작업 지원
+- 파일 업로드 및 관리 기능
+
+### 🤖 **AI 기반 기능**
+- OpenAI GPT를 활용한 개인화된 운세 서비스
+- 생년월일 기반 맞춤형 운세 제공
+- JSON 구조화된 응답 시스템
+
+### 📈 **방문자 분석**
+- 실시간 방문자 추적
+- IP, User-Agent, Referer 정보 수집
+- 관리자 로그인 시 추적 제외
+
+### 🎭 **고급 애니메이션**
+- Framer Motion 기반 부드러운 전환 효과
+- 페이지 로드 및 스크롤 애니메이션
+- 인터랙티브 UI 컴포넌트
+
+---
 
 ## 🛠️ 기술 스택
 
-### Frontend
-- **Next.js 15** - React 기반 풀스택 프레임워크
-- **TypeScript** - 타입 안전성
-- **Tailwind CSS 4** - 유틸리티 우선 CSS 프레임워크
-- **Framer Motion** - 애니메이션 라이브러리
-- **React Hook Form** - 폼 관리
-- **Zod** - 스키마 검증
+### **Frontend**
+| 기술 | 버전 | 용도 |
+|------|------|------|
+| **Next.js** | 15.4.6 | React 기반 풀스택 프레임워크 |
+| **TypeScript** | 5.x | 타입 안전성 및 개발 경험 향상 |
+| **Tailwind CSS** | 4.x | 유틸리티 우선 CSS 프레임워크 |
+| **Framer Motion** | 12.23.12 | 고급 애니메이션 라이브러리 |
+| **React Hook Form** | 7.62.0 | 성능 최적화된 폼 관리 |
+| **Zod** | 3.25.76 | 런타임 스키마 검증 |
 
-### Backend & Database
-- **PostgreSQL** - 메인 데이터베이스
-- **Drizzle ORM** - 타입 안전한 데이터베이스 ORM
-- **NextAuth.js** - 인증 시스템
-- **Resend** - 이메일 서비스
+### **Backend & Database**
+| 기술 | 버전 | 용도 |
+|------|------|------|
+| **PostgreSQL** | 17+ | 메인 관계형 데이터베이스 |
+| **Drizzle ORM** | 0.44.4 | 타입 안전한 데이터베이스 ORM |
+| **NextAuth.js** | 5.0.0-beta.29 | 인증 및 세션 관리 |
+| **Resend** | 6.0.1 | 이메일 전송 서비스 |
+| **OpenAI** | 5.12.2 | AI 기반 운세 서비스 |
 
-### UI Components
-- **Radix UI** - 접근성 높은 UI 컴포넌트
-- **Shadcn/ui** - 재사용 가능한 컴포넌트 라이브러리
-- **Lucide React** - 아이콘 라이브러리
+### **UI Components**
+| 기술 | 버전 | 용도 |
+|------|------|------|
+| **Radix UI** | Latest | 접근성 높은 헤드리스 UI 컴포넌트 |
+| **Shadcn/ui** | Latest | 재사용 가능한 컴포넌트 라이브러리 |
+| **Lucide React** | 0.539.0 | 일관된 아이콘 시스템 |
 
-### 개발 도구
-- **Biome** - 코드 포맷팅 및 린팅
-- **Knip** - 사용하지 않는 코드 감지
-- **i18next** - 국제화
+### **개발 도구**
+| 기술 | 버전 | 용도 |
+|------|------|------|
+| **Biome** | 2.1.4 | 빠른 코드 포맷팅 및 린팅 |
+| **Knip** | 5.62.0 | 사용하지 않는 코드 감지 |
+| **i18next** | 15.6.1 | 국제화 및 다국어 지원 |
+
+---
 
 ## 📁 프로젝트 구조
 
 ```
 portfolio/
-├── app/            # Next.js App Router 기반 라우팅
-│   ├── [lng]/      # 다국어 라우팅
-│   ├── api/        # API 라우트
-│   └── languages/  # i18n 번역 파일
-├── components/     # 재사용 가능한 컴포넌트
-├── lib/            # 유틸리티 및 설정 (auth, schema, i18n 등)
-├── public/         # 정적 파일
-└── styles/         # 전역 스타일
+├── 📁 app/                    # Next.js App Router
+│   ├── 📁 [lng]/             # 다국어 라우팅 (ko, en)
+│   │   ├── 📁 about/         # 소개 페이지
+│   │   ├── 📁 admin/         # 관리자 대시보드
+│   │   ├── 📁 contact/       # 연락처 페이지
+│   │   ├── 📁 education/     # 교육 페이지
+│   │   ├── 📁 history/       # 경력 페이지
+│   │   ├── 📁 project/       # 프로젝트 페이지
+│   │   └── 📁 skill/         # 기술 페이지
+│   ├── 📁 api/               # API 라우트
+│   │   ├── 📁 [...nextauth]/ # NextAuth.js 인증
+│   │   ├── 📁 achievements/  # 성과 관리 API
+│   │   ├── 📁 educations/    # 교육 관리 API
+│   │   ├── 📁 files/         # 파일 업로드 API
+│   │   ├── 📁 fortunes/      # AI 운세 API
+│   │   ├── 📁 histories/     # 경력 관리 API
+│   │   ├── 📁 projects/      # 프로젝트 관리 API
+│   │   ├── 📁 send/          # 이메일 전송 API
+│   │   └── 📁 visits/        # 방문자 추적 API
+│   └── 📁 languages/         # i18n 번역 파일
+├── 📁 components/            # 재사용 가능한 컴포넌트
+│   ├── 📁 animation/         # 애니메이션 컴포넌트
+│   ├── 📁 shared/            # 공통 컴포넌트
+│   └── 📁 ui/                # UI 컴포넌트 (Shadcn/ui)
+├── 📁 lib/                   # 유틸리티 및 설정
+│   ├── 📁 auth/              # 인증 설정
+│   ├── 📁 i18n/              # 국제화 설정
+│   ├── 📁 schema/            # 데이터베이스 스키마
+│   ├── auth.ts               # NextAuth 설정
+│   ├── fortuneai.ts          # AI 운세 서비스
+│   ├── pg.ts                 # 데이터베이스 연결
+│   └── utils.ts              # 유틸리티 함수
+├── 📁 public/                # 정적 파일
+├── 📁 scripts/               # 빌드 및 배포 스크립트
+└── 📁 styles/                # 전역 스타일
 ```
-👉 기능별로 모듈화하여 유지보수성과 확장성을 고려했습니다.
 
-👉 i18n, Auth, DB Schema 등은 lib/에서 중앙 관리하도록 구조화했습니다.
+> 💡 **설계 원칙**: 기능별 모듈화, 타입 안전성, 확장성, 유지보수성
+
+---
 
 ## 🚀 시작하기
 
-### 필수 요구사항
+### 📋 필수 요구사항
 
-- Node.js 18+ 
-- PostgreSQL 13+
-- npm 또는 yarn
+- **Node.js** 18.0.0 이상
+- **PostgreSQL** 13.0 이상 (권장: 17+)
+- **npm** 또는 **yarn** 패키지 매니저
 
-### PostgreSQL 설치 가이드
+### 🐘 PostgreSQL 설치 가이드
 
-#### Ubuntu/Debian
+<details>
+<summary><strong>Ubuntu/Debian</strong></summary>
+
 ```bash
 # PostgreSQL 설치
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 
-# 서비스 시작
+# 서비스 시작 및 자동 시작 설정
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
@@ -91,14 +174,17 @@ GRANT ALL PRIVILEGES ON DATABASE portfolio TO your_username;
 # postgres 사용자에서 나가기
 exit
 ```
+</details>
 
-#### macOS (Homebrew)
+<details>
+<summary><strong>macOS (Homebrew)</strong></summary>
+
 ```bash
 # PostgreSQL 설치
-brew install postgresql
+brew install postgresql@17
 
 # 서비스 시작
-brew services start postgresql
+brew services start postgresql@17
 
 # 데이터베이스 생성
 createdb portfolio
@@ -109,13 +195,19 @@ CREATE USER your_username WITH PASSWORD 'your_password';
 GRANT ALL PRIVILEGES ON DATABASE portfolio TO your_username;
 \q
 ```
+</details>
 
-#### Windows
+<details>
+<summary><strong>Windows</strong></summary>
+
 1. [PostgreSQL 공식 다운로드 페이지](https://www.postgresql.org/download/windows/)에서 설치 파일 다운로드
-2. 설치 마법사 따라하기
+2. 설치 마법사를 따라 PostgreSQL 설치
 3. pgAdmin 또는 psql을 사용하여 데이터베이스 및 사용자 생성
+</details>
 
-#### Docker (권장)
+<details>
+<summary><strong>Docker (권장)</strong></summary>
+
 ```bash
 # PostgreSQL 컨테이너 실행
 docker run --name postgres-portfolio \
@@ -127,7 +219,72 @@ docker run --name postgres-portfolio \
 
 # 컨테이너 상태 확인
 docker ps
+
+# 연결 테스트
+docker exec -it postgres-portfolio psql -U your_username -d portfolio
 ```
+</details>
+
+### ⚙️ 설치 및 설정
+
+1. **저장소 클론**
+```bash
+git clone https://github.com/Gyosic/portfolio.git
+cd portfolio
+```
+
+2. **의존성 설치**
+```bash
+npm install
+```
+
+3. **환경 변수 설정**
+```bash
+cp env.example .env
+```
+
+`.env` 파일을 편집하여 필요한 환경 변수를 설정하세요:
+
+```env
+# 사이트 기본 설정
+SITE_TITLE="Your Portfolio"
+SITE_DESCRIPTION="Your portfolio description"
+SITE_BASEURL="http://localhost:3000"
+API_BASEURL="http://localhost:3000"
+
+# 데이터베이스 연결
+PG_BASEURL="postgresql://username:password@localhost:5432/portfolio"
+
+# 인증 설정
+AUTH_SECRET="your-auth-secret"
+SYSADMIN_USERNAME="admin"
+SYSADMIN_PASSWORD="your-encrypted-password"
+SYSADMIN_SALT="your-salt"
+
+# 외부 서비스
+OPENAI_API_KEY="your-openai-api-key"
+RESEND_API_KEY="your-resend-api-key"
+
+# 개인 정보 (자세한 설정은 env.example 참조)
+PERSONAL_NAME="Your Name"
+PERSONAL_EMAIL="your-email@example.com"
+# ... 기타 개인 정보
+```
+
+4. **데이터베이스 마이그레이션**
+```bash
+# Drizzle 스키마 생성 및 데이터베이스 마이그레이션
+npm run drizzle:generate
+```
+
+5. **개발 서버 실행**
+```bash
+npm run dev
+```
+
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
+
+---
 
 ## 🔧 문제 해결
 
@@ -139,7 +296,8 @@ docker ps
 error: 호스트 "127.0.0.1", 사용자 "{username}", 데이터베이스 "portfolio", SSL 암호화 연결에 대한 설정이 pg_hba.conf 파일에 없습니다.
 ```
 
-#### 해결 방법: pg_hba.conf 파일 수정
+<details>
+<summary><strong>해결 방법: pg_hba.conf 파일 수정</strong></summary>
 
 **Ubuntu/Debian:**
 ```bash
@@ -162,7 +320,7 @@ sudo systemctl restart postgresql
 **macOS (Homebrew):**
 ```bash
 # pg_hba.conf 파일 위치 확인
-brew --prefix postgresql
+brew --prefix postgresql@17
 # 일반적으로: /opt/homebrew/var/postgresql@17/
 
 # 파일 편집
@@ -175,8 +333,10 @@ host    all             all             127.0.0.1/32            md5
 # PostgreSQL 재시작
 brew services restart postgresql@17
 ```
+</details>
 
-#### 해결 방법: Docker 사용 시
+<details>
+<summary><strong>Docker 사용 시 해결 방법</strong></summary>
 
 ```bash
 # 기존 컨테이너 제거
@@ -193,181 +353,257 @@ docker run --name postgres-portfolio \
 # 연결 테스트
 docker exec -it postgres-portfolio psql -U your_username -d portfolio
 ```
+</details>
 
-### 설치
-
-1. 저장소 클론
-```bash
-git clone <repository-url>
-cd portfolio
-```
-
-2. 의존성 설치
-```bash
-npm install
-```
-
-3. 환경 변수 설정
-```bash
-cp env.example .env
-```
-
-개발 ENV .env.development
-운영 ENV .env.production
-`.env` 파일을 편집하여 필요한 환경 변수를 설정하세요:
-
-```env
-# 데이터베이스
-PG_BASEURL="postgresql://username:password@localhost:5432/portfolio"
-
-# 인증
-AUTH_SECRET="your-secret-key"
-
-# 이메일
-RESEND_API_KEY="your-resend-api-key"
-
-# 개인 정보
-PERSONAL_NAME="Your Name"
-PERSONAL_EMAIL="your-email@example.com"
-# ... 기타 설정
-```
-
-4. 데이터베이스 설정
-```bash
-# Drizzle 스키마 생성 & 데이터베이스 마이그레이션
-npm run drizzle:generate
-```
-
-5. 개발 서버 실행
-```bash
-npm run dev
-```
-
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
-
-### 라이브 데모
-
-배포된 포트폴리오를 확인해보세요: [https://gyolab.com](https://gyolab.com)
+---
 
 ## 📚 사용법
 
-### 관리자 로그인
+### 🔐 관리자 로그인
 
-1. 관리자 계정 생성
-   - 비밀번호 생성: `npm run genpass -- {password}`
-   - AUTH_SECRET 생성: `npm run genpass -- secret`
-   - ex) 
-        ```
-        npm run genpass -- admin
-        npm run genpass -- secret
+1. **관리자 계정 생성**
+```bash
+# 비밀번호 생성
+npm run genpass -- <your_password>
 
-        # 아래 결과값 .env에 추가
-        SYSADMIN_SALT='RwBVkOdQLjmvKv3RKLA4gFuEn6vqSv/L+Lj4YWUZ0sTcRQDqUHLKKRVvRTZItLcpeW6KJw8TBBaR0G7ct6+6ww=='
-        SYSADMIN_PASSWORD='xtRmUu6S+nu6wg/6l42rjUgGIAaKXkL4YcSiccnqG5wlA5vG2vkyipTGEpaMeFkDMqtBFSI8UVizVtCIgxCssw=='
-        AUTH_SECRET='AwukqP5mU8YbLFa+NMbUQQRtKRHHfnYzoQVnqObcubnjYfympeOI5mZ8vAYTiWhz27yvDhfwUSMUrZh4KCJdLA=='
+# AUTH_SECRET 생성
+npm run genpass -- secret
 
-        # 원하는 로그인 ID .env에 추가
-        SYSADMIN_USERNAME={username}
-        ```
-2. `/admin` 경로로 이동
-3. 기본 계정 정보:
-   - 사용자명: {username} (지정해주지 않았을 시 admin)
-   - 비밀번호: {password} (지정해주지 않았을 시 admin)
+# 결과값을 .env 파일에 추가
+SYSADMIN_SALT='생성된_salt_값'
+SYSADMIN_PASSWORD='생성된_비밀번호_값'
+AUTH_SECRET='생성된_시크릿_값'
+SYSADMIN_USERNAME='your_username'
+```
 
-### 콘텐츠 관리
+2. **관리자 대시보드 접근**
+   - `/admin` 경로로 이동
+   - 생성한 계정 정보로 로그인
+
+### 📊 콘텐츠 관리
 
 관리자 대시보드에서 다음 항목들을 관리할 수 있습니다:
 
-- **프로젝트**: 포트폴리오에 표시할 프로젝트 정보
-- **교육**: 학력 및 자격증 정보
-- **경력**: 직장 경험 및 활동 내역
-- **성과**: 수상 내역 및 인증서
+- **📁 프로젝트**: 포트폴리오에 표시할 프로젝트 정보
+- **🎓 교육**: 학력 및 자격증 정보  
+- **💼 경력**: 직장 경험 및 활동 내역
+- **🏆 성과**: 수상 내역 및 인증서
 
-### 다국어 설정
+### 🌐 다국어 설정
 
 `lib/i18n/languages/` 디렉토리에서 번역 파일을 수정하여 다국어 콘텐츠를 관리할 수 있습니다.
 
+### 🤖 AI 운세 서비스
+
+- OpenAI API 키 설정 후 `/api/fortunes` 엔드포인트 사용
+- 생년월일, 성별, 이름 기반 개인화된 운세 제공
+- JSON 구조화된 응답 (summary, tell, wealth, studies, business, employment)
+
+---
+
 ## 🏗️ 빌드 및 배포
 
-### 프로덕션 빌드
+### 📦 프로덕션 빌드
 
 ```bash
 npm run build
 ```
 
-### Docker 배포
+빌드 스크립트는 다음 작업을 수행합니다:
+1. 기존 dist 폴더 삭제
+2. Next.js 앱 빌드
+3. standalone 모드로 배포 파일 구성
+4. 압축 파일 생성 (`portfolio.tar.xz`)
+
+### 🐳 Docker 배포
 
 ```bash
 # Docker 이미지 빌드
 docker build -t portfolio .
 
 # 컨테이너 실행
-docker run -p 3000:3000 portfolio
+docker run -p 3000:3000 \
+  -e PG_BASEURL="postgresql://user:pass@host:5432/db" \
+  -e AUTH_SECRET="your-secret" \
+  portfolio
 ```
-
-### 스크립트
-
-- `npm run dev` - 개발 서버 실행
-- `npm run build` - 프로덕션 빌드
-- `npm run start` - 프로덕션 서버 실행
-- `npm run lint` - 코드 린팅
-
-## 🤝 기여하기
-
-### 커밋규칙
-- Conventional Commit 규칙을 따름
-- 참조 https://www.conventionalcommits.org/
-  
-| type     | 의미                     |
-| -------- | ---------------------- |
-| feat     | 새로운 기능 추가              |
-| fix      | 버그 수정                  |
-| docs     | 문서 수정                  |
-| style    | 코드 포맷/스타일 변경 (기능 변경 X) |
-| refactor | 코드 리팩토링 (기능 변경 X)      |
-| perf     | 성능 개선                  |
-| test     | 테스트 관련 추가/수정           |
-| chore    | 빌드/패키지 매니저/기타 잡일       |
-
-```
-# 예시
-<type>[optional scope]: <description>
-[optional body]
-[optional footer(s)]
-
-# scope (선택)
-feat(auth): add login API
-fix(ui): button color issue
-
-# body & footer (선택)
-body: 커밋 상세 내용
-footer: 관련 이슈 번호, BREAKING CHANGE 등
-```
-
-### 순서
-1. Fork the Project
-2. Add Remote Upstream (`git remote add upstream https://github.com/Gyosic/portfolio.git`)
-3. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-4. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-5. Push to the Branch (`git push origin feature/AmazingFeature`)
-6. Open a Pull Request
-
-## 🔧 환경 변수
-
-| 변수명 | 설명 | 기본값 |
-|--------|------|--------|
-| `SITE_TITLE` | 사이트 제목 | Portfolio |
-| `SITE_DESCRIPTION` | 사이트 설명 | - |
-| `PG_BASEURL` | PostgreSQL 연결 문자열 | postgresql://localhost:5432/portfolio |
-| `AUTH_SECRET` | NextAuth 시크릿 키 | - |
-| `RESEND_API_KEY` | Resend API 키 | - |
-| `PERSONAL_NAME` | 개인 이름 | - |
-| `PERSONAL_EMAIL` | 개인 이메일 | - |
-
-## 📞 연락처
-
-프로젝트에 대한 질문이나 제안사항이 있으시면 이슈를 생성해 주세요.
 
 ---
 
-⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요! 
+## 📊 성능 최적화
+
+### ⚡ Next.js 최적화
+- **App Router**: 최신 라우팅 시스템 사용
+- **Standalone Output**: 독립 실행 가능한 빌드
+- **Turbopack**: 개발 시 빠른 번들링
+- **Image Optimization**: 자동 이미지 최적화
+
+### 🗄️ 데이터베이스 최적화
+- **Drizzle ORM**: 타입 안전한 쿼리
+- **Connection Pooling**: 효율적인 DB 연결 관리
+- **Indexing**: 쿼리 성능 최적화
+
+### 🎨 프론트엔드 최적화
+- **Code Splitting**: 자동 코드 분할
+- **Lazy Loading**: 지연 로딩
+- **Framer Motion**: 하드웨어 가속 애니메이션
+- **Tailwind CSS**: 최적화된 CSS 번들
+
+---
+
+## 🔒 보안 기능
+
+### 🛡️ 인증 및 권한
+- **JWT 기반 인증**: 안전한 세션 관리
+- **HMAC 암호화**: 비밀번호 보안 강화
+- **IP 추적**: 로그인 시도 모니터링
+- **세션 만료**: 자동 세션 관리
+
+### 🔐 API 보안
+- **인증 미들웨어**: API 엔드포인트 보호
+- **입력 검증**: Zod 스키마 기반 검증
+- **SQL 인젝션 방지**: Drizzle ORM 사용
+- **CORS 설정**: 도메인 기반 접근 제어
+
+### 📊 데이터 보호
+- **환경 변수**: 민감한 정보 보호
+- **파일 업로드 제한**: 안전한 파일 처리
+- **방문자 추적**: 개인정보 보호 고려
+
+---
+
+## 🧪 개발 도구
+
+### 📝 코드 품질
+```bash
+# 코드 포맷팅 및 린팅
+npm run lint
+
+# 사용하지 않는 코드 감지
+npx knip
+
+# 타입 체크
+npx tsc --noEmit
+```
+
+### 🔄 데이터베이스 관리
+```bash
+# 스키마 생성 및 마이그레이션 실행
+npm run drizzle:generate
+```
+
+### 🔑 보안 도구
+```bash
+# 비밀번호 생성
+npm run genpass -- <your_password>
+
+# AUTH_SECRET 생성
+npm run genpass -- secret
+```
+
+---
+
+## 🤝 기여하기
+
+### 📋 커밋 규칙
+
+[Conventional Commits](https://www.conventionalcommits.org/) 규칙을 따릅니다.
+
+| Type | 의미 | 예시 |
+|------|------|------|
+| `feat` | 새로운 기능 추가 | `feat(auth): add OAuth login` |
+| `fix` | 버그 수정 | `fix(ui): button color issue` |
+| `docs` | 문서 수정 | `docs: update README` |
+| `style` | 코드 포맷/스타일 변경 | `style: format code` |
+| `refactor` | 코드 리팩토링 | `refactor: optimize database queries` |
+| `perf` | 성능 개선 | `perf: optimize image loading` |
+| `test` | 테스트 관련 | `test: add unit tests` |
+| `chore` | 빌드/패키지 매니저 | `chore: update dependencies` |
+
+### 🔄 기여 프로세스
+
+1. **Fork the Project**
+2. **Add Remote Upstream**
+   ```bash
+   git remote add upstream https://github.com/Gyosic/portfolio.git
+   ```
+3. **Create Feature Branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+4. **Commit Changes**
+   ```bash
+   git commit -m 'feat: add AmazingFeature'
+   ```
+5. **Push to Branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+6. **Open Pull Request**
+
+---
+
+## 🔧 환경 변수
+
+### 📋 필수 환경 변수
+
+| 변수명 | 설명 | 기본값 | 예시 |
+|--------|------|--------|------|
+| `SITE_TITLE` | 사이트 제목 | Portfolio | "My Portfolio" |
+| `SITE_DESCRIPTION` | 사이트 설명 | - | "Personal portfolio website" |
+| `PG_BASEURL` | PostgreSQL 연결 문자열 | postgresql://localhost:5432/portfolio | postgresql://user:pass@host:5432/db |
+| `AUTH_SECRET` | NextAuth 시크릿 키 | - | "your-secret-key" |
+| `SYSADMIN_USERNAME` | 관리자 사용자명 | admin | "admin" |
+| `SYSADMIN_PASSWORD` | 관리자 비밀번호 (암호화) | - | "encrypted-password" |
+| `SYSADMIN_SALT` | 비밀번호 암호화 솔트 | - | "encryption-salt" |
+
+### 🔑 선택적 환경 변수
+
+| 변수명 | 설명 | 기본값 |
+|--------|------|--------|
+| `OPENAI_API_KEY` | OpenAI API 키 | - |
+| `RESEND_API_KEY` | Resend 이메일 API 키 | - |
+| `PERSONAL_NAME` | 개인 이름 | - |
+| `PERSONAL_EMAIL` | 개인 이메일 | - |
+| `PERSONAL_PHONE` | 개인 전화번호 | - |
+| `TIMEZONE` | 시간대 설정 | ko-KR |
+
+> 💡 **보안 주의사항**: `.env` 파일은 절대 버전 관리에 포함하지 마세요.
+
+---
+
+## 📞 지원 및 연락처
+
+### 🐛 버그 리포트
+프로젝트에 대한 버그나 문제가 있으시면 [Issues](https://github.com/Gyosic/portfolio/issues)를 생성해 주세요.
+
+### 💡 기능 제안
+새로운 기능이나 개선 사항이 있으시면 [Discussions](https://github.com/Gyosic/portfolio/discussions)에서 제안해 주세요.
+
+### 📧 직접 연락
+- **GitHub**: [@Gyosic](https://github.com/Gyosic)
+
+---
+
+## 🙏 감사의 말
+
+이 프로젝트는 다음 오픈소스 프로젝트들의 도움을 받아 만들어졌습니다:
+
+- [Next.js](https://nextjs.org/) - React 기반 풀스택 프레임워크
+- [Tailwind CSS](https://tailwindcss.com/) - 유틸리티 우선 CSS 프레임워크
+- [Drizzle ORM](https://orm.drizzle.team/) - 타입 안전한 ORM
+- [Shadcn/ui](https://ui.shadcn.com/) - 재사용 가능한 컴포넌트
+- [Framer Motion](https://www.framer.com/motion/) - 애니메이션 라이브러리
+
+---
+
+<div align="center">
+
+**⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!**
+
+[![GitHub stars](https://img.shields.io/github/stars/Gyosic/portfolio?style=social)](https://github.com/Gyosic/portfolio/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Gyosic/portfolio?style=social)](https://github.com/Gyosic/portfolio/network/members)
+
+Made with ❤️ by [Gyosic](https://github.com/Gyosic)
+
+</div>
