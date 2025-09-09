@@ -3,7 +3,7 @@ import type { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-f
 import { BooleanField } from "@/components/shared/form/fields/BooleanField";
 import { ComboboxField } from "@/components/shared/form/fields/ComboboxField";
 import { DateField } from "@/components/shared/form/fields/DateField";
-import { FieldField } from "@/components/shared/form/fields/FileField";
+import { FileField } from "@/components/shared/form/fields/FileField";
 import { NumberField } from "@/components/shared/form/fields/NumberField";
 import { PasswordField } from "@/components/shared/form/fields/PasswordField";
 import { RadioField } from "@/components/shared/form/fields/RadioField";
@@ -36,7 +36,7 @@ export function TemplateFormItem<T extends FieldValues, K extends FieldPath<T>>(
     case "enum":
       return <ComboboxField {...props} />;
     case "file":
-      return <FieldField {...props} />;
+      return <FileField {...props} />;
     case "radio":
       return <RadioField {...props} />;
     case "datetime-local":

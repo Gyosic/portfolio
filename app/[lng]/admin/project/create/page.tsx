@@ -22,11 +22,23 @@ export default function ProjectCreate() {
   const { handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch("/api/projects/create", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      const model = projectModel[key as keyof typeof projectModel];
+
+      if (!model) return;
+
+      if (model.type === "file") {
+        if (value instanceof File) formData.append(key, value);
+        else formData.append(key, JSON.stringify(value));
+      } else {
+        if (typeof value === "object") formData.append(key, JSON.stringify(value));
+        else formData.append(key, value);
+      }
     });
+
+    const res = await fetch("/api/projects/create", { method: "POST", body: formData });
 
     if (!res.ok) return toast.error(await res.text());
 

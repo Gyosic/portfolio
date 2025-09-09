@@ -14,6 +14,8 @@ export const model = z
         pattern: z.string().optional(),
         enum: z.string().optional(),
         email: z.string().optional(),
+        accept: z.string().optional(),
+        size: z.string().optional(),
       })
       .optional(),
     unique: z.boolean().optional(),
@@ -21,6 +23,7 @@ export const model = z
     pattern: z.string().optional(),
     format: z.string().optional(),
     regexp: z.string().optional(),
+    size: z.number().optional(),
     max: z.number().optional(),
     min: z.number().optional(),
     step: z.number().optional(),

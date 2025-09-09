@@ -1,7 +1,9 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, FileQuestionMark, Github } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import FramerWrapper from "@/components/animation/FramerWrapper";
-import { buttonVariants } from "@/components/ui/button";
+import { Markdown } from "@/components/shared/Markdown";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,6 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ProjectType } from "@/lib/schema/project.schema";
 import { skills } from "@/lib/skill";
 import { cn } from "@/lib/utils";
@@ -21,6 +30,17 @@ interface ProjectCardProps {
 }
 
 export function ProjectCards({ value, num, className }: ProjectCardProps) {
+  const [readme, setReadme] = useState<string>("");
+
+  const handleClickReadme = async () => {
+    if (value.readme?.src) {
+      const res = await fetch(`/api/files/projects${value.readme.src}`, { method: "GET" });
+      const readme = await res.text();
+
+      setReadme(readme);
+    }
+  };
+
   return (
     <FramerWrapper
       className={cn("max-w-[32%] max-lg:max-w-full", className)}
@@ -64,7 +84,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
           </div>
         </CardContent>
 
-        <CardFooter className="pt-2">
+        <CardFooter className="gap-1 pt-2">
           {!!value?.link && (
             <Link
               href={value.link}
@@ -99,6 +119,28 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
               GitHub
               <ArrowUpRight className="-translate-x-2 ml-1 hidden h-4 w-4 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
             </Link>
+          )}
+          {!!value?.readme && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md"
+                  onClick={handleClickReadme}
+                >
+                  <FileQuestionMark />
+                  README
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="h-[80vh] min-h-[80vh] w-[80vw] min-w-[80vw] overflow-auto">
+                <DialogHeader>
+                  <DialogTitle></DialogTitle>
+                </DialogHeader>
+                <Markdown content={readme} />
+              </DialogContent>
+            </Dialog>
           )}
         </CardFooter>
       </Card>

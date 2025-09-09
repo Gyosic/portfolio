@@ -1,5 +1,15 @@
 import { EnumLike, z } from "zod";
+import { fileSchema } from "./schema/file.schema";
 import { Model } from "./schema/model";
+
+// File 타입을 위한 커스텀 스키마
+const fileInstanceSchema = fileSchema.partial().extend({
+  name: z.string(),
+  size: z.number(),
+  type: z.string(),
+  lastModified: z.number(),
+  path: z.string().optional(), // 서버에 저장된 경로
+});
 
 type ElementType<F extends Model> = F["type"] extends "enum"
   ? F["enums"] extends EnumLike
@@ -7,7 +17,9 @@ type ElementType<F extends Model> = F["type"] extends "enum"
     : z.ZodString
   : F["type"] extends "number"
     ? z.ZodNumber
-    : z.ZodString;
+    : F["type"] extends "file"
+      ? typeof fileInstanceSchema
+      : z.ZodString;
 
 type TypeMap<F extends Model> = F["multiple"] extends true
   ? z.ZodArray<ElementType<F>>
@@ -77,6 +89,35 @@ export const buildSchema = <T extends Record<string, Model>>(model: T) => {
             required_error: fieldModel.errors?.required ?? "필수 입력값 입니다.",
             invalid_type_error: fieldModel.errors?.invalid,
           });
+          break;
+        case "file":
+          base = fileInstanceSchema
+            .refine(
+              (file) => {
+                // 파일 확장자 검증
+                if (fieldModel.accept && fieldModel.accept.length > 0) {
+                  const fileName =
+                    file instanceof File ? file.name : (file?.originalname ?? file?.name);
+                  const fileExtension = fileName?.split(".").pop()?.toLowerCase();
+                  return fieldModel.accept.includes(fileExtension || "");
+                }
+                return true;
+              },
+              {
+                message: fieldModel.errors?.accept ?? "허용되지 않는 파일 형식입니다.",
+              },
+            )
+            .refine(
+              (file) => {
+                // 파일 크기 검증 (바이트 단위)
+                if (fieldModel.size && file && file.size > fieldModel.size) return false;
+
+                return true;
+              },
+              {
+                message: fieldModel.errors?.size ?? "파일 크기가 허용 범위를 벗어났습니다.",
+              },
+            );
           break;
         case "date":
         default:

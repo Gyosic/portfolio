@@ -1,9 +1,12 @@
 import { eq, getTableColumns } from "drizzle-orm";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
-import z from "zod";
+import path from "path";
 import { auth } from "@/lib/auth";
+import FileSystem from "@/lib/fileSystem";
+import { parseFormData } from "@/lib/formdata";
 import { db } from "@/lib/pg";
+import { FileType } from "@/lib/schema/file.schema";
 import { projectFormSchema } from "@/lib/schema/project.schema";
 import { projects } from "@/lib/schema/project.table";
 
@@ -12,7 +15,8 @@ type Params = { _id: string };
 const projectColumns = getTableColumns(projects);
 
 const projectUpdateFormSchema = projectFormSchema.partial();
-type ProjectUpdateFormType = z.infer<typeof projectUpdateFormSchema>;
+// type ProjectUpdateFormType = z.infer<typeof projectUpdateFormSchema>;
+const storageName = "projects";
 
 export async function PUT(
   req: NextRequest & NextApiRequest,
@@ -24,15 +28,55 @@ export async function PUT(
 
   const { _id } = await params;
 
-  if (!_id) return NextResponse.json({ message: "Device serial_no is required" }, { status: 400 });
+  if (!_id) return NextResponse.json({ message: "Project _id is required" }, { status: 400 });
 
-  const project: ProjectUpdateFormType = await req.json();
+  const fileSystemService = new FileSystem({ storageName });
+  const formData = await req.formData();
+  const project = parseFormData(formData);
 
-  const properties = projectUpdateFormSchema.parse(project);
+  // const project: ProjectUpdateFormType = await req.json();
+
+  const properties = await projectUpdateFormSchema.parseAsync(project);
 
   let result;
+  let filename: string | undefined;
+
   try {
     await db.transaction(async (tx) => {
+      if (properties.readme && properties.readme instanceof File) {
+        const [project] = await tx
+          .select({ readme: projects.readme })
+          .from(projects)
+          .where(eq(projects._id, _id));
+
+        if (project?.readme) {
+          await fileSystemService.unlink({ filepath: (project.readme as FileType).src });
+        }
+
+        filename = fileSystemService.genFilename();
+
+        const src = path.join(
+          fileSystemService.destination().replace(fileSystemService.storageAbsolutePathname(), ""),
+          "/",
+          filename,
+        );
+
+        const buffer = await properties.readme.arrayBuffer();
+
+        await fileSystemService.write({ filepath: src, content: Buffer.from(buffer) });
+
+        Object.assign(properties, {
+          readme: {
+            filename,
+            originalname: properties.readme.name,
+            lastModified: properties.readme.lastModified,
+            type: properties.readme.type,
+            size: properties.readme.size,
+            src,
+          },
+        });
+      }
+
       const rows = await tx
         .update(projects)
         .set(properties)

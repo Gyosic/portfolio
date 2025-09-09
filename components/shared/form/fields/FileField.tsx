@@ -10,7 +10,7 @@ import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { FileType } from "@/lib/schema/file.schema";
 
-export function FieldField<T extends FieldValues, K extends FieldPath<T>>({
+export function FileField<T extends FieldValues, K extends FieldPath<T>>({
   fieldModel,
   field,
   isForm = true,

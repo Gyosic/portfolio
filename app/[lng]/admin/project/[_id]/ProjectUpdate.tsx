@@ -30,10 +30,25 @@ export function ProjectUpdate({ project }: ProjectUpdateProps) {
   const onSubmit = handleSubmit(async (data) => {
     if (!project._id) return;
 
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      const model = projectModel[key as keyof typeof projectModel];
+
+      if (!model) return;
+
+      if (model.type === "file") {
+        if (value instanceof File) formData.append(key, value);
+        else formData.append(key, JSON.stringify(value));
+      } else {
+        if (typeof value === "object") formData.append(key, JSON.stringify(value));
+        else formData.append(key, value);
+      }
+    });
+
     const res = await fetch(`/api/projects/${project._id}`, {
       method: "PUT",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
+      body: formData,
     });
 
     if (!res.ok) return toast.error(await res.text());
