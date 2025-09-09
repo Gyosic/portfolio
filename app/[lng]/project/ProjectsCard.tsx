@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { FileType } from "@/lib/schema/file.schema";
 import { ProjectType } from "@/lib/schema/project.schema";
 import { skills } from "@/lib/skill";
 import { cn } from "@/lib/utils";
@@ -30,14 +31,15 @@ interface ProjectCardProps {
 }
 
 export function ProjectCards({ value, num, className }: ProjectCardProps) {
-  const [readme, setReadme] = useState<string>("");
+  const [readmeContent, setReadmeContent] = useState<string>("");
 
   const handleClickReadme = async () => {
-    if (value.readme?.src) {
-      const res = await fetch(`/api/files/projects${value.readme.src}`, { method: "GET" });
-      const readme = await res.text();
+    const readme = value.readme as FileType;
+    if (readme.src) {
+      const res = await fetch(`/api/files/projects${readme.src}`, { method: "GET" });
+      const readmeContent = await res.text();
 
-      setReadme(readme);
+      setReadmeContent(readmeContent);
     }
   };
 
@@ -138,7 +140,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
                 <DialogHeader>
                   <DialogTitle></DialogTitle>
                 </DialogHeader>
-                <Markdown content={readme} />
+                <Markdown content={readmeContent} />
               </DialogContent>
             </Dialog>
           )}

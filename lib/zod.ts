@@ -3,13 +3,20 @@ import { fileSchema } from "./schema/file.schema";
 import { Model } from "./schema/model";
 
 // File 타입을 위한 커스텀 스키마
-const fileInstanceSchema = fileSchema.partial().extend({
-  name: z.string(),
-  size: z.number(),
-  type: z.string(),
-  lastModified: z.number(),
-  path: z.string().optional(), // 서버에 저장된 경로
-});
+const fileInstanceSchema = z.union([
+  // File 인스턴스
+  z.instanceof(File),
+  // 기존 파일 객체
+  fileSchema
+    .partial()
+    .extend({
+      name: z.string(),
+      size: z.number(),
+      type: z.string(),
+      lastModified: z.number(),
+      path: z.string().optional(), // 서버에 저장된 경로
+    }),
+]);
 
 type ElementType<F extends Model> = F["type"] extends "enum"
   ? F["enums"] extends EnumLike
