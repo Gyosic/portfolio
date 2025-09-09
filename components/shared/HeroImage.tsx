@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -25,7 +24,7 @@ const getFileProperties = (file?: File | FileType) => {
   } else {
     const { type = "", src = "", originalname = "", size = 0, lastModified } = file || {};
     return {
-      src: `/api/files${src}`,
+      src: `/api/files/uploads${src}`,
       type,
       name: originalname,
       size,
