@@ -1,10 +1,34 @@
 import { openai } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { headers } from "next/headers";
 import { personal } from "@/config";
 import { pool } from "@/lib/pg";
 import { buildSystemPrompt } from "@/lib/rag/prompt";
 
 export const maxDuration = 30;
+
+// --- Rate Limiting ---
+const RATE_LIMIT = 60; // max requests
+const RATE_WINDOW = 60 * 60 * 1000; // per 1 hour
+
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW });
+    return { allowed: true, remaining: RATE_LIMIT - 1 };
+  }
+
+  if (entry.count >= RATE_LIMIT) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  entry.count++;
+  return { allowed: true, remaining: RATE_LIMIT - entry.count };
+}
 
 async function getAllContexts() {
   const result = await pool.query(
@@ -14,6 +38,17 @@ async function getAllContexts() {
 }
 
 export async function POST(req: Request) {
+  const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const { allowed, remaining } = checkRateLimit(ip);
+
+  if (!allowed) {
+    return new Response(JSON.stringify({ error: "Too many requests. Please try again later." }), {
+      status: 429,
+      headers: { "Content-Type": "application/json", "X-RateLimit-Remaining": "0" },
+    });
+  }
+
   const { messages, lng = "ko" }: { messages: UIMessage[]; lng?: string } = await req.json();
   const owner = {
     name:
@@ -37,5 +72,7 @@ export async function POST(req: Request) {
     messages: await convertToModelMessages(messages),
   });
 
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+    headers: { "X-RateLimit-Remaining": String(remaining) },
+  });
 }

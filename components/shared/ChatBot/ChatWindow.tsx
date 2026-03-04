@@ -3,7 +3,7 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { X } from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PersonalType } from "@/config";
 import { useChatStore } from "@/hooks/use-chat-store";
@@ -18,17 +18,19 @@ interface ChatWindowProps {
 export function ChatWindow({ lng = "ko", personal }: ChatWindowProps) {
   const { closeChat } = useChatStore();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const [rateLimited, setRateLimited] = useState(false);
 
-  const owner = lng === "ko"
-    ? { name: personal.ko.name, title: personal.ko.title }
-    : { name: personal.en.name, title: personal.en.title };
+  const owner =
+    lng === "ko"
+      ? { name: personal.ko.name, title: personal.ko.title }
+      : { name: personal.en.name, title: personal.en.title };
 
   const transport = useMemo(
     () => new DefaultChatTransport({ api: "/api/chat", body: { lng, owner } }),
     [lng, owner],
   );
 
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport,
     messages: [
       {
@@ -50,18 +52,30 @@ export function ChatWindow({ lng = "ko", personal }: ChatWindowProps) {
   const isLoading = status === "submitted" || status === "streaming";
 
   useEffect(() => {
+    if (error?.message?.includes("429") || error?.message?.includes("Too many")) {
+      setRateLimited(true);
+    }
+  }, [error]);
+
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const placeholder =
-    lng === "ko"
+  const placeholder = rateLimited
+    ? lng === "ko"
+      ? "요청 한도를 초과했습니다. 1시간 후 다시 시도해주세요."
+      : "Rate limit exceeded. Please try again later."
+    : lng === "ko"
       ? "프로젝트, 경력, 기술 등을 물어보세요..."
       : "Ask about projects, experience, skills...";
 
-  const handleSend = (text: string) => {
-    if (!text.trim() || isLoading) return;
-    sendMessage({ text });
-  };
+  const handleSend = useCallback(
+    (text: string) => {
+      if (!text.trim() || isLoading || rateLimited) return;
+      sendMessage({ text });
+    },
+    [isLoading, rateLimited, sendMessage],
+  );
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border bg-background shadow-2xl">
