@@ -3,8 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PersonalType } from "@/config";
+import type { PersonalType } from "@/config";
 import { useChatStore } from "@/hooks/use-chat-store";
+import { cn } from "@/lib/utils";
 import { ChatWindow } from "./ChatWindow";
 
 interface ChatBotProps {
@@ -13,7 +14,7 @@ interface ChatBotProps {
 }
 
 export function ChatBot({ lng = "ko", personal }: ChatBotProps) {
-  const { isOpen, toggleChat } = useChatStore();
+  const { isOpen, isHomePage, toggleChat } = useChatStore();
 
   return (
     <>
@@ -26,14 +27,20 @@ export function ChatBot({ lng = "ko", personal }: ChatBotProps) {
             : { opacity: 0, scale: 0.9, y: 20, pointerEvents: "none" as const }
         }
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="fixed right-4 bottom-20 z-500 h-[500px] w-[380px] max-sm:right-2 max-sm:bottom-16 max-sm:h-[70dvh] max-sm:w-[calc(100vw-1rem)]"
+        className={cn(
+          "fixed right-4 bottom-20 z-500 h-[500px] w-[380px] max-sm:right-2 max-sm:bottom-16 max-sm:h-[70dvh] max-sm:w-[calc(100vw-1rem)]",
+          isHomePage && "lg:!hidden",
+        )}
       >
-        <ChatWindow lng={lng} personal={personal} />
+        <ChatWindow key={`floating-${isHomePage}`} lng={lng} personal={personal} />
       </motion.div>
 
       {/* Floating Button */}
       <motion.div
-        className="fixed right-4 bottom-4 z-50 max-sm:right-2 max-sm:bottom-2"
+        className={cn(
+          "fixed right-4 bottom-4 z-50 max-sm:right-2 max-sm:bottom-2",
+          isHomePage && "!hidden",
+        )}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

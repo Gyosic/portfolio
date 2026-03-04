@@ -13,10 +13,12 @@ import { ChatMessage } from "./ChatMessage";
 interface ChatWindowProps {
   lng?: string;
   personal: PersonalType;
+  variant?: "inline" | "floating";
 }
 
-export function ChatWindow({ lng = "ko", personal }: ChatWindowProps) {
-  const { closeChat } = useChatStore();
+export function ChatWindow({ lng = "ko", personal, variant = "floating" }: ChatWindowProps) {
+  const closeChat = useChatStore((s) => s.closeChat);
+  const setMessages = useChatStore((s) => s.setMessages);
   const bottomRef = useRef<HTMLDivElement>(null);
   const [rateLimited, setRateLimited] = useState(false);
 
@@ -30,24 +32,36 @@ export function ChatWindow({ lng = "ko", personal }: ChatWindowProps) {
     [lng, owner],
   );
 
+  const welcomeMessage = useMemo(
+    () => ({
+      id: "welcome",
+      role: "assistant" as const,
+      parts: [
+        {
+          type: "text" as const,
+          text:
+            lng === "ko"
+              ? `안녕하세요! ${personal.ko.name}님에 대해 궁금한 점이 있으면 물어보세요.`
+              : `Hi! Feel free to ask me anything about ${personal.en.name}.`,
+        },
+      ],
+    }),
+    [lng, personal.ko.name, personal.en.name],
+  );
+
+  const [initialMessages] = useState(() => {
+    const stored = useChatStore.getState().messages;
+    return stored.length > 0 ? stored : [welcomeMessage];
+  });
+
   const { messages, sendMessage, status, error } = useChat({
     transport,
-    messages: [
-      {
-        id: "welcome",
-        role: "assistant",
-        parts: [
-          {
-            type: "text",
-            text:
-              lng === "ko"
-                ? `안녕하세요! ${personal.ko.name}님에 대해 궁금한 점이 있으면 물어보세요.`
-                : `Hi! Feel free to ask me anything about ${personal.en.name}.`,
-          },
-        ],
-      },
-    ],
+    messages: initialMessages,
   });
+
+  useEffect(() => {
+    setMessages(messages);
+  }, [messages, setMessages]);
 
   const isLoading = status === "submitted" || status === "streaming";
 
@@ -96,9 +110,11 @@ export function ChatWindow({ lng = "ko", personal }: ChatWindowProps) {
             </p>
           </div>
         </div>
-        <Button variant="ghost" size="icon" className="size-8" onClick={closeChat}>
-          <X className="size-4" />
-        </Button>
+        {variant === "floating" && (
+          <Button variant="ghost" size="icon" className="size-8" onClick={closeChat}>
+            <X className="size-4" />
+          </Button>
+        )}
       </div>
 
       {/* Messages */}
