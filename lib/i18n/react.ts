@@ -28,9 +28,7 @@ i18next
     backend: {
       backends: [
         HttpBackend, // if a namespace can't be loaded via normal http-backend loadPath, then the inMemoryLocalBackend will try to return the correct resources
-        resourcesToBackend(
-          (lng: Language, ns: string) => import(`@/lib/i18n/languages/${lng}/${ns}.json`),
-        ),
+        resourcesToBackend((lng: Language, ns: string) => import(`./languages/${lng}/${ns}.json`)),
       ],
       backendOptions: [
         {

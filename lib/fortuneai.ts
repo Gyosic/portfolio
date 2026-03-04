@@ -21,7 +21,7 @@ class Fortuneai {
     this.openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
-    this.model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+    this.model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
   }
   //숫자, 색상, 아이템, 총평
   async tell({ birth, birthtime, gender, name, userMessage }: tellParamsType) {

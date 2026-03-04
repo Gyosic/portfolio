@@ -45,3 +45,6 @@ drizzle
 
 # dist
 dist
+
+# documents
+documents/*

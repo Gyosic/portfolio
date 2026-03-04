@@ -11,7 +11,7 @@ export async function createI18next(lng: Language = fallbackLng, ns: string = de
     .use(initReactI18next)
     .use(
       resourcesToBackend(
-        (lng: Language, ns: string) => import(`@/lib/i18n/languages/${lng}/${ns}.json`)
+        (lng: Language, ns: string) => import(`./languages/${lng}/${ns}.json`)
       )
     )
     .init(getOptions(lng, ns));

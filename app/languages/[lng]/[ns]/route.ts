@@ -13,7 +13,7 @@ interface PathParams {
 export async function GET(req: NextAuthRequest, { params }: PathParams) {
   const { lng = fallbackLng, ns = defaultNS } = await params;
 
-  const { default: message } = await import(`@/lib/i18n/languages/${lng}/${ns}.json`);
+  const { default: message } = await import(`../../../../lib/i18n/languages/${lng}/${ns}.json`);
 
   return Response.json(message);
 }
