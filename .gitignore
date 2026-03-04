@@ -48,3 +48,6 @@ dist
 
 # documents
 documents/*
+
+# .claude
+.claude/skills
