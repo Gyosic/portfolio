@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/shared/AppSidebar";
+import { ChatBot } from "@/components/shared/ChatBot/ChatBot";
 import { CookieArea } from "@/components/shared/CookieArea";
 import { HexagonBackground } from "@/components/shared/HexagonBackground";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
@@ -6,7 +7,7 @@ import Navbar from "@/components/shared/Navbar";
 import { SignoutBtn } from "@/components/shared/SignoutBtn";
 import { ThemeToggler } from "@/components/shared/ThemeToggler";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { logo, site } from "@/config";
+import { logo, personal, site } from "@/config";
 import { auth } from "@/lib/auth";
 import type { I18nextPageParams } from "@/lib/i18n/config";
 
@@ -37,6 +38,7 @@ export default async function DefaultLayout({ children, params }: DefaultLayoutP
           </div>
           {children}
         </main>
+        <ChatBot lng={lngParam} personal={personal} />
       </SidebarProvider>
     </CookieArea>
   );
