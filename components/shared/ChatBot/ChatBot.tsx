@@ -18,19 +18,18 @@ export function ChatBot({ lng = "ko", personal }: ChatBotProps) {
   return (
     <>
       {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed right-4 bottom-20 z-50 h-[500px] w-[380px] max-sm:right-2 max-sm:bottom-16 max-sm:h-[70dvh] max-sm:w-[calc(100vw-1rem)]"
-          >
-            <ChatWindow lng={lng} personal={personal} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={false}
+        animate={
+          isOpen
+            ? { opacity: 1, scale: 1, y: 0, pointerEvents: "auto" as const }
+            : { opacity: 0, scale: 0.9, y: 20, pointerEvents: "none" as const }
+        }
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        className="fixed right-4 bottom-20 z-500 h-[500px] w-[380px] max-sm:right-2 max-sm:bottom-16 max-sm:h-[70dvh] max-sm:w-[calc(100vw-1rem)]"
+      >
+        <ChatWindow lng={lng} personal={personal} />
+      </motion.div>
 
       {/* Floating Button */}
       <motion.div
