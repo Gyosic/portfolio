@@ -1,22 +1,21 @@
+import fs from "fs";
 import { NextResponse } from "next/server";
+import path from "path";
 import { personal } from "@/config";
 import { auth } from "@/lib/auth";
+import FileSystem from "@/lib/fileSystem";
 import { pool } from "@/lib/pg";
 import {
+  type Chunk,
   chunkAchievement,
   chunkEducation,
   chunkHistory,
+  chunkMarkdown,
+  chunkPdf,
   chunkPersonal,
   chunkProject,
 } from "@/lib/rag/chunker";
 import { embedTexts } from "@/lib/rag/embedding";
-
-interface Chunk {
-  content: string;
-  source_type: string;
-  source_id?: string;
-  metadata?: Record<string, unknown>;
-}
 
 export async function POST() {
   const session = await auth();
@@ -41,6 +40,24 @@ export async function POST() {
     for (const row of educationsRes.rows) chunks.push(chunkEducation(row));
     for (const row of achievementsRes.rows) chunks.push(chunkAchievement(row));
     chunks.push(...chunkPersonal(personal));
+
+    // PDF / Markdown / TXT files from FileSystem storage
+    const fileSystem = new FileSystem({ storageName: "documents" });
+    const docsDir = fileSystem.storageAbsolutePathname();
+    if (fs.existsSync(docsDir)) {
+      const files = fs.readdirSync(docsDir).filter((f) => {
+        const ext = path.extname(f).toLowerCase();
+        return [".pdf", ".md", ".txt"].includes(ext);
+      });
+      for (const file of files) {
+        const filePath = path.join(docsDir, file);
+        if (file.endsWith(".pdf")) {
+          chunks.push(...(await chunkPdf(filePath)));
+        } else if (file.endsWith(".md") || file.endsWith(".txt")) {
+          chunks.push(...chunkMarkdown(filePath));
+        }
+      }
+    }
 
     if (chunks.length === 0) {
       return NextResponse.json({ message: "No data to embed", count: 0 });
