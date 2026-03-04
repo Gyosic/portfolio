@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "rag-agent-builder": {
+      "source": "qodex-ai/ai-agent-skills",
+      "sourceType": "github",
+      "computedHash": "09e2f10d70fe3e407d836a806d5c0c83f988dc71a5fa67705f3812fb9c4c706f"
+    },
+    "vercel-ai-sdk": {
+      "source": "wsimmonds/claude-nextjs-skills",
+      "sourceType": "github",
+      "computedHash": "4e3823589ae719bda2a449c11203a642e7c046ef2d39289379b8cfa7dd050205"
+    }
+  }
+}
