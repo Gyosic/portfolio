@@ -2,8 +2,9 @@ import { openai } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { headers } from "next/headers";
 import { personal } from "@/config";
-import { pool } from "@/lib/pg";
+import { db, pool } from "@/lib/pg";
 import { buildSystemPrompt } from "@/lib/rag/prompt";
+import { chatLogs } from "@/lib/schema/chat-log.table";
 
 export const maxDuration = 30;
 
@@ -61,6 +62,15 @@ export async function POST(req: Request) {
 
   if (!lastUserMessage) {
     return new Response("No user message found", { status: 400 });
+  }
+
+  const userText = lastUserMessage.parts
+    ?.filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
+    .map((p) => p.text)
+    .join("");
+
+  if (userText) {
+    db.insert(chatLogs).values({ ip, question: userText, lng }).execute().catch(console.error);
   }
 
   const contexts = await getAllContexts();
