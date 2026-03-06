@@ -7,3 +7,5 @@ export const chatLogs = pgTable("chat_logs", {
   lng: text().default("ko"),
   created_at: timestamp().defaultNow(),
 });
+
+export type ChatLog = typeof chatLogs.$inferSelect;

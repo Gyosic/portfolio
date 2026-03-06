@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Award,
+  BotMessageSquare,
   Building2,
   FolderGit2,
   GraduationCap,
@@ -45,6 +46,7 @@ const sysNav: Array<NavItem> = [
       { name: "프로젝트", url: "/admin/project", icon: FolderGit2 },
       { name: "학위", url: "/admin/education", icon: School },
       { name: "활동", url: "/admin/achievement", icon: Award },
+      { name: "챗봇 질문 이력", url: "/admin/chat-log", icon: BotMessageSquare },
     ],
   },
 ];

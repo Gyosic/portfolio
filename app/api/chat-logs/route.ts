@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { count, desc } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/pg";
@@ -14,12 +14,15 @@ export async function GET(req: NextRequest) {
   const page = Number(searchParams.get("page") || "0");
   const size = Number(searchParams.get("size") || "50");
 
-  const rows = await db
-    .select()
-    .from(chatLogs)
-    .orderBy(desc(chatLogs.created_at))
-    .limit(size)
-    .offset(page * size);
+  const [rows, [{ count: rowCount = 0 } = {}]] = await Promise.all([
+    db
+      .select()
+      .from(chatLogs)
+      .orderBy(desc(chatLogs.created_at))
+      .limit(size)
+      .offset(page * size),
+    db.select({ count: count() }).from(chatLogs),
+  ]);
 
-  return NextResponse.json(rows);
+  return NextResponse.json({ rows, rowCount });
 }
