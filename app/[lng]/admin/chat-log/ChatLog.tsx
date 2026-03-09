@@ -110,13 +110,19 @@ export function ChatLog({
   ];
 
   const getChatLogs = useCallback(async () => {
-    const query: FilterBodyType<typeof chatLogModel> = { where: [] };
+    // const query: FilterBodyType<typeof chatLogModel> = { where: [] };
+    const query = {};
 
-    if (sorting) Object.assign(query, { sort: sorting });
+    // if (sorting) Object.assign(query, { sort: sorting });
 
-    if (pagination) Object.assign(query, { pagination });
+    if (pagination) {
+      // Object.assign(query, { pagination });
+      Object.assign(query, { page: pagination.pageIndex, size: pagination.pageSize });
+    }
 
-    const response = await fetch(`/api/chat-logs`);
+    const params = new URLSearchParams(query);
+
+    const response = await fetch(`/api/chat-logs?${params.toString()}`);
 
     if (!response.ok) return toast.error(await response.text());
 
