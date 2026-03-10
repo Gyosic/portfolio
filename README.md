@@ -43,6 +43,18 @@ Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애
 - 생년월일 기반 맞춤형 운세 제공
 - JSON 구조화된 응답 시스템
 
+### 💬 **AI 포트폴리오 챗봇**
+- **RAG(Retrieval-Augmented Generation) 기반** 포트폴리오 전문 AI 비서
+- 포트폴리오 데이터(프로젝트, 경력, 학력, 기술 스택 등)를 벡터 임베딩하여 정확한 답변 제공
+- **Vercel AI SDK** 기반 실시간 스트리밍 응답
+- HuggingFace `all-MiniLM-L6-v2` 모델로 384차원 벡터 임베딩 생성
+- PostgreSQL **pgvector** 확장을 활용한 벡터 유사도 검색
+- 한국어/영어 다국어 대화 지원
+- IP 기반 시간당 60회 요청 제한 (Rate Limiting)
+- 질문 이력 자동 저장 및 관리자 대시보드에서 조회 가능
+- 홈페이지 인라인 채팅 + 전역 플로팅 채팅 버튼 제공
+- 모바일 전용 CTA 버튼 및 반응형 UI
+
 ### 📈 **방문자 분석**
 - 실시간 방문자 추적
 - IP, User-Agent, Referer 정보 수집
@@ -75,6 +87,9 @@ Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애
 | **NextAuth.js** | 5.0.0-beta.29 | 인증 및 세션 관리 |
 | **Resend** | 6.0.1 | 이메일 전송 서비스 |
 | **OpenAI** | 5.12.2 | AI 기반 운세 서비스 |
+| **Vercel AI SDK** | 6.0+ | AI 챗봇 스트리밍 응답 |
+| **HuggingFace Inference** | Latest | 벡터 임베딩 생성 (RAG) |
+| **pgvector** | Latest | PostgreSQL 벡터 유사도 검색 |
 
 ### **UI Components**
 | 기술 | 버전 | 용도 |
@@ -82,6 +97,8 @@ Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애
 | **Radix UI** | Latest | 접근성 높은 헤드리스 UI 컴포넌트 |
 | **Shadcn/ui** | Latest | 재사용 가능한 컴포넌트 라이브러리 |
 | **Lucide React** | 0.539.0 | 일관된 아이콘 시스템 |
+| **Zustand** | Latest | 챗봇 상태 관리 |
+| **React Markdown** | Latest | 챗봇 메시지 마크다운 렌더링 |
 
 ### **개발 도구**
 | 기술 | 버전 | 용도 |
@@ -100,6 +117,7 @@ portfolio/
 │   ├── 📁 [lng]/             # 다국어 라우팅 (ko, en)
 │   │   ├── 📁 about/         # 소개 페이지
 │   │   ├── 📁 admin/         # 관리자 대시보드
+│   │   │   └── 📁 chat-log/  # 챗봇 질문 이력 관리
 │   │   ├── 📁 contact/       # 연락처 페이지
 │   │   ├── 📁 education/     # 교육 페이지
 │   │   ├── 📁 history/       # 경력 페이지
@@ -108,7 +126,10 @@ portfolio/
 │   ├── 📁 api/               # API 라우트
 │   │   ├── 📁 [...nextauth]/ # NextAuth.js 인증
 │   │   ├── 📁 achievements/  # 성과 관리 API
+│   │   ├── 📁 chat/          # AI 챗봇 API (스트리밍)
+│   │   ├── 📁 chat-logs/     # 챗봇 질문 이력 API
 │   │   ├── 📁 educations/    # 교육 관리 API
+│   │   ├── 📁 embeddings/    # RAG 임베딩 생성 API
 │   │   ├── 📁 files/         # 파일 업로드 API
 │   │   ├── 📁 fortunes/      # AI 운세 API
 │   │   ├── 📁 histories/     # 경력 관리 API
@@ -119,10 +140,18 @@ portfolio/
 ├── 📁 components/            # 재사용 가능한 컴포넌트
 │   ├── 📁 animation/         # 애니메이션 컴포넌트
 │   ├── 📁 shared/            # 공통 컴포넌트
+│   │   └── 📁 ChatBot/       # AI 챗봇 컴포넌트
 │   └── 📁 ui/                # UI 컴포넌트 (Shadcn/ui)
+├── 📁 hooks/                 # 커스텀 훅
+│   └── use-chat-store.ts     # Zustand 챗봇 상태 관리
 ├── 📁 lib/                   # 유틸리티 및 설정
 │   ├── 📁 auth/              # 인증 설정
 │   ├── 📁 i18n/              # 국제화 설정
+│   ├── 📁 rag/               # RAG 파이프라인
+│   │   ├── chunker.ts        # 포트폴리오 데이터 청킹
+│   │   ├── embedding.ts      # HuggingFace 임베딩 생성
+│   │   ├── prompt.ts         # 시스템 프롬프트 빌더
+│   │   └── retrieval.ts      # 벡터 유사도 검색
 │   ├── 📁 schema/            # 데이터베이스 스키마
 │   ├── auth.ts               # NextAuth 설정
 │   ├── fortuneai.ts          # AI 운세 서비스
@@ -393,6 +422,41 @@ SYSADMIN_USERNAME='your_username'
 
 `lib/i18n/languages/` 디렉토리에서 번역 파일을 수정하여 다국어 콘텐츠를 관리할 수 있습니다.
 
+### 💬 AI 포트폴리오 챗봇
+
+포트폴리오 방문자가 AI 비서를 통해 포트폴리오 소유자에 대해 질문할 수 있는 대화형 챗봇입니다.
+
+**작동 방식 (RAG 파이프라인):**
+```
+포트폴리오 데이터 (DB + 설정 + 문서)
+→ Chunker (의미 단위 청크 분할)
+→ HuggingFace 임베딩 (384차원 벡터 생성)
+→ PostgreSQL pgvector (벡터 저장)
+→ 사용자 질문 시: 질문 임베딩 → 벡터 유사도 검색
+→ 상위 관련 청크를 시스템 프롬프트에 포함
+→ OpenAI가 데이터 기반 답변 생성 (스트리밍)
+```
+
+**임베딩 대상 데이터:**
+- 프로젝트 정보 (제목, 설명, 기술 스택, 역할)
+- 경력 사항 (회사, 직책, 부서)
+- 학력 정보 (학교, 학위, 전공)
+- 성과/수상 내역
+- 개인 정보 (이름, 직함, 위치, 연락처)
+- 기술 스택 (언어, 프레임워크, 도구)
+- `/documents` 디렉토리의 PDF/Markdown 문서
+
+**관리자 기능:**
+- 관리자 로그인 후 임베딩 생성/갱신 실행 가능
+- `/admin/chat-log` 에서 질문 이력 조회 (페이지네이션, 정렬 지원)
+
+**API 엔드포인트:**
+| 메서드 | 엔드포인트 | 설명 |
+|--------|-----------|------|
+| `POST` | `/api/chat` | 챗봇 대화 (스트리밍 응답) |
+| `GET` | `/api/chat-logs` | 질문 이력 조회 (관리자 전용) |
+| `POST` | `/api/embeddings` | 임베딩 생성/갱신 (관리자 전용) |
+
 ### 🤖 AI 운세 서비스
 
 - OpenAI API 키 설정 후 `/api/fortunes` 엔드포인트 사용
@@ -562,6 +626,8 @@ npm run genpass -- secret
 | 변수명 | 설명 | 기본값 |
 |--------|------|--------|
 | `OPENAI_API_KEY` | OpenAI API 키 | - |
+| `OPENAI_MODEL` | 챗봇 사용 모델 | gpt-4.1-mini |
+| `HF_API_KEY` | HuggingFace API 키 (RAG 임베딩) | - |
 | `RESEND_API_KEY` | Resend 이메일 API 키 | - |
 | `PERSONAL_NAME` | 개인 이름 | - |
 | `PERSONAL_EMAIL` | 개인 이메일 | - |
