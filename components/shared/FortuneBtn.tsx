@@ -13,14 +13,10 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import { TypingText } from "../ui/shadcn-io/typing-text";
 
 const fortuneSchema = z.object({
-  name: z.string({ required_error: "'name' 값이 없습니다." }).min(1, "'name' 값이 없습니다."),
-  birthday: z
-    .string({ required_error: "'birthday' 값이 없습니다." })
-    .min(1, "'birthday' 값이 없습니다."),
-  birthtime: z
-    .string({ required_error: "'birthtime' 값이 없습니다." })
-    .min(1, "'birthtime' 값이 없습니다."),
-  gender: z.string({ required_error: "'gender' 값이 없습니다." }).min(1, "'gender' 값이 없습니다."),
+  name: z.string({ error: "'name' 값이 없습니다." }).min(1, "'name' 값이 없습니다."),
+  birthday: z.string({ error: "'birthday' 값이 없습니다." }).min(1, "'birthday' 값이 없습니다."),
+  birthtime: z.string({ error: "'birthtime' 값이 없습니다." }).min(1, "'birthtime' 값이 없습니다."),
+  gender: z.string({ error: "'gender' 값이 없습니다." }).min(1, "'gender' 값이 없습니다."),
 });
 
 interface FortuneBtnProp {
