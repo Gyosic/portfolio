@@ -44,7 +44,7 @@ export function Project({ projects, lng }: ProjectProps) {
         </FramerWrapper>
       </div>
 
-      <div className="flex w-full flex-row flex-wrap gap-3 overflow-auto max-lg:flex-col max-lg:flex-nowrap">
+      <div className="grid w-full grid-cols-3 gap-3 max-lg:grid-cols-1 max-xl:grid-cols-2">
         {projects.map((val, indx) => {
           return <ProjectCards key={indx} value={val} num={indx} />;
         })}

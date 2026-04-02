@@ -45,7 +45,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
 
   return (
     <FramerWrapper
-      className={cn("max-w-[32%] max-lg:max-w-full", className)}
+      className={cn("w-full", className)}
       y={0}
       scale={0.8}
       delay={num / 4}
@@ -101,7 +101,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
               )}
             >
               Visit Project
-              <ArrowUpRight className="-translate-x-2 ml-1 hidden h-4 w-4 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
+              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
             </Link>
           )}
           {!!value?.repo && (
@@ -119,7 +119,7 @@ export function ProjectCards({ value, num, className }: ProjectCardProps) {
             >
               <Github />
               GitHub
-              <ArrowUpRight className="-translate-x-2 ml-1 hidden h-4 w-4 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
+              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
             </Link>
           )}
           {!!value?.readme && (
