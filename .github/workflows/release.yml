@@ -12,6 +12,9 @@ concurrency:
   group: build-on-tag-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   changelog:
     runs-on: ubuntu-latest
