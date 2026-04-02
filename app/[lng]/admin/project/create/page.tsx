@@ -32,7 +32,7 @@ export default function ProjectCreate() {
       if (model.type === "file") {
         if (value instanceof File) formData.append(key, value);
         else if (value != null) formData.append(key, JSON.stringify(value));
-      } else {
+      } else if (value != null) {
         if (typeof value === "object") formData.append(key, JSON.stringify(value));
         else formData.append(key, String(value));
       }
