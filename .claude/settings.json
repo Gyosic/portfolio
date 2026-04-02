@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__pencil",
+      "Bash(npx @biomejs/biome:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx knip:*)",
+      "Bash(npx drizzle-kit:*)",
+      "Bash(npm run:*)",
+      "Bash(git:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_response.filePath // .tool_input.file_path' | { read -r f; echo \"$f\" | grep -qE '\\.(ts|tsx|js|jsx|json|css)$' && npx @biomejs/biome format --write \"$f\" 2>/dev/null || true; }",
+            "timeout": 15,
+            "statusMessage": "Biome formatting..."
+          }
+        ]
+      }
+    ]
+  },
+  "language": "korean"
+}
