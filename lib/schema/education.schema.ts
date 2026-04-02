@@ -1,6 +1,6 @@
 import z from "zod";
 import { buildSchema } from "../zod";
-import { Model } from "./model";
+import { date, enumField, text, textarea } from "./field";
 
 export const educationStatus = {
   졸업: "GRADUATED",
@@ -22,18 +22,17 @@ export const educationDegree = {
 } as const;
 
 export const educationModel = {
-  degree: { name: "학위", type: "enum", enums: educationDegree },
-  major: { name: "학과", type: "text" },
-  status: { name: "졸업여부", type: "enum", enums: educationStatus },
-  institution: { name: "학교(기관)", type: "text", required: true },
-  location: { name: "소재지", type: "text" },
-  start: { name: "시작(입학)일", type: "date" },
-  end: { name: "종료(졸업)일", type: "date" },
-  description: { name: "설명", type: "textarea" },
-} as const satisfies Record<string, Model>;
+  degree: enumField({ name: "학위", enums: educationDegree }),
+  major: text({ name: "학과" }),
+  status: enumField({ name: "졸업여부", enums: educationStatus }),
+  institution: text({ name: "학교(기관)", required: true }),
+  location: text({ name: "소재지" }),
+  start: date({ name: "시작(입학)일" }),
+  end: date({ name: "종료(졸업)일" }),
+  description: textarea({ name: "설명" }),
+};
 
 export const educationFormSchema = buildSchema(educationModel);
-
 export const educationSchema = educationFormSchema.extend({ _id: z.string() });
 
 export type EducationFormType = z.infer<typeof educationFormSchema>;

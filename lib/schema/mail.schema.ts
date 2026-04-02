@@ -1,12 +1,12 @@
 import z from "zod";
 import { buildSchema } from "../zod";
-import { Model } from "./model";
+import { email, text, textarea } from "./field";
 
 export const mailModel = {
-  name: { name: "Name", type: "text", placeholder: "Enter your name" },
-  email: { name: "Email", type: "email", placeholder: "Enter your email" },
-  message: { name: "Your Message", type: "textarea", placeholder: "Your message here..." },
-} as const satisfies Record<string, Model>;
+  name: text({ name: "Name", placeholder: "Enter your name" }),
+  email: email({ name: "Email", placeholder: "Enter your email" }),
+  message: textarea({ name: "Your Message", placeholder: "Your message here..." }),
+};
 
 export const mailFormSchema = buildSchema(mailModel);
 

@@ -39,10 +39,10 @@ export function ProjectUpdate({ project }: ProjectUpdateProps) {
 
       if (model.type === "file") {
         if (value instanceof File) formData.append(key, value);
-        else formData.append(key, JSON.stringify(value));
+        else if (value != null) formData.append(key, JSON.stringify(value));
       } else {
         if (typeof value === "object") formData.append(key, JSON.stringify(value));
-        else formData.append(key, value);
+        else formData.append(key, String(value));
       }
     });
 

@@ -1,6 +1,6 @@
 import z from "zod";
 import { buildSchema } from "../zod";
-import { Model } from "./model";
+import { date, enumField, text, textarea } from "./field";
 
 export const historyStatus = {
   정규직: "FULL_TIME",
@@ -17,18 +17,17 @@ export const historyStatus = {
 } as const;
 
 export const historyModel = {
-  company: { name: "회사명", type: "text", required: true },
-  role: { name: "직무", type: "text", required: true },
-  position: { name: "직책", type: "text", required: true },
-  department: { name: "부서", type: "text", required: true },
-  status: { name: "고용형태", type: "enum", enums: historyStatus, required: true },
-  description: { name: "설명", type: "textarea" },
-  start: { name: "시작(입사)일", type: "date", required: true },
-  end: { name: "종료(퇴사)일", type: "date" },
-} as const satisfies Record<string, Model>;
+  company: text({ name: "회사명", required: true }),
+  role: text({ name: "직무", required: true }),
+  position: text({ name: "직책", required: true }),
+  department: text({ name: "부서", required: true }),
+  status: enumField({ name: "고용형태", enums: historyStatus, required: true }),
+  description: textarea({ name: "설명" }),
+  start: date({ name: "시작(입사)일", required: true }),
+  end: date({ name: "종료(퇴사)일" }),
+};
 
 export const historyFormSchema = buildSchema(historyModel);
-
 export const historySchema = historyFormSchema.extend({ _id: z.string() });
 
 export type HistoryFormType = z.infer<typeof historyFormSchema>;
