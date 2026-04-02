@@ -65,7 +65,7 @@ export function FileField<T extends FieldValues, K extends FieldPath<T>>({
 
   const handleFileRemove = (i?: number) => {
     if (i == null) {
-      field.onChange([]);
+      field.onChange(fieldModel.multiple ? [] : null);
     } else {
       const removed = [...inputValue.slice(0, i), ...inputValue.slice(i + 1)];
       field.onChange(removed);

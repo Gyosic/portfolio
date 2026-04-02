@@ -43,14 +43,17 @@ export async function PUT(
 
   try {
     await db.transaction(async (tx) => {
-      if (properties.readme && properties.readme instanceof File) {
-        const [project] = await tx
+      if (properties.readme instanceof File) {
+        // 새 파일 업로드: 기존 파일 삭제 후 교체
+        const [existing] = await tx
           .select({ readme: projects.readme })
           .from(projects)
           .where(eq(projects._id, _id));
 
-        if (project?.readme) {
-          await fileSystemService.unlink({ filepath: (project.readme as FileType).src });
+        if (existing?.readme) {
+          await fileSystemService
+            .unlink({ filepath: (existing.readme as FileType).src })
+            .catch(() => {});
         }
 
         filename = fileSystemService.genFilename();
@@ -75,6 +78,23 @@ export async function PUT(
             src,
           },
         });
+      } else if (properties.readme === null) {
+        // 파일 삭제 요청: 기존 파일 제거 후 null로 설정
+        const [existing] = await tx
+          .select({ readme: projects.readme })
+          .from(projects)
+          .where(eq(projects._id, _id));
+
+        if (existing?.readme) {
+          await fileSystemService
+            .unlink({ filepath: (existing.readme as FileType).src })
+            .catch(() => {});
+        }
+
+        Object.assign(properties, { readme: null });
+      } else {
+        // 파일 변경 없음: readme 필드를 업데이트에서 제외
+        delete properties.readme;
       }
 
       const rows = await tx
