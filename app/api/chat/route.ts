@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { personal } from "@/config";
 import { db, pool } from "@/lib/pg";
 import { buildSystemPrompt } from "@/lib/rag/prompt";
+import { retrieveRelevant } from "@/lib/rag/retrieval";
 import { chatLogs } from "@/lib/schema/chat-log.table";
 
 export const maxDuration = 30;
@@ -31,12 +32,12 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
   return { allowed: true, remaining: RATE_LIMIT - entry.count };
 }
 
-async function getAllContexts() {
-  const result = await pool.query(
-    "SELECT content, source_type FROM embeddings ORDER BY source_type, created_at",
-  );
-  return result.rows as { content: string; source_type: string }[];
-}
+// async function getAllContexts() {
+//   const result = await pool.query(
+//     "SELECT content, source_type FROM embeddings ORDER BY source_type, created_at",
+//   );
+//   return result.rows as { content: string; source_type: string }[];
+// }
 
 export async function POST(req: Request) {
   const headersList = await headers();
@@ -73,7 +74,8 @@ export async function POST(req: Request) {
     db.insert(chatLogs).values({ ip, question: userText, lng }).execute().catch(console.error);
   }
 
-  const contexts = await getAllContexts();
+  // const contexts = await getAllContexts();
+  const contexts = await retrieveRelevant(userText);
   const systemPrompt = buildSystemPrompt(contexts, lng, owner);
 
   const result = streamText({
