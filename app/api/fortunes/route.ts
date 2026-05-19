@@ -7,7 +7,7 @@ import { fortunes } from "@/lib/schema/fortune.table";
 const timezone = process.env.TIMEZONE || "ko-KR";
 
 const fortuning = async (info: {
-  birth: string;
+  birthday: string;
   birthtime: string;
   name: string;
   gender: string;
@@ -24,13 +24,13 @@ export async function POST(req: NextRequest) {
   if (!process.env?.OPENAI_API_KEY)
     return NextResponse.json({ message: "OPENAI_API_KEY가 없습니다." }, { status: 500 });
 
-  const { birth, birthtime, name, gender } = await req.json();
+  const { birthday, birthtime, name, gender } = await req.json();
 
   try {
     const rows = await db.select().from(fortunes).orderBy(desc(fortunes.created_at)).limit(1);
 
     if (!rows || !rows.length) {
-      const fortune = await fortuning({ birth, birthtime, name, gender });
+      const fortune = await fortuning({ birthday, birthtime, name, gender });
       return NextResponse.json(fortune);
     }
 
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     const curDate = new Intl.DateTimeFormat(timezone).format(new Date());
 
     if (prevDate !== curDate) {
-      const fortune = await fortuning({ birth, birthtime, name, gender });
+      const fortune = await fortuning({ birthday, birthtime, name, gender });
 
       Object.assign(todayFortune, fortune);
     }
