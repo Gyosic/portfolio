@@ -47,7 +47,7 @@ Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애
 - **RAG(Retrieval-Augmented Generation) 기반** 포트폴리오 전문 AI 비서
 - 포트폴리오 데이터(프로젝트, 경력, 학력, 기술 스택 등)를 벡터 임베딩하여 정확한 답변 제공
 - **Vercel AI SDK** 기반 실시간 스트리밍 응답
-- HuggingFace `all-MiniLM-L6-v2` 모델로 384차원 벡터 임베딩 생성
+- OpenAI `text-embedding-3-small` 모델로 384차원 벡터 임베딩 생성
 - PostgreSQL **pgvector** 확장을 활용한 벡터 유사도 검색
 - 한국어/영어 다국어 대화 지원
 - IP 기반 시간당 60회 요청 제한 (Rate Limiting)
@@ -88,7 +88,7 @@ Next.js 15, TypeScript, Tailwind CSS를 기반으로 구축된 풀스택 웹 애
 | **Resend** | 6.0.1 | 이메일 전송 서비스 |
 | **OpenAI** | 5.12.2 | AI 기반 운세 서비스 |
 | **Vercel AI SDK** | 6.0+ | AI 챗봇 스트리밍 응답 |
-| **HuggingFace Inference** | Latest | 벡터 임베딩 생성 (RAG) |
+| **OpenAI Embeddings** | - | 벡터 임베딩 생성 (RAG, text-embedding-3-small) |
 | **pgvector** | Latest | PostgreSQL 벡터 유사도 검색 |
 
 ### **UI Components**
@@ -149,7 +149,7 @@ portfolio/
 │   ├── 📁 i18n/              # 국제화 설정
 │   ├── 📁 rag/               # RAG 파이프라인
 │   │   ├── chunker.ts        # 포트폴리오 데이터 청킹
-│   │   ├── embedding.ts      # HuggingFace 임베딩 생성
+│   │   ├── embedding.ts      # OpenAI 임베딩 생성 (text-embedding-3-small)
 │   │   ├── prompt.ts         # 시스템 프롬프트 빌더
 │   │   └── retrieval.ts      # 벡터 유사도 검색
 │   ├── 📁 schema/            # 데이터베이스 스키마
@@ -430,7 +430,7 @@ SYSADMIN_USERNAME='your_username'
 ```
 포트폴리오 데이터 (DB + 설정 + 문서)
 → Chunker (의미 단위 청크 분할)
-→ HuggingFace 임베딩 (384차원 벡터 생성)
+→ OpenAI 임베딩 (text-embedding-3-small, 384차원 벡터 생성)
 → PostgreSQL pgvector (벡터 저장)
 → 사용자 질문 시: 질문 임베딩 → 벡터 유사도 검색
 → 상위 관련 청크를 시스템 프롬프트에 포함
@@ -625,9 +625,8 @@ npm run genpass -- secret
 
 | 변수명 | 설명 | 기본값 |
 |--------|------|--------|
-| `OPENAI_API_KEY` | OpenAI API 키 | - |
+| `OPENAI_API_KEY` | OpenAI API 키 (챗봇 + RAG 임베딩 공용) | - |
 | `OPENAI_MODEL` | 챗봇 사용 모델 | gpt-4.1-mini |
-| `HF_API_KEY` | HuggingFace API 키 (RAG 임베딩) | - |
 | `RESEND_API_KEY` | Resend 이메일 API 키 | - |
 | `PERSONAL_NAME` | 개인 이름 | - |
 | `PERSONAL_EMAIL` | 개인 이메일 | - |
